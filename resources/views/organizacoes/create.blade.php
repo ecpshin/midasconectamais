@@ -1,0 +1,30 @@
+<x-midas-layout>
+    <x-slot name="header">
+        <x-bread page="{{ $page }}" area="{{ $area }}" rota="{{ $rota }}"></x-bread>
+    </x-slot>
+    <div class="w-full">
+        <div class="mx-auto w-full sm:px-4 lg:px-6">
+            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                <div class="p-8 text-gray-900">
+                    <h3>Cadastrar Órgão</h3>
+                    <form action="{{ route('admin.organizacoes.create') }}" class="mt-3" method="post">
+                        @csrf
+                        <div class="flex flex-col">
+                            <label for="nome_orgao" class="text-black">Nome do órgão</label>
+                            <input type="text" name="nome_organizacao" id="nome_organizacao" value="{{ old('nome_organizacao') }}"
+                                class="mt-2 rounded-lg border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
+                            @error('nome_organizacao')
+                                <span class="text-nowrap mb-3 mt-3 text-sm text-red-600">* {{ $message }}. Tecle [F5]</span>
+                            @enderror
+                        </div>
+                        <button class="mt-3 rounded-md bg-gray-300 px-6 py-1.5 text-gray-500 transition duration-150 hover:bg-green-700 hover:text-slate-50 hover:shadow-xl">
+                            <i class="bi bi-floppy mr-1"></i>
+                            Salvar
+                        </button>
+                        <a href="{{ route('admin.organizacoes.index') }}" class="rounded-lg bg-gray-400 px-3 py-2 text-white hover:bg-gray-700">Voltar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-midas-layout>
