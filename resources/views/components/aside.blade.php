@@ -237,13 +237,7 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.calls.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p class="font-semibold text-yellow-600 hover:text-yellow-500">Lista</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.mailings.create') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p class="font-semibold text-yellow-600 hover:text-yellow-500">Carregar</p>
+                                <p class="font-semibold text-yellow-600 hover:text-yellow-500">Lista Mailings</p>
                             </a>
                         </li>
                     </ul>
