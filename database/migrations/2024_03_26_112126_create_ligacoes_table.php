@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Ramsey\Uuid;
 
 return new class extends Migration
 {
@@ -13,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('ligacoes', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid_call', 50)->default(Uuid::uuid4());
             $table->foreignId('user_id')->constrained('users', 'id');
             $table->foreignId('status_id')->constrained('statuses', 'id');
             $table->date('data_ligacao')->nullable();

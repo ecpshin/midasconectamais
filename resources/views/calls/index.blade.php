@@ -38,7 +38,7 @@
                                     <td class="text-truncate px-2 py-2 capitalize">{{ $call->orgao }}</td>
                                     <td class="text-truncate px-2 py-2 capitalize">{{ $call->produto }}</td>
                                     <td class="flex px-2 py-2">
-                                        <a href="{{ route('admin.calls.edit', $call) }}"
+                                        <a href="{{ route('admin.calls.edit', $call->uuid_call) }}"
                                             class="rounded-full bg-yellow-500 px-3 py-1 text-sm text-black hover:text-white">Editar</a>
                                     </td>
                                 </tr>
