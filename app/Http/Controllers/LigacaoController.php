@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Ligacao;
 use App\Models\Status;
+use App\Services\LigacoesService;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class LigacaoController extends Controller
 {
+    public $service;
+
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
@@ -17,6 +20,8 @@ class LigacaoController extends Controller
         $this->middleware('can:create cliente', ['only' => ['create', 'store']]);
         $this->middleware('can:edit cliente', ['only' => ['edit', 'update']]);
         $this->middleware('can:show cliente', ['only' => ['show']]);
+
+        $this->service = new LigacoesService;
     }
 
     /**
@@ -115,6 +120,30 @@ class LigacaoController extends Controller
         //
     }
 
+    public function prefeituras()
+    {
+        $lista = Ligacao::where('orgao', 'LIKE', 'Prefeitura%')->lazy(1000);
+        return view('calls.prefeituras', [
+            'area' => 'Call Center',
+            'page' => 'Lista de Prefeituras',
+            'rota' => 'admin.calls.prefeituras',
+            'listas' => $lista,
+            'statuses' => Status::all()
+        ]);
+    }
+
+    public function governos()
+    {
+        $lista = $this->service->getListaGoverno();
+        return view('calls.governos', [
+            'area' => 'Call Center',
+            'page' => 'Lista de Governo',
+            'rota' => 'admin.calls.governos',
+            'listas' => $lista,
+            'statuses' => Status::all()
+        ]);
+    }
+
     public function proposta()
     {
         $calls = [];
@@ -131,5 +160,11 @@ class LigacaoController extends Controller
             'calls' => $calls,
             'statuses' => Status::all()
         ]);
+    }
+
+    public function getcliente(string $id)
+    {
+        $ligacao = Ligacao::find(intval($id))->toJson();
+        echo $ligacao;
     }
 }

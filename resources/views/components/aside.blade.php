@@ -237,7 +237,19 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.calls.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p class="font-semibold text-yellow-600 hover:text-yellow-500">Lista Mailings</p>
+                                <p class="font-semibold text-yellow-600 hover:text-yellow-500">Mailings</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.calls.prefeituras') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p class="font-semibold text-yellow-600 hover:text-yellow-500">Prefeituras</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.calls.governos') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p class="font-semibold text-yellow-600 hover:text-yellow-500">Governo</p>
                             </a>
                         </li>
                     </ul>

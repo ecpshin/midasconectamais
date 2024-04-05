@@ -202,9 +202,9 @@ Route::prefix('admin/tabelas')->name('admin.tabelas.')
 
         Route::get('/search/{id}', 'get_tabela')->name('search');
     });
-    
+
 Route::prefix('admin/call-center')->name('admin.calls.')
-    ->controller(LigacaoController::class)->group(function (){
+    ->controller(LigacaoController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/nova-ligacao', 'create')->name('create');
         Route::post('/salvar-ligacao', 'store')->name('store');
@@ -214,7 +214,15 @@ Route::prefix('admin/call-center')->name('admin.calls.')
         Route::get('/{ligacao}/exibir-ligacao', 'show')->name('show');
 
         Route::get('/propostas', 'proposta')->name('proposta');
+        Route::get('/prefeituras', 'prefeituras')->name('prefeituras');
+        Route::get('/governos', 'governos')->name('governos');
     });
+
+Route::prefix('api/call-center')->controller(LigacaoController::class)->group(function () {
+    Route::get('/{id}/cliente', 'getcliente')->name('api.call-center');
+    Route::patch('/{id}/cliente', 'clienteupdate')->name('api.call-center.update');
+});
+
 /*Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');*/
