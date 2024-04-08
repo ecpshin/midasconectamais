@@ -14,7 +14,6 @@ class Ligacao extends Model
     protected $table = 'ligacoes';
 
     protected $fillable = [
-        'uuid_call',
         'user_id',
         'status_id',
         'data_ligacao',

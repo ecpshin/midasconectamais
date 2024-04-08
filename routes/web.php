@@ -216,6 +216,8 @@ Route::prefix('admin/call-center')->name('admin.calls.')
         Route::get('/propostas', 'proposta')->name('proposta');
         Route::get('/prefeituras', 'prefeituras')->name('prefeituras');
         Route::get('/governos', 'governos')->name('governos');
+        Route::get('/agendados', 'agendados')->name('agendados');
+        Route::post('/agendados', 'agendados')->name('lista-agendados');
     });
 
 Route::prefix('api/call-center')->controller(LigacaoController::class)->group(function () {

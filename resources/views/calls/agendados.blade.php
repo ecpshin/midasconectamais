@@ -7,11 +7,16 @@
         <div class="mx-auto w-full sm:px-4 lg:px-5">
             <div class="mb-5 w-full bg-white px-4 py-3 text-[0.9rem] shadow-sm dark:bg-slate-600 sm:rounded-lg">
                 <div class="w-100 flex flex-col items-start overflow-x-scroll px-5 py-4">
-                    <div>
+                    <div class="flex w-full flex-row items-center justify-between">
                         <button type="button" data-bs-toggle="modal" data-bs-target="#modalLigacao" class="rounded-full bg-teal-500 px-5 py-1 text-white hover:bg-teal-700">
                             <i class="bi bi-headset nav-icon"></i>
                             Ligação
                         </button>
+                        <form action="{{ route('admin.calls.lista-agendados') }}" method="post" class="flex flex-row items-center gap-2">
+                            @csrf
+                            <input type="date" name="data_agendamento" class="form-control form-control-sm rounded-full px-3 py-2" id="data_agendamento">
+                            <button type="submit" class="tex-sm rounded-full bg-sky-400 px-3 py-2 text-white hover:bg-sky-600">Buscar</button>
+                        </form>
                     </div>
                     <table id="listas" class="table-auto" style="width: 100%;">
                         <caption class="caption-top">Call Center</caption>

@@ -252,6 +252,12 @@
                                 <p class="font-semibold text-yellow-600 hover:text-yellow-500">Governo</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.calls.agendados') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p class="font-semibold text-yellow-600 hover:text-yellow-500">Agendados</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
