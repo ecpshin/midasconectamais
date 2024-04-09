@@ -126,7 +126,7 @@
         <script src="{{ asset('js/jquery.mask.min.js') }}"></script>
         <!-- AdminLTE App -->
         <script src="{{ asset('adminlte/js/adminlte.min.js') }}"></script>
-        
+
         <script src="{{ asset('js/scripts.js') }}"></script>
     </body>
 

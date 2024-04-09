@@ -5,7 +5,7 @@ $(document).ready(function () {
         pageLength: 5,
         lengthMenu: [5, 10, 15],
         language: {
-            url: "//cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json",
+            url: "https://cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json",
         },
     });
 
@@ -16,7 +16,7 @@ $(document).ready(function () {
         searching: true,
         autoWidth: false,
         language: {
-            url: "//cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json",
+            url: "https://cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json",
         },
     });
 
@@ -30,9 +30,9 @@ $(document).ready(function () {
     });
 
     $(".cpf").mask("999.999.999-99");
-    
+
     $(".phone").mask("(99)9 9999-9999");
-    
+
     $(".telefone").mask("(99)9 9999-9999");
 });
 
@@ -54,6 +54,27 @@ function modalMailing(id) {
         $("#modal-orgao").val(data.orgao);
         $("#modal-margem").val(data.margem);
         $("#modal-observacoes").val(data.obs);
+    });
+}
+
+function modalLista(id) {
+    const callUrl = $(`#call_${id}`).data("url");
+
+    $.get(callUrl, function (data) {
+        const dados = JSON.parse(data);
+        $("mcall_id").val(dados.id);
+        $("#muser_id").val(dados.user_id);
+        $("#mstatus_id").val(dados.status_id);
+        $("#mdata_ligacao").val(dados.data_ligacao);
+        $("#mdata_agendamento").val(dados.data_agendamento);
+        $("#mnome").val(dados.nome);
+        $("#mcpf").val(dados.cpf);
+        $("#mmatricula").val(dados.matricula);
+        $("#mmargem").val(dados.margem);
+        $("#mtelefone").val(dados.telefone);
+        $("#morgao").val(dados.orgao);
+        $("#mproduto").val(dados.produto);
+        $("#mobservacoes").text(dados.observacoes);
     });
 }
 

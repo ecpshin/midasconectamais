@@ -2,30 +2,54 @@
     <x-slot name="header">
         <x-bread page="{{ $page }}" area="{{ $area }}" rota="{{ $rota }}" />
     </x-slot>
-
     <div class="w-full">
         <div class="mx-auto w-full sm:px-4 lg:px-5">
             <div class="mb-5 w-full bg-white px-4 py-3 text-[0.9rem] shadow-sm dark:bg-slate-600 sm:rounded-lg">
                 <div class="w-100 flex flex-col items-start overflow-x-scroll px-5 py-4">
-                    <form action="#" method="post">
-                        @csrf
-                        <div class="row">
-                            <div class="form-group">
-                                <label for="nome">Nome</label>
-                                <input type="text" name="nome" id="nome" value="{{ $call->nome }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="nome">CPF</label>
-                                <input type="text" name="cpf" id="cpf" value="{{ $call->cpf }}">
-                            </div>
-                        </div>
-                    </form>
+                    <table class="table-auto" id="listas" style="width: 100%;">
+                        <caption class="caption-top">Mailing para campanha de telemarketing</caption>
+                        <thead class="text-light bg-red-700 font-bold">
+                            <td class="py-2">
+                            </td>
+                            <td class="py-2">
+                                Nome
+                            </td>
+                            <td class="py-2">
+                                CPF
+                            </td>
+                            <td class="py-2">
+                                Órgão
+                            </td>
+                        </thead>
+                        <tbody class="text-sm">
+                            @foreach ($listas as $lista)
+                                <tr class="bg-gray-200 even:bg-slate-50 hover:bg-red-400 hover:bg-opacity-20">
+                                    <td class="text-truncate px-3 py-2">
+                                        <a id="show_{{ $lista->id }}" href="javascript:void(0)" onclick="modallista('{{ $lista->id }}')"
+                                            data-url="{{ route('admin.calls.show', $lista->id) }}" data-bs-toggle="modal" data-bs-target="#modalLigacao"
+                                            class="lista-show rounded-full bg-blue-700 px-2 py-1 text-[10px] font-semibold text-[#ffffff] transition delay-200 ease-in-out hover:scale-110 hover:bg-lime-300 hover:text-[11px] hover:text-gray-600">
+                                            Atender
+                                        </a>
+                                    </td>
+                                    <td class="text-truncate px-2 py-2 capitalize">
+                                        {{ strtolower($lista->nome) }}
+                                    </td>
+                                    <td class="text-truncate px-2 py-2 capitalize">
+                                        {{ $lista->cpf }}
+                                    </td>
+                                    <td class="text-truncate px-2 py-2 capitalize">
+                                        {{ strtolower($lista->orgao) }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </x-midas-layout>
-{{-- <div class="modal fade text-stone-700" id="modalLigacao" tabindex="-1" aria-labelledby="modaLigacaoLabel" aria-hidden="true">
+<div class="modal fade text-stone-700" id="modalLigacao" tabindex="-1" aria-labelledby="modaLigacaoLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -48,10 +72,11 @@
                         </div>
                         <div class="col-lg-3 form-group mb-3">
                             <label class="text-xs font-semibold" for="status_id">Status</label>
-                            <select name="status_id" id="status_id" class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
-                                <option value="">Selecione</option>
+                            <select name="status_id" id="status_id" required
+                                class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
+                                <option value="1">Selecione</option>
                                 @foreach ($statuses as $status)
-                                <option value="{{$status->id}}">{{$status->status}}</option>
+                                    <option value="{{ $status->id }}">{{ $status->status }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -59,7 +84,7 @@
                     <div class="row">
                         <div class="col-lg-8 form-group mb-3">
                             <label class="text-xs font-semibold" for="nome">Nome</label>
-                            <input type="text" name="nome" id="nome"
+                            <input type="text" name="nome" id="nome" required
                                 class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                         </div>
                         <div class="col-lg-4 form-group mb-3">
@@ -83,7 +108,7 @@
                         <div class="form-group col-lg-3 mb-3">
                             <label class="text-xs font-semibold" for="margem">Margem</label>
                             <input type="number" name="margem" id="margem" min="0" max="1000000" step="0.01"
-                                class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs text-right outline-none active:border-none active:outline-green-100 active:ring-0">
+                                class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-right text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
                         </div>
                     </div>
                     <div class="row">
@@ -115,4 +140,4 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div>

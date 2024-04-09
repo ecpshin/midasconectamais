@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Ligacao;
 use App\Models\Status;
+use App\Services\LigacoesService;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
 
 class LigacaoController extends Controller
 {
+    public $service;
+
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
@@ -17,6 +21,8 @@ class LigacaoController extends Controller
         $this->middleware('can:create cliente', ['only' => ['create', 'store']]);
         $this->middleware('can:edit cliente', ['only' => ['edit', 'update']]);
         $this->middleware('can:show cliente', ['only' => ['show']]);
+
+        $this->service = new LigacoesService;
     }
 
     /**
@@ -35,7 +41,7 @@ class LigacaoController extends Controller
             'area' => 'Call Center',
             'page' => 'Lista de Ligações',
             'rota' => 'admin.calls.index',
-            'calls' => $calls,
+            'calls' => $calls->random(100),
             'statuses' => Status::all()
         ]);
     }
@@ -95,6 +101,8 @@ class LigacaoController extends Controller
      */
     public function update(Request $request, Ligacao $ligacao)
     {
+        $uuid = (string) Str::uuid4();
+        dd($uuid['uuid']);
         $ligacao->update($request->all());
         Alert::success('Ok', 'Atualização realizada por' . auth()->user()->name);
         return redirect()->route('admin.calls.index');
@@ -110,9 +118,28 @@ class LigacaoController extends Controller
         return redirect()->route('admin.calls.index');
     }
 
-    public function agendados()
+    public function prefeituras()
     {
-        //
+        $lista = Ligacao::where('orgao', 'LIKE', 'Prefeitura%')->lazy(1000);
+        return view('calls.prefeituras', [
+            'area' => 'Call Center',
+            'page' => 'Lista de Prefeituras',
+            'rota' => 'admin.calls.prefeituras',
+            'listas' => $lista,
+            'statuses' => Status::all()
+        ]);
+    }
+
+    public function governos()
+    {
+        $lista = $this->service->getListaGoverno();
+        return view('calls.governos', [
+            'area' => 'Call Center',
+            'page' => 'Lista de Governo',
+            'rota' => 'admin.calls.governos',
+            'listas' => $lista,
+            'statuses' => Status::all()
+        ]);
     }
 
     public function proposta()
@@ -129,6 +156,29 @@ class LigacaoController extends Controller
             'page' => 'Lista de Ligações',
             'rota' => 'admin.calls.index',
             'calls' => $calls,
+            'statuses' => Status::all()
+        ]);
+    }
+
+    public function getcliente(string $id)
+    {
+        $ligacao = Ligacao::find(intval($id))->toJson();
+        echo $ligacao;
+    }
+
+    public function agendados(Request $request)
+    {
+        dd($request->all());
+        if ($request->input('data_agendamento')) {
+            $agendados = Ligacao::where('user_id', auth()->user()->id)->whereDate('data_agendamento', $request->input('data_agendamento'))->get();
+        } else {
+            $agendados = [];
+        }
+        return view('calls.agendados', [
+            'area' => 'Call Center - Agendados',
+            'page' => 'Clientes Agendados',
+            'rota' => 'admin.calls.agendados',
+            'calls' => $agendados,
             'statuses' => Status::all()
         ]);
     }
