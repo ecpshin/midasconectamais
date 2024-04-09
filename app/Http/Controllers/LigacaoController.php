@@ -168,11 +168,10 @@ class LigacaoController extends Controller
 
     public function agendados(Request $request)
     {
-        dd($request->all());
         if ($request->input('data_agendamento')) {
             $agendados = Ligacao::where('user_id', auth()->user()->id)->whereDate('data_agendamento', $request->input('data_agendamento'))->get();
         } else {
-            $agendados = [];
+            $agendados = null;
         }
         return view('calls.agendados', [
             'area' => 'Call Center - Agendados',
@@ -182,4 +181,6 @@ class LigacaoController extends Controller
             'statuses' => Status::all()
         ]);
     }
+
+
 }

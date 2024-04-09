@@ -18,6 +18,7 @@
                             <button type="submit" class="tex-sm rounded-full bg-sky-400 px-3 py-2 text-white hover:bg-sky-600">Buscar</button>
                         </form>
                     </div>
+                    @isset($calls)
                     <table id="listas" class="table-auto" style="width: 100%;">
                         <caption class="caption-top">Call Center</caption>
                         <thead class="text-light bg-slate-700 font-bold">
@@ -50,7 +51,8 @@
                             @empty
                             @endforelse
                         </tbody>
-                    </table>
+                    </table>                        
+                    @endisset
                 </div>
             </div>
         </div>
