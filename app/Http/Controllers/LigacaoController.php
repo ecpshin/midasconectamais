@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Correspondente;
+use App\Models\Financeira;
 use App\Models\Ligacao;
+use App\Models\Operacao;
+use App\Models\Organizacao;
+use App\Models\Situacao;
 use App\Models\Status;
+use App\Models\Tabela;
 use App\Services\LigacoesService;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -25,9 +31,6 @@ class LigacaoController extends Controller
         $this->service = new LigacoesService;
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $calls = [];
@@ -35,9 +38,7 @@ class LigacaoController extends Controller
         if (auth()->user()->hasRole('super-admin')) {
             $calls = Ligacao::whereNotNull('user_id')->get();
         } else {
-            $calls = Ligacao::where('user_id', auth()->user()->id)
-                ->orWhereNotNull('data_agendamento')
-                ->orderBy('data_agendamento', 'asc')->get();
+            $calls = Ligacao::where('user_id', auth()->user()->id)->get();
         }
         return view('calls.index', [
             'area' => 'Call Center',
@@ -48,9 +49,6 @@ class LigacaoController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('calls.create', [
@@ -61,9 +59,6 @@ class LigacaoController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         auth()->user()->calls()->create($request->all());
@@ -71,9 +66,6 @@ class LigacaoController extends Controller
         return redirect()->route('admin.calls.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Ligacao $ligacao)
     {
         return view('calls.edit', [
@@ -84,9 +76,6 @@ class LigacaoController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Ligacao $ligacao)
     {
         return view('calls.edit', [
@@ -98,9 +87,6 @@ class LigacaoController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Ligacao $ligacao)
     {
         $ligacao->update($request->all());
@@ -108,9 +94,6 @@ class LigacaoController extends Controller
         return redirect()->route('admin.calls.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Ligacao $ligacao)
     {
         $ligacao->forceDelete();
@@ -120,12 +103,14 @@ class LigacaoController extends Controller
 
     public function prefeituras()
     {
-        $lista = Ligacao::where('orgao', 'LIKE', 'Prefeitura%')->lazy(1000);
+        $lista = Ligacao::whereNull('user_id')->where(function ($query) {
+            return $query->where('orgao', 'LIKE', 'Prefeitura%')->orWhere('orgao', 'LIKE', 'pref%');
+        })->lazy(1000);
         return view('calls.prefeituras', [
             'area' => 'Call Center',
             'page' => 'Lista de Prefeituras',
             'rota' => 'admin.calls.prefeituras',
-            'listas' => $lista,
+            'listas' => $lista->random(100),
             'statuses' => Status::all()
         ]);
     }
@@ -142,21 +127,26 @@ class LigacaoController extends Controller
         ]);
     }
 
-    public function proposta()
+    public function proposta(Ligacao $ligacao)
     {
-        $calls = [];
+        $correspondentes = Correspondente::all();
+        $financeiras = Financeira::orderBy('nome_financeira', 'asc')->get();
+        $operacoes = Operacao::orderBy('descricao_operacao', 'asc')->get();
+        $situacoes = Situacao::all();
+        $tabelas = Tabela::all();
+        $orgaos = Organizacao::orderBy('nome_organizacao', 'asc')->get();
 
-        if (auth()->user()->hasRole('super-admin')) {
-            $calls = Ligacao::limit('10')->get();
-        } else {
-            $calls = Ligacao::where('user_id', auth()->user()->id)->get();
-        }
-        return view('calls.index', [
-            'area' => 'Call Center - Propostas',
-            'page' => 'Lista de Ligações',
+        return view('calls.proposta', [
+            'cliente' => $ligacao,
+            'area' => 'Call Center - Proposta',
+            'page' => 'Proposta Cliente',
             'rota' => 'admin.calls.index',
-            'calls' => $calls,
-            'statuses' => Status::all()
+            'correspondentes' => $correspondentes,
+            'financeiras' => $financeiras,
+            'operacoes' => $operacoes,
+            'situacoes' => $situacoes,
+            'tabelas' => $tabelas,
+            'orgaos' => $orgaos
         ]);
     }
 
@@ -181,6 +171,4 @@ class LigacaoController extends Controller
             'statuses' => Status::all()
         ]);
     }
-
-
 }

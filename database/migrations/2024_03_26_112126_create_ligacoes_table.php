@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users', 'id');
             $table->foreignId('status_id')->constrained('statuses', 'id');
+            $table->foreignId('organizacao_id')->constrained('organizacoes', 'id');
             $table->date('data_ligacao')->nullable();
             $table->date('data_agendamento')->nullable();
             $table->string('nome');

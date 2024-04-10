@@ -1,8 +1,7 @@
 <x-midas-layout>
     <x-slot name="header">
-        <x-bread page="{{ $page }}" area="{{ $area }}" rota="{{ $rota }}" />
+        <x-bread :page="$page" :area="$area" :rota="$rota"></x-bread>
     </x-slot>
-
     <div class="w-full">
         <div class="overflow-hidden bg-white p-3 shadow-sm shadow-slate-700 sm:rounded-lg">
             <form action="{{ route('admin.propostas.store') }}" method="post">
@@ -23,7 +22,7 @@
                         </div>
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="data_nascimento">Data Nasc.</label>
-                            <input type="date" name="data_nascimento" id="data_nascimento" value=""
+                            <input type="date" name="data_nascimento" id="data_nascimento" value="{{ old('data_nascimento') }}"
                                 class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
                                 title="Data de nascimento">
                         </div>
@@ -31,24 +30,24 @@
                     <div class="row mx-3 justify-between px-3 py-2">
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="rg">RG</label>
-                            <input type="text" name="rg" id="rg" value=""
+                            <input type="text" name="rg" id="rg" value="{{ old('rg') }}"
                                 class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0" placeholder="RG">
                         </div>
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="orgao_exp">Órgão Exp</label>
-                            <input type="text" name="orgao_exp" id="orgao_exp" value=""
+                            <input type="text" name="orgao_exp" id="orgao_exp" value="{{ old('orgao_exp') }}"
                                 class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
                                 placeholder="Órgão expedidor">
                         </div>
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="data_exp">Data Exp.</label>
-                            <input type="date" name="data_exp" id="data_exp" value=""
+                            <input type="date" name="data_exp" id="data_exp" value="{{ old('data_exp') }}"
                                 class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
                                 title="Data da expedição">
                         </div>
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="naturalidade">Naturalidade</label>
-                            <input type="text" name="naturalidade" id="naturalidade" value=""
+                            <input type="text" name="naturalidade" id="naturalidade" value="{{ old('naturalidade') }}"
                                 class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
                                 placeholder="Naturalidade">
                         </div>
@@ -56,13 +55,13 @@
                     <div class="row mx-3 justify-between px-3 py-2">
                         <div class="col-lg-4 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="genitora">Nome da Mãe</label>
-                            <input type="text" name="genitora" id="genitora" value=""
+                            <input type="text" name="genitora" id="genitora" value="{{ old('genitora') }}"
                                 class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
                                 placeholder="Nome da mãe">
                         </div>
                         <div class="col-lg-4 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="genitor">Nome do Pai</label>
-                            <input type="text" name="genitor" id="genitor" value=""
+                            <input type="text" name="genitor" id="genitor" value="{{ old('genitor') }}"
                                 class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
                                 placeholder="Nome do pai">
                         </div>
@@ -143,51 +142,6 @@
                             <label for="Senha e e-mails">Senha e emails</label>
                             <textarea id="emails_senhas" name="emails_senhas" class="mt-2 rounded-lg border-gray-400 placeholder:text-slate-400 focus:border-emerald-400 focus:outline-none focus:ring-0"
                                 placeholder="Espaço reservado para Senhas e Emails">Margem: {{ $cliente->margem }}, Orgão: {{ $cliente->orgao }}, Prodtuto oferecido: {{ $cliente->produto }}, {{ $cliente->observacoes }}</textarea>
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset title="infoBancárias" class="mb-4 flex flex-col gap-2 rounded-lg p-2 outline outline-1 outline-red-500">
-                    <h3 class="rounded-lg bg-rose-900 py-2 text-center text-lg text-slate-50">Dados Bancários</h3>
-                    <div class="row mx-3 justify-between px-3 pb-3">
-                        <div class="col-lg-2 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="codigo">Código</label>
-                            <input type="search" name="codigo" id="buscaBanco" value=""
-                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0" placeholder="001">
-                        </div>
-                        <div class="col-lg-8 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="banco">Nome Banco</label>
-                            <input type="text" name="banco" id="banco" value=""
-                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
-                                placeholder="Banco da Caixola S.A.">
-                        </div>
-                        <div class="col-lg-2 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="agencia">Agência</label>
-                            <input type="text" name="agencia" id="agencia" value=""
-                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0" placeholder="0000-x">
-                        </div>
-                    </div>
-                    <div class="row mx-3 justify-between px-3 pb-3">
-                        <div class="col-lg-4 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="conta">Conta</label>
-                            <input type="text" name="conta" id="conta" value=""
-                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
-                                placeholder="Ex.: 12313-5">
-                        </div>
-                        <div class="col-lg-4 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="tipo_conta">Tipo Conta</label>
-                            <select name="tipo_conta" id="tipo_conta" class="rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
-                                <option value="Conta Corrente">Selecione</option>
-                                <option value="Conta Corrente">Conta Corrente</option>
-                                <option value="Conta Poupança">Conta Poupança</option>
-                                <option value="Conta Salário">Conta Salário</option>
-                                <option value="Conta Benefício">Conta Benefício</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-4 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="operacao">Operação</label>
-                            <input type="text" name="operacao" id="operacao" value=""
-                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
-                                placeholder="Código ou nome da operação">
                         </div>
                     </div>
                 </fieldset>
@@ -283,125 +237,39 @@
                     <div class="row mx-3 justify-between px-3 pb-3">
                         <div class="col-lg-4 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500">Tabela</label>
-                            <input type="text" name="tabela_comissao" value=""
+                            <input type="text" name="tabela_comissao" value="{{ old('tabela_comissao') }}"
                                 class="rounded-lg border-gray-300 bg-white py-1 focus:border-gray-300 focus:outline-none focus:ring-0" id="tabela_comissao">
                         </div>
                         @can('create comissao')
                             <div class="col-lg-2 mb-2 flex flex-col">
                                 <label class="text-sm text-slate-500" for="percentual_loja">%Lj</label>
-                                <input type="number" name="percentual_loja" value=""
+                                <input type="number" name="percentual_loja" value="{{ old('percentual_loja') ?? 0.0 }}" min="0.00" step="0.01"
                                     class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="percentual_loja">
                             </div>
                             <div class="col-lg-2 mb-2 flex flex-col">
                                 <label class="text-sm text-slate-500">R$ Loja</label>
-                                <input type="number" name="valor_loja" value=""
+                                <input type="number" name="valor_loja" value="{{ old('valor_loja') ?? 0.0 }}" min="0.00" step="0.01"
                                     class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="valor_loja">
                             </div>
                             <div class="col-lg-2 mb-2 flex w-full flex-col">
                                 <label class="text-sm text-slate-500">%Ag</label>
-                                <input type="number" name="percentual_operador" value=""
+                                <input type="number" name="percentual_operador" value="{{ old('percentual_operador') ?? 0.25 }}" min="0.00" step="0.01"
                                     class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="percentual_operador">
                             </div>
                             <div class="col-lg-2 mb-2 flex w-full flex-col">
                                 <label class="text-sm text-slate-500">R$ Operador</label>
-                                <input type="number" name="valor_operador" value=""
+                                <input type="number" name="valor_operador" value="{{ old('valor_operador') ?? 0.0 }}" min="0.00" step="0.01"
                                     class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="valor_operador">
                             </div>
                         </div>
-                    </form>
+                    @endcan
+                </fieldset>
+                <div class="px-3 py-2">
+                    <button type="submit"
+                        class="rounded-lg bg-emerald-500 px-6 py-1.5 text-gray-100 transition duration-150 hover:bg-emerald-800 hover:text-slate-50 hover:shadow-xl">Salvar</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
+
 </x-midas-layout>
-{{-- <div class="modal fade text-stone-700" id="modalLigacao" tabindex="-1" aria-labelledby="modaLigacaoLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title fs-5 text-slate-700" aria-label="modalLigacaoLabel">Call Center</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('admin.calls.store') }}" class="mt-3" method="post">
-                    @csrf
-                    <div class="row">
-                        <div class="col-lg-3 form-group mb-3">
-                            <label class="text-xs font-semibold" for="data_ligacao">Ligação</label>
-                            <input type="date" name="data_ligacao" id="data_ligacao"
-                                class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
-                        </div>
-                        <div class="col-lg-3 form-group mb-3">
-                            <label class="text-xs font-semibold" for="agendado">Agendamento</label>
-                            <input type="date" name="agendado" id="data_agendado"
-                                class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
-                        </div>
-                        <div class="col-lg-3 form-group mb-3">
-                            <label class="text-xs font-semibold" for="status_id">Status</label>
-                            <select name="status_id" id="status_id" class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
-                                <option value="">Selecione</option>
-                                @foreach ($statuses as $status)
-                                <option value="{{$status->id}}">{{$status->status}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-8 form-group mb-3">
-                            <label class="text-xs font-semibold" for="nome">Nome</label>
-                            <input type="text" name="nome" id="nome"
-                                class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
-                        </div>
-                        <div class="col-lg-4 form-group mb-3">
-                            <label class="text-xs font-semibold" for="cpf">CPF</label>
-                            <input type="text" name="cpf" id="modal-cpf"
-                                class="cpf w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3 form-group mb-3">
-                            <label class="text-xs font-semibold" for="matricula">Matrícula</label>
-                            <input type="text" name="matricula" id="matricula"
-                                class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
-                        </div>
-                        <div class="form-group col-lg-6 mb-3">
-                            <label class="text-xs font-semibold" for="orgao">Órgão</label>
-                            <input type="text" name="orgao" id="orgao"
-                                class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
-                        </div>
-
-                        <div class="form-group col-lg-3 mb-3">
-                            <label class="text-xs font-semibold" for="margem">Margem</label>
-                            <input type="number" name="margem" id="margem" min="0" max="1000000" step="0.01"
-                                class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs text-right outline-none active:border-none active:outline-green-100 active:ring-0">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-lg-3 mb-3">
-                            <label class="text-xs font-semibold" for="telefone">Telefone</label>
-                            <input type="text" name="telefone" id="telefone"
-                                class="telefone w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
-                        </div>
-                        <div class="form-group col-lg-4 mb-3">
-                            <label class="text-xs font-semibold" for="produto">Produto</label>
-                            <input type="text" name="produto" id="produto"
-                                class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-12 form-group mb-3">
-                            <label class="text-xs font-semibold" for="observacoes">Observações</label>
-                            <textarea name="observacoes" id="observacoes" rows="5" class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0"></textarea>
-                        </div>
-                    </div>
-                    <div class="mt-3 w-full">
-                        <button type="submit"
-                            class="rounded-full bg-teal-700 px-3 py-1 text-sm text-stone-100 transition delay-150 ease-in-out hover:scale-105 hover:bg-teal-800 hover:text-stone-100 hover:shadow-md hover:shadow-black">
-                            Salvar Dados
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div> --}}

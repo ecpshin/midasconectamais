@@ -59,9 +59,10 @@ function modalMailing(id) {
 
 function modalLista(id) {
     const callUrl = $(`#call_${id}`).data("url");
-
+    const updateUrl = $(`#call_${id}`).data("update");
     $.get(callUrl, function (data) {
         const dados = JSON.parse(data);
+
         $("mcall_id").val(dados.id);
         $("#muser_id").val(dados.user_id);
         $("#mstatus_id").val(dados.status_id);
@@ -75,6 +76,7 @@ function modalLista(id) {
         $("#morgao").val(dados.orgao);
         $("#mproduto").val(dados.produto);
         $("#mobservacoes").text(dados.observacoes);
+        $("#gov-update").attr("action", updateUrl);
     });
 }
 
