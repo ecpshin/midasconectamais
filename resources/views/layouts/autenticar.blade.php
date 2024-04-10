@@ -12,7 +12,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="{{ asset('build/assets/app-cb41d22e.css') }}">
-        <link rel="stylesheet" href="{{ asset('build/assets/tailwindcss-6bc83a36.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/assets/tailwindcss-b2bd5a62.css') }}">
         <!-- Scripts -->
         @vite(['resources/sass/app.scss', 'resources/css/tailwindcss.css', 'resources/js/app.js'])
         <style>
