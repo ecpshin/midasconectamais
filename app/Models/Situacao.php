@@ -12,7 +12,7 @@ class Situacao extends Model
 
     protected $table = 'situacoes';
 
-    protected $fillable = ['descricao_situacao', 'motivo_situacao', 'estilo_situacao'];
+    protected $fillable = ['descricao_situacao', 'motivo_situacao'];
 
     public function propostas(): HasMany
     {

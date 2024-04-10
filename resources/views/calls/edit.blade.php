@@ -11,7 +11,7 @@
                         <div class="row">
                             <div class="col-lg-3 form-group mb-3">
                                 <label class="text-xs font-semibold" for="data_ligacao">Ligação</label>
-                                <input type="date" name="data_ligacao" id="data_ligacao" value="{{ $call->data_ligacao }}"
+                                <input type="date" name="data_ligacao" id="data_ligacao" value="{{ $call->data_ligacao ?? '' }}"
                                     class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                             </div>
                             <div class="col-lg-3 form-group mb-3">
@@ -36,7 +36,7 @@
                             <div class="col-lg-8 form-group mb-3">
                                 <label class="text-xs font-semibold" for="nome">Nome</label>
                                 <input type="text" name="nome" id="nome" value="{{ $call->nome }}"
-                                    class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
+                                    class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs capitalize outline-none active:border-none active:ring-0">
                             </div>
                             <div class="col-lg-4 form-group mb-3">
                                 <label class="text-xs font-semibold" for="cpf">CPF</label>
@@ -84,7 +84,7 @@
                         <div class="mt-3 w-full">
                             <button type="submit"
                                 class="rounded-full bg-green-600 px-3 py-1 text-sm text-stone-100 transition delay-150 ease-in-out hover:scale-105 hover:bg-green-700 hover:text-stone-100 hover:shadow-md hover:shadow-black">
-                                Enviar
+                                Atualizar
                             </button>
                         </div>
                     </form>
