@@ -35,13 +35,15 @@ class LigacaoController extends Controller
         if (auth()->user()->hasRole('super-admin')) {
             $calls = Ligacao::whereNotNull('user_id')->get();
         } else {
-            $calls = Ligacao::where('user_id', auth()->user()->id)->orWhereNull('user_id')->get();
+            $calls = Ligacao::where('user_id', auth()->user()->id)
+                ->orWhereNotNull('data_agendamento')
+                ->orderBy('data_agendamento', 'asc')->get();
         }
         return view('calls.index', [
             'area' => 'Call Center',
             'page' => 'Lista de Ligações',
             'rota' => 'admin.calls.index',
-            'calls' => $calls->random(100),
+            'calls' => $calls,
             'statuses' => Status::all()
         ]);
     }
@@ -101,8 +103,6 @@ class LigacaoController extends Controller
      */
     public function update(Request $request, Ligacao $ligacao)
     {
-        $uuid = (string) Str::uuid4();
-        dd($uuid['uuid']);
         $ligacao->update($request->all());
         Alert::success('Ok', 'Atualização realizada por' . auth()->user()->name);
         return redirect()->route('admin.calls.index');
