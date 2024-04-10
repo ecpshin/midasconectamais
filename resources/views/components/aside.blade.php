@@ -236,25 +236,25 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('admin.calls.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="bi bi-headset nav-icon"></i>
                                 <p class="font-semibold text-yellow-600 hover:text-yellow-500">Mailings</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.calls.prefeituras') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="bi bi-headset nav-icon"></i>
                                 <p class="font-semibold text-yellow-600 hover:text-yellow-500">Prefeituras</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.calls.governos') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="bi bi-headset nav-icon"></i>
                                 <p class="font-semibold text-yellow-600 hover:text-yellow-500">Governo</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.calls.agendados') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="bi bi-calendar3 nav-icon"></i>
                                 <p class="font-semibold text-yellow-600 hover:text-yellow-500">Agendados</p>
                             </a>
                         </li>

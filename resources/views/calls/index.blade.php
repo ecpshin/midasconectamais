@@ -18,6 +18,8 @@
                         <thead class="text-light bg-slate-700 font-bold">
                             <tr>
                                 <td class="py-2">#</td>
+                                <td class="py-2">Ligação</td>
+                                <td class="py-2">Agendado</td>
                                 <td class="py-2">Agente</td>
                                 <td class="py-2">Nome</td>
                                 <td class="py-2">CPF</td>
@@ -31,6 +33,12 @@
                             @forelse ($calls as $call)
                                 <tr class="bg-gray-200 even:bg-slate-50 hover:bg-red-400 hover:bg-opacity-20">
                                     <td class="text-truncate px-3 py-2 capitalize">{{ $call->id }}</td>
+                                    <td class="text-truncate px-2 py-2 capitalize">
+                                        {{ $call->data_ligacao ? $call->data_ligacao->format('d/m/Y') : 'Não definida' }}
+                                    </td>
+                                    <td class="text-truncate px-2 py-2 capitalize">
+                                        {{ $call->user->data_agendamento ? $call->data_agendamento->format('d/m/Y') : 'Não definida' }}
+                                    </td>
                                     <td class="text-truncate px-2 py-2 capitalize">{{ $call->user->name ?? 'Naõ definido' }}</td>
                                     <td class="text-truncate px-2 py-2 capitalize">{{ $call->nome }}</td>
                                     <td class="text-truncate px-2 py-2 capitalize">{{ $call->cpf }}</td>
@@ -40,6 +48,9 @@
                                     <td class="flex px-2 py-2">
                                         <a href="{{ route('admin.calls.edit', $call) }}"
                                             class="rounded-full bg-yellow-500 px-3 py-1 text-sm text-black hover:text-white">Editar</a>
+                                        <a href="{{ route('admin.calls.proposta', $call) }}"
+                                            class="rounded-full bg-yellow-500 px-3 py-1 text-sm text-black hover:text-white">Proposta</a>
+
                                     </td>
                                 </tr>
                             @empty

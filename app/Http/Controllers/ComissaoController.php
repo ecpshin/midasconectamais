@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agente;
+use App\Models\Comissao;
+use App\Models\Correspondente;
+use App\Models\Financeira;
+use App\Models\Operacao;
 use App\Models\Proposta;
+use App\Models\Situacao;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -64,12 +69,22 @@ class ComissaoController extends Controller
         //
     }
 
-    public function edit(string $id)
+    public function edit(Comissao $comissao)
     {
-        return view('admin.comissoes.edit');
+
+        return view('admin.comissoes.edit', [
+            'area' => $this->getarea(),
+            'page' => 'Editar Comissão',
+            'rota' => $this->getrota(),
+            'comissao' => $comissao,
+            'correspondentes' => Correspondente::all(),
+            'financeiras' => Financeira::all(),
+            'operacoes' => Operacao::all(),
+            'situacoes' => Situacao::all()
+        ]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, Comissao $comissao)
     {
         //
     }
