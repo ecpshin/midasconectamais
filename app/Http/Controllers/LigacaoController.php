@@ -44,7 +44,7 @@ class LigacaoController extends Controller
             'area' => 'Call Center',
             'page' => 'Lista de Ligações',
             'rota' => 'admin.calls.index',
-            'calls' => $calls->random(100),
+            'calls' => $calls,
             'statuses' => Status::all()
         ]);
     }
@@ -161,7 +161,7 @@ class LigacaoController extends Controller
         if ($request->input('data_agendamento')) {
             $agendados = Ligacao::where('user_id', auth()->user()->id)->whereDate('data_agendamento', $request->input('data_agendamento'))->get();
         } else {
-            $agendados = [];
+            $agendados = null;
         }
         return view('calls.agendados', [
             'area' => 'Call Center - Agendados',
@@ -171,4 +171,6 @@ class LigacaoController extends Controller
             'statuses' => Status::all()
         ]);
     }
+
+
 }
