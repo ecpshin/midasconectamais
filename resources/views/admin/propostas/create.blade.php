@@ -50,16 +50,10 @@
                         </div>
                     </div>
                     <div class="mx-3 flex flex-row px-3 pb-3">
-                        <div class="col-lg-3 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="tabela_id">Tabela</label>
-                            <select name="tabela_id" id="tabela_id" data-url="{{ route('admin.tabelas.search', 0) }}"
-                                class="rounded border-gray-300 py-1 text-sm focus:border-gray-300 focus:outline-none focus:ring-0">
-                                @forelse ($tabelas as $tabela)
-                                    <option value="{{ $tabela->id }}">{{ $tabela->descricao }}</option>
-                                @empty
-                                    Não há Operações
-                                @endforelse
-                            </select>
+                        <div class="col-lg-4 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500">Tabela</label>
+                            <input type="text" name="tabela_comissao" value="{{ old('tabela_comissao') }}"
+                                class="rounded-lg border-gray-300 bg-white py-1 focus:border-gray-300 focus:outline-none focus:ring-0" id="tabela_comissao">
                         </div>
                         <div class="col-lg-1 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="prazo">Prazo</label>
@@ -86,7 +80,7 @@
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="operacao_id">Operação</label>
                             <select name="operacao_id" id="operacao_id"
-                                class="select2 rounded border-gray-300 py-1 text-sm focus:border-gray-300 focus:outline-none focus:ring-0">
+                                class="select2 rounded border-gray-300 py-1 text-sm text-black focus:border-gray-300 focus:outline-none focus:ring-0">
                                 @forelse ($operacoes as $op)
                                     <option value="{{ $op->id }}">{{ $op->descricao_operacao }}</option>
                                 @empty
@@ -107,7 +101,7 @@
                         </div>
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="financeira_id">Financeiras</label>
-                            <select name="financeira_id" id="financeira_id" class="border-gray-300 py-1 text-base focus:border-gray-300 focus:outline-none focus:ring-0">
+                            <select name="financeira_id" id="financeira_id" class="select2 border-gray-300 py-1 text-base focus:border-gray-300 focus:outline-none focus:ring-0">
                                 @forelse ($financeiras as $fin)
                                     <option value="{{ $fin->id }}">{{ $fin->nome_financeira }}</option>
                                 @empty
@@ -118,7 +112,7 @@
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="correspondente_id">Correspondente</label>
                             <select name="correspondente_id" id="correspondente_id" onchange="carrega(this)"
-                                class="border-gray-300 py-1 text-base focus:border-gray-300 focus:outline-none focus:ring-0">
+                                class="select2 border-gray-300 py-1 text-base focus:border-gray-300 focus:outline-none focus:ring-0">
                                 @forelse ($correspondentes as $corr)
                                     <option value="{{ $corr->id }}" class="{{ $corr->percentual_comissao }}">
                                         {{ $corr->nome_correspondente }}</option>
@@ -128,12 +122,18 @@
                         </div>
                     </div>
                     <div class="row mx-3 justify-between px-3 pb-3">
-                        <div class="col-lg-4 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500">Tabela</label>
-                            <input type="text" name="tabela_comissao" value="{{ old('tabela_comissao') }}"
-                                class="rounded-lg border-gray-300 bg-white py-1 focus:border-gray-300 focus:outline-none focus:ring-0" id="tabela_comissao">
-                        </div>
                         @can('create comissao')
+                            <div class="col-lg-4 mb-2 flex flex-col">
+                                <label class="text-sm text-slate-500" for="tabela_id">Tabela</label>
+                                <select name="tabela_id" id="tabela_id" data-url="{{ route('admin.tabelas.search', 0) }}"
+                                    class="rounded border-gray-300 py-1 text-sm focus:border-gray-300 focus:outline-none focus:ring-0">
+                                    @forelse ($tabelas as $tabela)
+                                        <option value="{{ $tabela->id }}">{{ $tabela->descricao }}</option>
+                                    @empty
+                                        Não há Operações
+                                    @endforelse
+                                </select>
+                            </div>
                             <div class="col-lg-2 mb-2 flex flex-col">
                                 <label class="text-sm text-slate-500" for="percentual_loja">%Lj</label>
                                 <input type="text" name="percentual_loja" value="{{ old('percentual_loja') }}" min="0.00"
@@ -144,12 +144,12 @@
                                 <input type="text" name="valor_loja" value="{{ old('valor_loja') }}"
                                     class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="valor_loja">
                             </div>
-                            <div class="col-lg-2 mb-2 flex w-full flex-col">
+                            <div class="col-lg-2 mb-2 flex flex-col">
                                 <label class="text-sm text-slate-500">%Ag</label>
                                 <input type="text" name="percentual_operador" value="{{ old('percentual_operador') }}"
                                     class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="percentual_operador">
                             </div>
-                            <div class="col-lg-2 mb-2 flex w-full flex-col">
+                            <div class="col-lg-2 mb-2 flex flex-col">
                                 <label class="text-sm text-slate-500">R$ Operador</label>
                                 <input type="text" name="valor_operador" value="{{ old('valor_operador') }}"
                                     class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="valor_operador">

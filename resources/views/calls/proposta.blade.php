@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="data_nascimento">Data Nasc.</label>
-                            <input type="date" name="data_nascimento" id="data_nascimento" value="{{ old('data_nascimento') }}"
+                            <input type="date" name="data_nascimento" id="data_nascimento" value=""
                                 class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
                                 title="Data de nascimento">
                         </div>
@@ -30,24 +30,24 @@
                     <div class="row mx-3 justify-between px-3 py-2">
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="rg">RG</label>
-                            <input type="text" name="rg" id="rg" value="{{ old('rg') }}"
+                            <input type="text" name="rg" id="rg" value=""
                                 class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0" placeholder="RG">
                         </div>
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="orgao_exp">Órgão Exp</label>
-                            <input type="text" name="orgao_exp" id="orgao_exp" value="{{ old('orgao_exp') }}"
+                            <input type="text" name="orgao_exp" id="orgao_exp" value=""
                                 class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
                                 placeholder="Órgão expedidor">
                         </div>
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="data_exp">Data Exp.</label>
-                            <input type="date" name="data_exp" id="data_exp" value="{{ old('data_exp') }}"
+                            <input type="date" name="data_exp" id="data_exp" value=""
                                 class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
                                 title="Data da expedição">
                         </div>
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="naturalidade">Naturalidade</label>
-                            <input type="text" name="naturalidade" id="naturalidade" value="{{ old('naturalidade') }}"
+                            <input type="text" name="naturalidade" id="naturalidade" value=""
                                 class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
                                 placeholder="Naturalidade">
                         </div>
@@ -55,13 +55,13 @@
                     <div class="row mx-3 justify-between px-3 py-2">
                         <div class="col-lg-4 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="genitora">Nome da Mãe</label>
-                            <input type="text" name="genitora" id="genitora" value="{{ old('genitora') }}"
+                            <input type="text" name="genitora" id="genitora" value=""
                                 class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
                                 placeholder="Nome da mãe">
                         </div>
                         <div class="col-lg-4 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="genitor">Nome do Pai</label>
-                            <input type="text" name="genitor" id="genitor" value="{{ old('genitor') }}"
+                            <input type="text" name="genitor" id="genitor" value=""
                                 class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
                                 placeholder="Nome do pai">
                         </div>
@@ -142,6 +142,51 @@
                             <label for="Senha e e-mails">Senha e emails</label>
                             <textarea id="emails_senhas" name="emails_senhas" class="mt-2 rounded-lg border-gray-400 placeholder:text-slate-400 focus:border-emerald-400 focus:outline-none focus:ring-0"
                                 placeholder="Espaço reservado para Senhas e Emails">Margem: {{ $cliente->margem }}, Orgão: {{ $cliente->orgao }}, Prodtuto oferecido: {{ $cliente->produto }}, {{ $cliente->observacoes }}</textarea>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset title="infoBancárias" class="mb-4 flex flex-col gap-2 rounded-lg p-2 outline outline-1 outline-red-500">
+                    <h3 class="rounded-lg bg-rose-900 py-2 text-center text-lg text-slate-50">Dados Bancários</h3>
+                    <div class="row mx-3 justify-between px-3 pb-3">
+                        <div class="col-lg-2 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="codigo">Código</label>
+                            <input type="search" name="codigo" id="buscaBanco" value=""
+                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0" placeholder="001">
+                        </div>
+                        <div class="col-lg-8 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="banco">Nome Banco</label>
+                            <input type="text" name="banco" id="banco" value=""
+                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
+                                placeholder="Banco da Caixola S.A.">
+                        </div>
+                        <div class="col-lg-2 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="agencia">Agência</label>
+                            <input type="text" name="agencia" id="agencia" value=""
+                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0" placeholder="0000-x">
+                        </div>
+                    </div>
+                    <div class="row mx-3 justify-between px-3 pb-3">
+                        <div class="col-lg-4 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="conta">Conta</label>
+                            <input type="text" name="conta" id="conta" value=""
+                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
+                                placeholder="Ex.: 12313-5">
+                        </div>
+                        <div class="col-lg-4 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="tipo_conta">Tipo Conta</label>
+                            <select name="tipo_conta" id="tipo_conta" class="rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
+                                <option value="Conta Corrente">Selecione</option>
+                                <option value="Conta Corrente">Conta Corrente</option>
+                                <option value="Conta Poupança">Conta Poupança</option>
+                                <option value="Conta Salário">Conta Salário</option>
+                                <option value="Conta Benefício">Conta Benefício</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="operacao">Operação</label>
+                            <input type="text" name="operacao" id="operacao" value=""
+                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
+                                placeholder="Código ou nome da operação">
                         </div>
                     </div>
                 </fieldset>
@@ -237,28 +282,28 @@
                     <div class="row mx-3 justify-between px-3 pb-3">
                         <div class="col-lg-4 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500">Tabela</label>
-                            <input type="text" name="tabela_comissao" value="{{ old('tabela_comissao') }}"
+                            <input type="text" name="tabela_comissao" value=""
                                 class="rounded-lg border-gray-300 bg-white py-1 focus:border-gray-300 focus:outline-none focus:ring-0" id="tabela_comissao">
                         </div>
                         @can('create comissao')
                             <div class="col-lg-2 mb-2 flex flex-col">
                                 <label class="text-sm text-slate-500" for="percentual_loja">%Lj</label>
-                                <input type="number" name="percentual_loja" value="{{ old('percentual_loja') ?? 0.0 }}" min="0.00" step="0.01"
+                                <input type="number" name="percentual_loja" value=""
                                     class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="percentual_loja">
                             </div>
                             <div class="col-lg-2 mb-2 flex flex-col">
                                 <label class="text-sm text-slate-500">R$ Loja</label>
-                                <input type="number" name="valor_loja" value="{{ old('valor_loja') ?? 0.0 }}" min="0.00" step="0.01"
+                                <input type="number" name="valor_loja" value=""
                                     class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="valor_loja">
                             </div>
                             <div class="col-lg-2 mb-2 flex w-full flex-col">
                                 <label class="text-sm text-slate-500">%Ag</label>
-                                <input type="number" name="percentual_operador" value="{{ old('percentual_operador') ?? 0.25 }}" min="0.00" step="0.01"
+                                <input type="number" name="percentual_operador" value=""
                                     class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="percentual_operador">
                             </div>
                             <div class="col-lg-2 mb-2 flex w-full flex-col">
                                 <label class="text-sm text-slate-500">R$ Operador</label>
-                                <input type="number" name="valor_operador" value="{{ old('valor_operador') ?? 0.0 }}" min="0.00" step="0.01"
+                                <input type="number" name="valor_operador" value=""
                                     class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="valor_operador">
                             </div>
                         </div>

@@ -17,12 +17,13 @@
 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" />
-        <link rel="stylesheet" href="{{ asset('build/assets/app-cb41d22e.css') }}">
-        <link rel="stylesheet" href="{{ asset('build/assets/tailwindcss-6bc83a36.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/tailwindcss.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-        @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/tailwindcss.css'])
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('adminlte/css/adminlte.min.css') }}" />
+
+        @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/tailwindcss.css'])
 
         <style>
             .sidebar {
@@ -59,10 +60,12 @@
 
             .select2 {
                 font-size: 12px;
+                color: #000;
             }
 
             .select2-container {
                 font-size: 12px;
+                color: #000;
             }
 
 
