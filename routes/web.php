@@ -213,11 +213,12 @@ Route::prefix('admin/call-center')->name('admin.calls.')
         Route::delete('/{ligacao}/excluir-ligacao', 'destroy')->name('destroy');
         Route::get('/{ligacao}/exibir-ligacao', 'show')->name('show');
 
-        Route::get('/propostas', 'proposta')->name('proposta');
         Route::get('/prefeituras', 'prefeituras')->name('prefeituras');
         Route::get('/governos', 'governos')->name('governos');
         Route::get('/agendados', 'agendados')->name('agendados');
         Route::post('/agendados', 'agendados')->name('lista-agendados');
+
+        Route::get('/{ligacao}/propostas-call-center', 'proposta')->name('propostas');
     });
 
 Route::prefix('api/call-center')->controller(LigacaoController::class)->group(function () {

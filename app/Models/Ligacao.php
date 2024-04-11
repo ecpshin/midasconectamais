@@ -34,9 +34,9 @@ class Ligacao extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function status(): BelongsTo
+    public function situacao(): BelongsTo
     {
-        return $this->belongsTo(Status::class);
+        return $this->belongsTo(Status::class, 'status_id', 'id');
     }
 
     protected $casts = [

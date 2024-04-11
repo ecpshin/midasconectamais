@@ -76,7 +76,7 @@
                             <select name="status_id" id="mstatus_id" required
                                 class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                                 @foreach ($statuses as $status)
-                                    <option value="{{ $status->id }}">{{ $status->status }}</option>
+                                    <option value="{{ $status->id }}">{{ $status->status_description }}</option>
                                 @endforeach
                             </select>
                         </div>

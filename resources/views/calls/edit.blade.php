@@ -26,7 +26,7 @@
                                     <option value="1">Selecione</option>
                                     @foreach ($statuses as $status)
                                         <option value="{{ $status->id }}" @if ($call->status->id == $status->id) selected @endif>
-                                            {{ $status->status }}
+                                            {{ $status->status_description }}
                                         </option>
                                     @endforeach
                                 </select>
