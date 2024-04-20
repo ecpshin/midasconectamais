@@ -11,19 +11,18 @@
                         <div class="row">
                             <div class="col-lg-3 form-group mb-3">
                                 <label class="text-xs font-semibold" for="data_ligacao">Ligação</label>
-                                <input type="date" name="data_ligacao" id="data_ligacao" value="{{ $call->data_ligacao }}"
+                                <input type="date" name="data_ligacao" id="data_ligacao" value="{{ $call->data_ligacao ?? date('Y-m-d') }}"
                                     class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                             </div>
                             <div class="col-lg-3 form-group mb-3">
                                 <label class="text-xs font-semibold" for="agendado">Agendamento</label>
-                                <input type="date" name="agendado" id="data_agendado" value="{{ $call->data_agendamento }}"
+                                <input type="date" name="agendado" id="data_agendado" value="{{ $call->data_agendamento ?? date('Y-m-d') }}"
                                     class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                             </div>
                             <div class="col-lg-3 form-group mb-3">
                                 <label class="text-xs font-semibold" for="status_id">Status</label>
                                 <select name="status_id" id="status_id" required
                                     class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
-                                    <option value="1">Selecione</option>
                                     @foreach ($statuses as $status)
                                         <option value="{{ $status->id }}" @if ($call->status->id == $status->id) selected @endif>
                                             {{ $status->status_description }}

@@ -35,7 +35,8 @@ Route::get('/', [AdminController::class, 'admin'])->middleware(['auth', 'verifie
 
 Route::get('admin', [AdminController::class, 'admin'])->middleware(['auth', 'verified'])->name('admin');
 
-Route::prefix('admin/agentes')->controller(UsersController::class)->name('admin.agentes.')
+Route::prefix('admin/agentes')->name('admin.agentes.')
+    ->controller(UsersController::class)
     ->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/registrar-usuario', 'create')->name('create');
@@ -218,6 +219,8 @@ Route::prefix('admin/call-center')->name('admin.calls.')
         Route::get('/agendados', 'agendados')->name('agendados');
         Route::post('/agendados', 'agendados')->name('lista-agendados');
 
+        Route::get('/ligacoes-operadores', 'gerenciar')->name('gerenciar');
+        Route::post('/ligacoes-operadores', 'filtrar')->name('filtrar');
         Route::get('/{ligacao}/propostas-call-center', 'proposta')->name('propostas');
     });
 

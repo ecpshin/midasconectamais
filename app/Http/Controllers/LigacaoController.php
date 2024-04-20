@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Filtros\FiltraLigacoesRequest;
 use App\Models\Correspondente;
 use App\Models\Financeira;
 use App\Models\Ligacao;
@@ -10,6 +11,7 @@ use App\Models\Organizacao;
 use App\Models\Situacao;
 use App\Models\Status;
 use App\Models\Tabela;
+use App\Models\User;
 use App\Services\LigacoesService;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -36,15 +38,16 @@ class LigacaoController extends Controller
         $calls = [];
 
         if (auth()->user()->hasRole('super-admin')) {
-            $calls = Ligacao::with(['situacao'])->whereNotNull('user_id')->limit(100)->get();
+            $calls = Ligacao::whereNotNull('user_id')->get();
         } else {
-            $calls = Ligacao::with(['situacao'])->where('user_id', auth()->user()->id)->get();
+            $calls = Ligacao::where('user_id', auth()->user()->id)->limit(100)->get();
         }
         return view('calls.index', [
             'area' => 'Call Center',
             'page' => 'Lista de Ligações',
             'rota' => 'admin.calls.index',
             'calls' => $calls,
+            "users" => User::all(),
             'statuses' => Status::all()
         ]);
     }
@@ -103,9 +106,7 @@ class LigacaoController extends Controller
 
     public function prefeituras()
     {
-        $lista = Ligacao::whereNull('user_id')->where(function ($query) {
-            return $query->where('orgao', 'LIKE', 'Prefeitura%')->orWhere('orgao', 'LIKE', 'pref%');
-        })->lazy(1000);
+        $lista = $this->service->getListaPrefeitura();
         return view('calls.prefeituras', [
             'area' => 'Call Center',
             'page' => 'Lista de Prefeituras',
@@ -170,5 +171,40 @@ class LigacaoController extends Controller
             'calls' => $agendados,
             'statuses' => Status::all()
         ]);
+    }
+
+    public function gerenciar()
+    {
+        $calls = null;
+        $users = User::whereNotIn('id', [1, 2, 9])->get();
+
+        return view('calls.filtrar', [
+            'area' => 'Call Center',
+            'page' => 'Gerenciar Call Center',
+            'rota' => 'admin.calls.gerenciar',
+            'calls' => $calls,
+            'statuses' => Status::all(),
+            'users' => $users
+        ]);
+    }
+    public function filtrar(FiltraLigacoesRequest $request)
+    {
+        $attributes = $request->validated();
+        $calls = [];
+        $users = User::whereNotIn('id', [1, 2, 9])->get();
+        if (!is_null($request->input('inicio'))) {
+            $calls = $this->service->ligacoesAgente($attributes['inicio'], $attributes['final'], $attributes['user_id']);
+
+            return view('calls.filtrar', [
+                'area' => 'Call Center',
+                'page' => 'Gerenciar Call Center',
+                'rota' => 'admin.calls.gerenciar',
+                'calls' => $calls,
+                'statuses' => Status::all(),
+                'users' => $users
+            ]);
+        }
+        Alert()::error('Ooops', 'Verifique os dados');
+        return redirect()->back();
     }
 }

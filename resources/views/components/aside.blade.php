@@ -234,10 +234,18 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @hasrole('super-admin')
+                            <li class="nav-item">
+                                <a href="{{ route('admin.calls.gerenciar') }}" class="nav-link">
+                                    <i class="bi bi-headset nav-icon"></i>
+                                    <p class="font-semibold text-yellow-600 hover:text-yellow-500">Gerenciar</p>
+                                </a>
+                            </li>
+                        @endhasrole
                         <li class="nav-item">
                             <a href="{{ route('admin.calls.index') }}" class="nav-link">
                                 <i class="bi bi-headset nav-icon"></i>
-                                <p class="font-semibold text-yellow-600 hover:text-yellow-500">Mailings</p>
+                                <p class="font-semibold text-yellow-600 hover:text-yellow-500">Geral</p>
                             </a>
                         </li>
                         <li class="nav-item">

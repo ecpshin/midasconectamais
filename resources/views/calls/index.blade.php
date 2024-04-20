@@ -38,9 +38,13 @@
                                         {{ $call->data_ligacao ? $call->data_ligacao->format('d/m/Y') : 'Não definida' }}
                                     </td>
                                     <td class="text-truncate px-2 py-2 capitalize">
-                                        {{ $call->user->data_agendamento ? $call->data_agendamento->format('d/m/Y') : 'Não definida' }}
+                                        @if (!is_null($call->data_agendamento))
+                                            {{ $call->data_agendamento->format('d/m/Y') }}
+                                        @else
+                                            Não definido
+                                        @endif
                                     </td>
-                                    <td class="text-truncate px-2 py-2 capitalize">{{ $call->situacao->status_description }}</td>
+                                    <td class="text-truncate px-2 py-2 capitalize">{{ $call->status->status_description ?? 'Nulo' }}</td>
                                     <td class="text-truncate px-2 py-2 capitalize">{{ $call->user->name ?? 'Naõ definido' }}</td>
                                     <td class="text-truncate px-2 py-2 capitalize">{{ $call->nome }}</td>
                                     <td class="text-truncate px-2 py-2 capitalize">{{ $call->cpf }}</td>
@@ -89,7 +93,7 @@
                                         class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                                         <option value="1">Selecione</option>
                                         @foreach ($statuses as $status)
-                                            <option value="{{ $status->id }}" @if($status->id == 1) selected @endif>{{ $status->status_description }}</option>
+                                            <option value="{{ $status->id }}" @if ($status->id == 1) selected @endif>{{ $status->status_description }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -102,7 +106,7 @@
                                 </div>
                                 <div class="col-lg-4 form-group mb-3">
                                     <label class="text-xs font-semibold" for="cpf">CPF</label>
-                                    <input type="text" name="cpf" id="modal-cpf"
+                                    <input type="text" name="cpf" id="cpf"
                                         class="cpf w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                                 </div>
                             </div>

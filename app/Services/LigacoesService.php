@@ -18,16 +18,17 @@ class LigacoesService
 
     public function getListaPrefeitura($user = null): Collection
     {
-        $collection = Ligacao::where('orgao', 'LIKE', 'Pref%')->whereNull('user_id')->get();
+        $collection = Ligacao::where('orgao', 'LIKE', 'Pref%')
+            ->whereNull('user_id')
+            ->orWhere('user_id', $user)->get();
         return $collection->random(100);
     }
 
-    public function ligacoesAgente($data = null, $user = null): Collection
+    public function ligacoesAgente($inicio = null, $fim = null, $user = null): Collection
     {
-
-        if (!is_null($data) && !is_null($user)) {
-            return Ligacao::where('user_id', $user)->where('data_ligacao')->get();
-        }
-        return Ligacao::whereMonth('data_ligacao', date('Y-m-d'))->where('user_id', $user)->get();
+        return Ligacao::where('user_id', $user)
+            ->where(function ($query) use ($inicio, $fim){
+                $query->whereDate('data_ligacao', '>=', $inicio)
+                ->orWhereDate('data_ligacao', '<=', $fim);})->get();
     }
 }
