@@ -17,7 +17,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(5);
+        $users = User::all();
         return view('admin.agentes.index', [
             'area' => 'Administração',
             'page' => 'Agentes',

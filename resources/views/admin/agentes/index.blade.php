@@ -7,8 +7,8 @@
         <div class="mx-auto w-full sm:px-4 lg:px-6">
             <div class="mt-3 max-w-7xl overflow-x-scroll rounded-lg bg-white px-5 py-5 shadow-xl shadow-yellow-900">
                 <h1 class="m-3 rounded-full py-2 text-center text-lg text-slate-700">Lista de Usuários</h1>
-                <table class="w-100 bg-white">
-                    <thead class="bg-gray-800">
+                <table class="w-100" id="listas">
+                    <thead class="bg-gradient-to-b from-gray-900 via-slate-500 to-slate-900">
                         <tr>
                             <th class="px-3 py-2 text-xs font-semibold text-slate-50">#</th>
                             <th class="px-3 py-2 text-xs font-semibold text-slate-50">Nome</th>
@@ -27,7 +27,14 @@
                                     <td class="py-2 pl-2 text-xs">{{ $agente->id }}</td>
                                     <td class="py-2 pl-2 text-xs">{{ $agente->name }}</td>
                                     <td class="py-2 pl-2 text-xs">{{ $agente->email }}</td>
-                                    <td class="py-2 pl-2 text-xs">{{ $agente->data_nascimento->format('d/m/Y') }}</td>
+                                    <td class="py-2 pl-2 text-xs">
+                                        @if (!is_null($agente->data_nascimento))
+                                            {{ $agente->data_nascimento->format('d/m/Y') }}
+                                        @else
+                                            Não informado
+                                        @endif
+                                    </td>
+                                    </td>
                                     <td class="py-2 pl-2 text-xs">{{ $agente->phone }}</td>
                                     <td class="py-2 pl-2 text-xs">{{ $agente->banco }}</td>
                                     <td class="py-2 pl-2 text-xs">{{ $agente->chave_pix }}</td>
@@ -42,7 +49,6 @@
                         @endforelse
                     </tbody>
                 </table>
-                {{ $agentes->links() }}
             </div>
         </div>
     </div>

@@ -224,10 +224,6 @@ Route::prefix('admin/call-center')->name('admin.calls.')
         Route::get('/{ligacao}/propostas-call-center', 'proposta')->name('propostas');
     });
 
-Route::prefix('api/call-center')->controller(LigacaoController::class)->group(function () {
-    Route::get('/{id}/cliente', 'getcliente')->name('api.call-center');
-    Route::patch('/{id}/cliente', 'clienteupdate')->name('api.call-center.update');
-});
 
 /*Route::get('/dashboard', function () {
     return view('dashboard');
