@@ -11,7 +11,7 @@
                         <div class="row">
                             <div class="col-lg-3 form-group mb-3">
                                 <label class="text-xs font-semibold" for="data_ligacao">Cantato</label>
-                                <input type="date" name="data_ligacao" id="data_ligacao" value="{{ old('data_ligaca') ?? date('Y-m-d') }}"
+                                <input type="date" name="data_ligacao" id="data_ligacao" value="{{ old('data_ligacao') ?? date('Y-m-d') }}"
                                     class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                             </div>
                             <div class="col-lg-3 form-group mb-3">
@@ -25,7 +25,7 @@
                                     class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                                     <option value="1">Selecione</option>
                                     @foreach ($statuses as $status)
-                                        <option value="{{ $status->id }}">{{ $status->status }}</option>
+                                        <option value="{{ $status->id }}">{{ $status->status_description }}</option>
                                     @endforeach
                                 </select>
                             </div>

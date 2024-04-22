@@ -61,13 +61,25 @@ function modalLista(id) {
     const callUrl = $(`#call_${id}`).data("url");
     const updateUrl = $(`#call_${id}`).data("update");
     $.get(callUrl, function (data) {
-        const dados = JSON.parse(data);
-
+        const dados = data.data;
+        console.log(dados);
+        const dataAtual = new Date()
+            .toISOString()
+            .slice(0, 10)
+            .split("/")
+            .reverse()
+            .join("-");
         $("mcall_id").val(dados.id);
-        $("#muser_id").val(dados.user_id);
+        if (dados.user_id !== null) {
+            $("#muser_id").val(dados.user_id);
+        }
         $("#mstatus_id").val(dados.status_id);
-        $("#mdata_ligacao").val(dados.data_ligacao);
-        $("#mdata_agendamento").val(dados.data_agendamento);
+        $("#mdata_ligacao").val(
+            dados.data_ligacao != null ? dados.data_ligacao : dataAtual
+        );
+        $("#mdata_agendamento").val(
+            dados.data_agendamento != null ? dados.data_agendamento : dataAtual
+        );
         $("#mnome").val(dados.nome);
         $("#mcpf").val(dados.cpf);
         $("#mmatricula").val(dados.matricula);

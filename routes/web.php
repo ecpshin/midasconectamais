@@ -35,7 +35,8 @@ Route::get('/', [AdminController::class, 'admin'])->middleware(['auth', 'verifie
 
 Route::get('admin', [AdminController::class, 'admin'])->middleware(['auth', 'verified'])->name('admin');
 
-Route::prefix('admin/agentes')->controller(UsersController::class)->name('admin.agentes.')
+Route::prefix('admin/agentes')->name('admin.agentes.')
+    ->controller(UsersController::class)
     ->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/registrar-usuario', 'create')->name('create');
@@ -213,17 +214,16 @@ Route::prefix('admin/call-center')->name('admin.calls.')
         Route::delete('/{ligacao}/excluir-ligacao', 'destroy')->name('destroy');
         Route::get('/{ligacao}/exibir-ligacao', 'show')->name('show');
 
-        Route::get('/propostas', 'proposta')->name('proposta');
         Route::get('/prefeituras', 'prefeituras')->name('prefeituras');
         Route::get('/governos', 'governos')->name('governos');
         Route::get('/agendados', 'agendados')->name('agendados');
         Route::post('/agendados', 'agendados')->name('lista-agendados');
+
+        Route::get('/ligacoes-operadores', 'gerenciar')->name('gerenciar');
+        Route::post('/ligacoes-operadores', 'filtrar')->name('filtrar');
+        Route::get('/{ligacao}/propostas-call-center', 'proposta')->name('propostas');
     });
 
-Route::prefix('api/call-center')->controller(LigacaoController::class)->group(function () {
-    Route::get('/{id}/cliente', 'getcliente')->name('api.call-center');
-    Route::patch('/{id}/cliente', 'clienteupdate')->name('api.call-center.update');
-});
 
 /*Route::get('/dashboard', function () {
     return view('dashboard');

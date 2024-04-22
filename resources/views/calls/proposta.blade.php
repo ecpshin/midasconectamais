@@ -7,7 +7,7 @@
             <form action="{{ route('admin.propostas.store') }}" method="post">
                 @csrf
                 <fieldset x-show="true" title="Dados pessoais" class="mb-3 flex flex-col gap-2 rounded-lg p-4 outline outline-1 outline-slate-500">
-                    <h3 class="rounded bg-slate-900 py-2 text-center text-lg text-slate-50">Dados Pessoais</h3>
+                    <h3 class="rounded-lg bg-gradient-to-b from-gray-900 via-slate-500 to-slate-900 py-2 text-center text-lg text-slate-50">Dados Pessoais</h3>
                     <div class="row mx-3 justify-between px-3 py-2">
                         <div class="col-lg-6 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="nome">Nome Completo</label>
@@ -90,8 +90,49 @@
                         </div>
                     </div>
                 </fieldset>
+                {{-- InfoResidenciais --}}
+                <fieldset title="Informações Residenciais" class="mb-4 flex flex-col gap-2 rounded-lg p-4 outline outline-1 outline-slate-500">
+                    <h3 class="rounded-lg bg-gradient-to-b from-gray-900 via-slate-500 to-slate-900 py-2 text-center text-lg text-slate-50">Dados Residenciais</h3>
+                    <div class="row mx-3 mt-2 justify-between">
+                        <div class="col-lg-2 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="buscaCep">CEP</label>
+                            <input type="search" name="cep" id="buscaCep" value="{{ old('cep') }}" size="10" maxlength="8"
+                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
+                                placeholder="59000000">
+                        </div>
+                        <div class="col-lg-6 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="logradouro">Endereço, nº</label>
+                            <input type="text" name="logradouro" id="logradouro" value="{{ old('logradouro') }}"
+                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
+                                placeholder="Rua Tabajara, 10">
+                        </div>
+                        <div class="col-lg-4 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="complemento">Complemento</label>
+                            <input type="text" name="complemento" id="complemento" value="{{ old('complemento') }}"
+                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
+                                placeholder="Ex.: Condomínio das Acácias Bloco 2 Apto. 503 5º Andar">
+                        </div>
+                    </div>
+                    <div class="row mx-3 mt-2 justify-between">
+                        <div class="col-lg-5 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="bairro">Bairro</label>
+                            <input type="text" name="bairro" id="bairro" value="{{ old('bairro') }}"
+                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0" placeholder="Bairro">
+                        </div>
+                        <div class="col-lg-5 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="localidade">Cidade</label>
+                            <input type="text" name="localidade" id="localidade" value="{{ old('localidade') }}"
+                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0" placeholder="Cidade">
+                        </div>
+                        <div class="col-lg-2 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="uf">UF</label>
+                            <input type="text" name="uf" id="uf" value="{{ old('uf') }}"
+                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0" placeholder="RN">
+                        </div>
+                    </div>
+                </fieldset>
                 <fieldset title="Info Funcionais" class="mb-4 flex flex-col gap-0 rounded-lg p-4 outline outline-1 outline-slate-500">
-                    <h3 class="rounded-lg bg-slate-900 py-2 text-center text-lg text-slate-50">Dados Funcionais</h3>
+                    <h3 class="rounded-lg bg-gradient-to-b from-gray-900 via-slate-500 to-slate-900 py-2 text-center text-lg text-slate-50">Dados Funcionais</h3>
                     <div class="grid grid-cols-2 gap-3">
                         <div class="my-3 flex flex-col">
                             <label for="organizacao_id">Órgão</label>
@@ -146,7 +187,7 @@
                     </div>
                 </fieldset>
                 <fieldset class="mb-3 flex flex-col gap-2 rounded-lg p-4 outline outline-1 outline-slate-500">
-                    <h3 class="rounded-lg bg-slate-900 py-2 text-center text-lg text-slate-50">Dados da Proposta</h3>
+                    <h3 class="rounded-lg bg-gradient-to-b from-gray-900 via-slate-500 to-slate-900 py-2 text-center text-lg text-slate-50">Dados da Proposta</h3>
                     <div class="row mx-3 flex justify-between px-3 pb-3">
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500">Controle</label>

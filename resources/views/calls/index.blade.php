@@ -17,16 +17,17 @@
                         <caption class="caption-top">Call Center</caption>
                         <thead class="text-light bg-slate-700 font-bold">
                             <tr>
-                                <td class="py-2">#</td>
-                                <td class="py-2">Ligação</td>
-                                <td class="py-2">Agendado</td>
-                                <td class="py-2">Agente</td>
-                                <td class="py-2">Nome</td>
-                                <td class="py-2">CPF</td>
-                                <td class="py-2">Matrícula</td>
-                                <td class="py-2">Órgão</td>
-                                <td class="py-2">Produto</td>
-                                <td class="py-2">...</td>
+                                <th class="py-2">#</th>
+                                <th class="py-2">Ligação</th>
+                                <th class="py-2">Agendado</th>
+                                <th class="py-2">Status</th>
+                                <th class="py-2">Agente</th>
+                                <th class="py-2">Nome</th>
+                                <th class="py-2">CPF</th>
+                                <th class="py-2">Matrícula</th>
+                                <th class="py-2">Órgão</th>
+                                <th class="py-2">Produto</th>
+                                <th class="py-2">...</th>
                             </tr>
                         </thead>
                         <tbody class="text-sm">
@@ -37,8 +38,13 @@
                                         {{ $call->data_ligacao ? $call->data_ligacao->format('d/m/Y') : 'Não definida' }}
                                     </td>
                                     <td class="text-truncate px-2 py-2 capitalize">
-                                        {{ $call->user->data_agendamento ? $call->data_agendamento->format('d/m/Y') : 'Não definida' }}
+                                        @if (!is_null($call->data_agendamento))
+                                            {{ $call->data_agendamento->format('d/m/Y') }}
+                                        @else
+                                            Não definido
+                                        @endif
                                     </td>
+                                    <td class="text-truncate px-2 py-2 capitalize">{{ $call->status->status_description ?? 'Nulo' }}</td>
                                     <td class="text-truncate px-2 py-2 capitalize">{{ $call->user->name ?? 'Naõ definido' }}</td>
                                     <td class="text-truncate px-2 py-2 capitalize">{{ $call->nome }}</td>
                                     <td class="text-truncate px-2 py-2 capitalize">{{ $call->cpf }}</td>
@@ -48,8 +54,8 @@
                                     <td class="flex px-2 py-2">
                                         <a href="{{ route('admin.calls.edit', $call) }}"
                                             class="rounded-full bg-yellow-500 px-3 py-1 text-sm text-black hover:text-white">Editar</a>
-                                        <a href="{{ route('admin.calls.proposta', $call) }}"
-                                            class="rounded-full bg-yellow-500 px-3 py-1 text-sm text-black hover:text-white">Proposta</a>
+                                        <a href="{{ route('admin.calls.propostas', $call) }}"
+                                            class="rounded-full bg-sky-500 px-3 py-1 text-sm text-black hover:text-white">Proposta</a>
 
                                     </td>
                                 </tr>
@@ -73,12 +79,12 @@
                             <div class="row">
                                 <div class="col-lg-3 form-group mb-3">
                                     <label class="text-xs font-semibold" for="data_ligacao">Ligação</label>
-                                    <input type="date" name="data_ligacao" id="data_ligacao"
+                                    <input type="date" name="data_ligacao" id="data_ligacao" required value="{{ date('Y-m-d') }}"
                                         class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                                 </div>
                                 <div class="col-lg-3 form-group mb-3">
                                     <label class="text-xs font-semibold" for="agendado">Agendamento</label>
-                                    <input type="date" name="agendado" id="data_agendado"
+                                    <input type="date" name="data_agendamento" id="data_agendamento" value="{{ date('Y-m-d') }}"
                                         class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                                 </div>
                                 <div class="col-lg-3 form-group mb-3">
@@ -87,7 +93,7 @@
                                         class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                                         <option value="1">Selecione</option>
                                         @foreach ($statuses as $status)
-                                            <option value="{{ $status->id }}">{{ $status->status }}</option>
+                                            <option value="{{ $status->id }}" @if ($status->id == 1) selected @endif>{{ $status->status_description }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -100,7 +106,7 @@
                                 </div>
                                 <div class="col-lg-4 form-group mb-3">
                                     <label class="text-xs font-semibold" for="cpf">CPF</label>
-                                    <input type="text" name="cpf" id="modal-cpf"
+                                    <input type="text" name="cpf" id="cpf"
                                         class="cpf w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                                 </div>
                             </div>
@@ -125,12 +131,12 @@
                             <div class="row">
                                 <div class="form-group col-lg-3 mb-3">
                                     <label class="text-xs font-semibold" for="telefone">Telefone</label>
-                                    <input type="text" name="telefone" id="telefone"
+                                    <input type="text" name="telefone" id="telefone" value="(84)9 0000-0000"
                                         class="telefone w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
                                 </div>
                                 <div class="form-group col-lg-4 mb-3">
                                     <label class="text-xs font-semibold" for="produto">Produto</label>
-                                    <input type="text" name="produto" id="produto"
+                                    <input type="text" name="produto" id="produto" placeholder="Produto oferecido"
                                         class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
                                 </div>
                             </div>

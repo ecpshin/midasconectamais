@@ -10,10 +10,12 @@ class Status extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['status'];
+    protected $table ='statuses';
+
+    protected $fillable = ['status_description'];
 
     public function calls(): HasMany
     {
-        return $this->hasMany(Ligacao::class);
+        return $this->hasMany(Ligacao::class, 'status_id', 'id');
     }
 }

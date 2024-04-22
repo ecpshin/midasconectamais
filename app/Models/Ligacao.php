@@ -16,7 +16,6 @@ class Ligacao extends Model
     protected $fillable = [
         'user_id',
         'status_id',
-        'organizacao_id',
         'data_ligacao',
         'data_agendamento',
         'nome',
@@ -36,7 +35,7 @@ class Ligacao extends Model
 
     public function status(): BelongsTo
     {
-        return $this->belongsTo(Status::class);
+        return $this->belongsTo(Status::class, 'status_id', 'id');
     }
 
     protected $casts = [

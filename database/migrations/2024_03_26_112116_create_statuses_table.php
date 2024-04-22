@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('status', 50)->default('Sem definição');
+            $table->string('status_description', 50)->default('Sem definição');
             $table->timestamps();
         });
     }

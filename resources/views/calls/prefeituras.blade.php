@@ -8,7 +8,7 @@
                 <div class="w-100 flex flex-col items-start overflow-x-scroll px-5 py-4">
                     <table class="table-auto" id="listas" style="width: 100%;">
                         <caption class="caption-top">Mailing para campanha de telemarketing</caption>
-                        <thead class="text-light bg-red-700 font-bold">
+                        <thead class="text-light bg-gradient-to-b from-gray-900 via-slate-600 to-slate-900 font-bold">
                             <td class="py-2">
                             </td>
                             <td class="py-2">
@@ -23,13 +23,13 @@
                         </thead>
                         <tbody class="text-sm">
                             @foreach ($listas as $lista)
-                                <tr class="bg-gray-200 even:bg-slate-50 hover:bg-red-400 hover:bg-opacity-20">
+                                <tr class="odd:bg-gray-200 even:bg-slate-50 hover:bg-emerald-500 hover:bg-opacity-20">
                                     <td class="text-truncate px-3 py-2">
                                         <a id="call_{{ $lista->id }}" href="javascript:void(0)" onclick="modalLista('{{ $lista->id }}')"
-                                            data-url="{{ route('api.call-center', $lista->id) }}" data-update="{{ route('admin.calls.update', $lista->id) }}" data-bs-toggle="modal"
+                                            data-url="{{ route('api.cliente', $lista->id) }}" data-update="{{ route('admin.calls.update', $lista->id) }}" data-bs-toggle="modal"
                                             data-bs-target="#modalLigacao"
-                                            class="lista-show rounded-full bg-blue-700 px-2 py-1 text-[10px] font-semibold text-[#ffffff] transition delay-200 ease-in-out hover:scale-110 hover:bg-lime-300 hover:text-[11px] hover:text-gray-600">
-                                            Atender
+                                            class="lista-show rounded-full bg-gradient-to-b from-blue-900 to-blue-700 px-3 py-1 text-[12px] font-semibold text-[#ffffff] transition delay-200 ease-in-out hover:scale-110 hover:bg-gradient-to-b hover:from-emerald-950 hover:to-emerald-600 hover:text-[14px] hover:text-gray-50">
+                                            Ligar
                                         </a>
                                     </td>
                                     <td class="text-truncate px-2 py-2 capitalize">
@@ -53,8 +53,9 @@
 <div class="modal fade text-stone-700" id="modalLigacao" tabindex="-1" aria-labelledby="modaLigacaoLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title fs-5 text-slate-700" aria-label="modalLigacaoLabel">Call Center</h5>
+            <div class="modal-header rounded-lg bg-gradient-to-b from-gray-900 via-slate-500 to-slate-900">
+                <h5 class="w-100 modal-title text-center text-gray-50" aria-label="modalLigacaoLabel">
+                    {{ $area . ' | Prefeituras' }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -76,7 +77,7 @@
                             <select name="status_id" id="mstatus_id" required
                                 class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                                 @foreach ($statuses as $status)
-                                    <option value="{{ $status->id }}">{{ $status->status }}</option>
+                                    <option value="{{ $status->id }}">{{ $status->status_description }}</option>
                                 @endforeach
                             </select>
                         </div>

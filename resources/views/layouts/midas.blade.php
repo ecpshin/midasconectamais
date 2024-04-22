@@ -18,7 +18,7 @@
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('build/assets/app-cb41d22e.css') }}">
-        <link rel="stylesheet" href="{{ asset('build/assets/tailwindcss-6bc83a36.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/assets/tailwindcss-7d2e1f03.css') }}">
 
         @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/tailwindcss.css'])
         <!-- Theme style -->
