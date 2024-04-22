@@ -159,11 +159,14 @@ class LigacaoController extends Controller
 
     public function agendados(Request $request)
     {
+        $agendados = [];
         if ($request->input('data_agendamento')) {
-            $agendados = Ligacao::where('user_id', auth()->user()->id)->whereDate('data_agendamento', $request->input('data_agendamento'))->get();
-        } else {
-            $agendados = null;
+            $agendados = $this->service->getListaAgendados(
+                auth()->user()->id,
+                $request->input('data_agendamento')
+            );
         }
+
         return view('calls.agendados', [
             'area' => 'Call Center - Agendados',
             'page' => 'Clientes Agendados',

@@ -23,6 +23,22 @@ class LigacoesService
         return $collection->random(100);
     }
 
+    public function getListaAgendados($user = null, $data = null): Collection
+    {
+        $collection = [];
+
+        if (!is_null($data)) {
+            $collection = Ligacao::where('user_id', $user)
+                ->where('data_agendamento', $data)
+                ->get();
+        } else {
+            $collection = Ligacao::where('user_id', $user)
+                ->whereNotNull('data_agendamento')
+                ->get();
+        }
+        return $collection;
+    }
+
     public function ligacoesAgente($inicio = null, $fim = null, $user = null): Collection
     {
         return Ligacao::where('user_id', $user)
