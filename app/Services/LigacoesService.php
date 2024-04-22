@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Ligacao;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
 class LigacoesService
@@ -18,17 +17,18 @@ class LigacoesService
 
     public function getListaPrefeitura($user = null): Collection
     {
-        $collection = Ligacao::where('orgao', 'LIKE', 'Pref%')
-            ->whereNull('user_id')
-            ->orWhere('user_id', $user)->get();
+        $collection = Ligacao::where('user_id', $user)->where(function ($query) {
+            $query->where('orgao', 'LIKE', 'Pref%')->whereNot('orgao', 'LIKE', '%GOVERNO%');
+        })->whereNull('user_id')->get();
         return $collection->random(100);
     }
 
     public function ligacoesAgente($inicio = null, $fim = null, $user = null): Collection
     {
         return Ligacao::where('user_id', $user)
-            ->where(function ($query) use ($inicio, $fim){
+            ->where(function ($query) use ($inicio, $fim) {
                 $query->whereDate('data_ligacao', '>=', $inicio)
-                ->orWhereDate('data_ligacao', '<=', $fim);})->get();
+                    ->whereDate('data_ligacao', '<=', $fim);
+            })->get();
     }
 }
