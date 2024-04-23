@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Tabelas\StoreTabelaRequest;
 use App\Models\Correspondente;
 use App\Models\Financeira;
+use App\Models\Produto;
 use App\Models\Tabela;
 use Illuminate\Http\Request;
 use Number;
@@ -76,8 +77,10 @@ class TabelaController extends Controller
             'area' => 'Restrita',
             'page' => 'Exibindo Tabela de Comissão',
             'rota' => 'admin.tabela.comissoes.index',
+            'tabela' => $tabela,
             'correspondentes' => Correspondente::all(['id', 'nome_correspondente']),
             'financeiras' => Financeira::all(['id', 'nome_financeira']),
+            'produtos' => Produto::all(),
             'fmt' => $this->fmt
         ]);
     }

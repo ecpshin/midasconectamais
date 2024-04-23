@@ -65,9 +65,20 @@ class ComissaoController extends Controller
         //
     }
 
-    public function show(string $id)
+    public function show(Comissao $comissao)
     {
         //
+        return view('admin.comissoes.edit', [
+            'area' => $this->getarea(),
+            'page' => $this->getpage('Cadastradas'),
+            'rota' => $this->getrota(),
+            'correspondentes' => Correspondente::all(),
+            'financeiras' => Financeira::all(),
+            'comissao' => $comissao,
+            'produtos' => Produto::all(),
+            'situacoes' => Situacao::all(),
+            'tabelas' => Tabela::with(['correspondente', 'financeira', 'produto'])->get()
+        ]);
     }
 
     public function edit(Comissao $comissao)

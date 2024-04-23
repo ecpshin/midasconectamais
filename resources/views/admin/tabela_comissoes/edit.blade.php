@@ -20,7 +20,19 @@
                         <div class="flex flex-col">
                             <label for="financeira_id" class="text-black">Financeira</label>
                             <select type="text" name="financeira_id" id="financeira_id" required
-                                class="rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
+                                class="select2 rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
+                                @foreach ($produtos as $produto)
+                                    <option value="{{ $produto->id }}" @if ($produto->id == $tabela->produto->id) selected @endif>{{ $produto->descricao_produto }}</option>
+                                @endforeach
+                            </select>
+                            @error('financeira_id')
+                                <span class="text-nowrap mb-3 mt-3 rounded-full bg-red-400 px-2 py-2 text-center text-sm text-white">{{ $message }}. Tecle [F5]</span>
+                            @enderror
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="financeira_id" class="text-black">Financeira</label>
+                            <select type="text" name="financeira_id" id="financeira_id" required
+                                class="seelct2 rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
                                 @foreach ($financeiras as $fin)
                                     <option value="{{ $fin->id }}" @if ($fin->id == $tabela->financeira->financeira_id) selected @endif>{{ $fin->nome_financeira }}</option>
                                 @endforeach
@@ -43,8 +55,8 @@
                         </div>
                         <div class="flex flex-col">
                             <label for="percentual" class="text-black">Percentual</label>
-                            <input type="number" name="percentual" id="percentual" value="{{ $fmt->format($tabela->percentual, 3) }}" min="0.000" max="100.000" step="0.001"
-                                class="percentual rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
+                            <input type="number" name="percentual" id="percentual" value="{{ $fmt->format($tabela->percentual_loja, 2) }}" min="0.000" max="100.000"
+                                step="0.001" class="percentual rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
                             @error('percentual')
                                 <span class="text-nowrap mb-3 mt-3 rounded-full bg-red-400 px-2 py-2 text-center text-sm text-white">{{ $message }}. Tecle [F5]</span>
                             @enderror

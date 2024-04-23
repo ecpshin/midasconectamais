@@ -7,38 +7,40 @@
         <div class="mx-auto w-full sm:px-4 lg:px-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-4 text-gray-900">
-                    <div class="rounded-lg bg-white px-8 py-6">
+                    <div class="overflow-x-auto rounded-lg bg-white px-8 py-6">
                         <a href="{{ route('admin.tabela.comissoes.create') }}"
                             class="rounded-md bg-emerald-900 px-3 py-2 text-white shadow-md shadow-emerald-950 hover:bg-emerald-600">Adicionar</a>
-                        <table class="my-8 w-full whitespace-nowrap" id="tabela">
-                            <thead class="bg-red-700 font-bold text-slate-100">
+                        <table class="my-8 w-full whitespace-nowrap text-xs" id="tabela">
+                            <thead class="bg-gradient-to-b from-slate-950 via-slate-600 to-slate-800 font-bold text-slate-100">
                                 <tr>
                                     <td class="py-2">ID</td>
                                     <td class="pl-2">Tabela</td>
+                                    <td class="pl-2">Código</td>
+                                    <td class="pl-2">Produto</td>
                                     <td class="pl-2">Financeira</td>
                                     <td class="pl-2">Correspondente</td>
-                                    <td class="pl-2">Percentual</td>
+                                    <td class="pl-2">% Loja</td>
+                                    <td class="pl-2">% Agente</td>
+                                    <td class="pl-2">% Corretor</td>
+                                    <td class="pl-2">Gera Parcela</td>
+                                    <td class="pl-2">Referência de Cálculo</td>
                                     <td class="pl-2"></td>
                                 </tr>
                             </thead>
-                            <tbody class="text-sm">
+                            <tbody class="text-xs font-semibold">
                                 @forelse ($tabelas ?? [] as $tabela)
                                     <tr class="bg-gray-200 transition duration-200 even:bg-slate-50 hover:bg-red-400 hover:bg-opacity-20">
-                                        <td class="pl-2">
-                                            {{ $tabela->id }}
-                                        </td>
-                                        <td class="pl-2 capitalize">
-                                            {{ $tabela->descricao }}
-                                        </td>
-                                        <td class="pl-2 capitalize">
-                                            {{ $tabela->financeira->nome_financeira }}
-                                        </td>
-                                        <td class="pl-2 capitalize">
-                                            {{ $tabela->correspondente->nome_correspondente }}
-                                        </td>
-                                        <td class="pl-2 capitalize">
-                                            {{ $fmt->percentage($tabela->percentual, 3, 3, 'pt-BR') }}
-                                        </td>
+                                        <td class="pl-2">{{ $tabela->id }}</td>
+                                        <td class="pl-2 capitalize">{{ $tabela->descricao }}</td>
+                                        <td class="pl-2 capitalize">{{ $tabela->codigo }}</td>
+                                        <td class="pl-2 capitalize">{{ $tabela->produto->descricao_produto }}</td>
+                                        <td class="pl-2 capitalize">{{ $tabela->financeira->nome_financeira }}</td>
+                                        <td class="pl-2 capitalize">{{ $tabela->correspondente->nome_correspondente }}</td>
+                                        <td class="pl-2 capitalize">{{ $fmt->percentage($tabela->percentual_loja, 3, 2, 'pt-BR') }}</td>
+                                        <td class="pl-2 capitalize">{{ $fmt->percentage($tabela->percentual_agente, 3, 2, 'pt-BR') }}</td>
+                                        <td class="pl-2 capitalize">{{ $fmt->percentage($tabela->percentual_corretor, 3, 2, 'pt-BR') }}</td>
+                                        <td class="pl-2 capitalize">{{ $tabela->parcelado == 1 ? 'Sim' : 'Não' }}</td>
+                                        <td class="pl-2 capitalize">BL</td>
                                         <td class="flex items-center space-x-1 py-1 pl-2">
                                             <a href="{{ route('admin.tabela.comissoes.show', $tabela) }}"
                                                 class="rounded-md bg-sky-800 px-2 py-2 shadow-md shadow-slate-500 hover:bg-sky-500">
