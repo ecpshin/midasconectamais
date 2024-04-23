@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('comissoes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('proposta_id')->constrained('propostas', 'id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('proposta_id')->constrained('propostas', 'id');
             $table->foreignId('tabela_id')->constrained('tabelas', 'id')->default(1);
-            $table->date('data_repasse')->nullable();
-            $table->string('referencia_calculo', 50)->nullable()->default('Liquido');
             $table->decimal('percentual_loja', 20, 2)->nullable()->default(0.0);
-            $table->decimal('percentual_operador', 20, 2)->nullable()->default(0.0);
+            $table->decimal('percentual_agente', 20, 2)->nullable()->default(0.0);
+            $table->decimal('percentual_corretor', 20, 2)->nullable()->default(0.0);
             $table->decimal('valor_loja', 20, 2)->nullable()->default(0.0);
-            $table->decimal('valor_operador', 20, 2)->nullable()->default(0.0);
+            $table->decimal('valor_agente', 20, 2)->nullable()->default(0.0);
+            $table->decimal('valor_corretor', 20, 2)->nullable()->default(0.0);
             $table->boolean('is_pago')->nullable()->default(false);
             $table->timestamps();
         });

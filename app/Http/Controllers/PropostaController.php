@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePropostaRequest;
 use App\Models\Cliente;
 use App\Models\Correspondente;
 use App\Models\Financeira;
@@ -68,13 +69,14 @@ class PropostaController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StorePropostaRequest $request)
     {
-        $request['user_id'] = $request->user()->id;
-        $proposta = Proposta::create($request->all());
+        $attributes = $request->validated();
+        $attributes['user_id'] = auth()->user()->id;
+        $proposta = Proposta::create($attributes);
 
         if ($proposta instanceof Proposta) {
-            $proposta->comissao()->create($request->all());
+            $com = $proposta->comissao()->create($request->all());
             alert()->success('Sucesso', 'Lançamento de proposta realizado com sucesso.');
             return redirect(route('admin.propostas.index'));
         }

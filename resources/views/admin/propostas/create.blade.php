@@ -50,37 +50,37 @@
                         </div>
                     </div>
                     <div class="mx-3 flex flex-row px-3 pb-3">
-                        <div class="col-lg-4 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500">Tabela</label>
-                            <input type="text" name="tabela_comissao" value="{{ old('tabela_comissao') }}"
-                                class="rounded-lg border-gray-300 bg-white py-1 focus:border-gray-300 focus:outline-none focus:ring-0" id="tabela_comissao">
-                        </div>
                         <div class="col-lg-1 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="prazo">Prazo</label>
-                            <input type="number" name="prazo_proposta"
-                                class="rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="prazo">
+                            <input type="number" name="prazo_proposta" min="0" max="999" step="1"
+                                class="rounded border-gray-300 bg-white py-1 text-right
+                                focus:border-gray-300 focus:outline-none focus:ring-0" id="prazo">
                         </div>
                         <div class="col-lg-2 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="total_proposta">Total</label>
-                            <input type="text" name="total_proposta"
-                                class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="total_proposta">
+                            <input type="number" name="total_proposta" min="0.00" max="999999999.99" step="0.01"
+                                class="valor rounded border-gray-300 bg-white py-1 text-right
+                                focus:border-gray-300 focus:outline-none focus:ring-0" id="total_proposta">
                         </div>
                         <div class="col-lg-2 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="parcela_proposta">Parcela</label>
-                            <input type="text" name="parcela_proposta"
-                                class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="parcela_proposta">
+                            <input type="number" name="parcela_proposta" min="0.00" max="999999999.99" step="0.01"
+                                class="valor rounded border-gray-300 bg-white py-1 text-right
+                                focus:border-gray-300 focus:outline-none focus:ring-0" id="parcela_proposta">
                         </div>
                         <div class="col-lg-2 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="liquido_proposta">Líquido</label>
-                            <input type="text" name="liquido_proposta"
-                                class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="liquido_proposta">
+                            <input type="number" name="liquido_proposta" min="0.00" max="999999999.99" step="0.01"
+                                class="valor rounded border-gray-300 bg-white py-1 text-right
+                                    focus:border-gray-300 focus:outline-none focus:ring-0" id="liquido_proposta">
                         </div>
                     </div>
                     <div class="row mx-3 justify-between px-3 pb-3">
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="operacao_id">Produtos</label>
                             <select name="produto_id" id="produto_id"
-                                class="select2 rounded border-gray-300 py-1 text-sm text-black focus:border-gray-300 focus:outline-none focus:ring-0">
+                                class="select2 rounded border-gray-300 py-1 text-sm text-black
+                                    focus:border-gray-300 focus:outline-none focus:ring-0">
                                 @forelse ($produtos as $produto)
                                     <option value="{{ $produto->id }}">{{ $produto->descricao_produto }}</option>
                                 @empty
@@ -91,7 +91,8 @@
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="situacao_id">Situação</label>
                             <select name="situacao_id" id="situacao_id"
-                                class="select2 rounded border-gray-300 py-1 text-base focus:border-gray-300 focus:outline-none focus:ring-0">
+                                class="select2 rounded border-gray-300 py-1 text-base
+                                    focus:border-gray-300 focus:outline-none focus:ring-0">
                                 @forelse ($situacoes as $situacao)
                                     <option value="{{ $situacao->id }}">{{ $situacao->descricao_situacao }}</option>
                                 @empty
@@ -101,7 +102,8 @@
                         </div>
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="financeira_id">Financeiras</label>
-                            <select name="financeira_id" id="financeira_id" class="select2 border-gray-300 py-1 text-base focus:border-gray-300 focus:outline-none focus:ring-0">
+                            <select name="financeira_id" id="financeira_id" class="select2 border-gray-300 py-1 text-base
+                                focus:border-gray-300 focus:outline-none focus:ring-0">
                                 @forelse ($financeiras as $fin)
                                     <option value="{{ $fin->id }}">{{ $fin->nome_financeira }}</option>
                                 @empty
@@ -112,7 +114,8 @@
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="correspondente_id">Correspondente</label>
                             <select name="correspondente_id" id="correspondente_id" onchange="carrega(this)"
-                                class="select2 border-gray-300 py-1 text-base focus:border-gray-300 focus:outline-none focus:ring-0">
+                                class="select2 border-gray-300 py-1 text-base
+                                    focus:border-gray-300 focus:outline-none focus:ring-0">
                                 @forelse ($correspondentes as $corr)
                                     <option value="{{ $corr->id }}" class="{{ $corr->percentual_comissao }}">
                                         {{ $corr->nome_correspondente }}</option>
@@ -126,7 +129,8 @@
                             <div class="col-lg-4 mb-2 flex flex-col">
                                 <label class="text-sm text-slate-500" for="tabela_id">Tabela</label>
                                 <select name="tabela_id" id="tabela_id" data-url="{{ route('admin.tabelas.search', 0) }}"
-                                    class="select2 select2-blue rounded border-gray-300 py-1 text-sm focus:border-gray-300 focus:outline-none focus:ring-0">
+                                    class="select2 select2-blue rounded border-gray-300 py-1 text-sm
+                                        focus:border-gray-300 focus:outline-none focus:ring-0">
                                     @forelse ($tabelas as $tabela)
                                         <option value="{{ $tabela->id }}">{{ $tabela->descricao }}</option>
                                     @empty
@@ -139,37 +143,44 @@
                         <div class="flex flex-col col-lg-4 gap-3 px-5 py-3">
                             <div class="flex flex-col ">
                                 <label class="text-sm text-slate-500">% Loja</label>
-                                <input type="number" name="percentual_loja" value="{{ old('percentual_loja') ?? '000' }}"
-                                    class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="percentual_loja">
+                                <input type="number" name="percentual_loja" value="{{ old('percentual_loja', '000') }}" min="0.00" max="100.00" step="0.01"
+                                    class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300
+                                        focus:outline-none focus:ring-0" id="percentual_loja">
                             </div>
                             <div class="flex flex-col">
-                                <label class="text-sm text-slate-500">Loja R$</label>
-                                <input type="number" name="valor_loja" value="{{ old('valor_loja') ?? '000' }}"
-                                    class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="valor_loja">
+                                <label class="text-sm text-slate-500">Valor Loja</label>
+                                <input type="number" name="valor_loja" value="{{ old('valor_loja', '000') }}" min="0.00" max="999999.99" step="0.01"
+                                    class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300
+                                        focus:outline-none focus:ring-0" id="valor_loja">
                             </div>
                         </div>
                         <div class="flex flex-col col-lg-4 gap-3 px-5 py-3">
                             <div class="flex flex-col">
                                 <label class="text-sm text-slate-500">% Agente</label>
-                                <input type="number" name="percentual_agente" value="{{ old('percentual_agente') ?? '000' }}"
-                                       class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="percentual_agente">
+                                <input type="number" name="percentual_agente" value="{{ old('percentual_agente', '000') }}" min="0.00" max="100.00" step="0.01"
+                                       class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300
+                                       focus:outline-none focus:ring-0" id="percentual_agente">
                             </div>
                             <div class="flex flex-col">
-                                <label class="text-sm text-slate-500">Agente R$</label>
-                                <input type="number" name="valor_agente" value="{{ old('valor_agente') ?? '000' }}"
-                                       class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="valor_agente">
+                                <label class="text-sm text-slate-500">Valor Agente</label>
+                                <input type="number" name="valor_agente" value="{{ old('valor_agente', '000') }}" min="0.00" max="999999.99" step="0.01"
+                                       class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300
+                                       focus:outline-none focus:ring-0" id="valor_agente">
                             </div>
                         </div>
                         <div class="flex flex-col col-lg-4 gap-3 px-5 py-3">
                             <div class="flex flex-col">
                                 <label class="text-sm text-slate-500">% Corretor</label>
-                                <input type="number" name="percentual_corretor" value="{{ old('percentual_corretor') ?? '000' }}"
-                                       class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="percentual_corretor">
+                                <input type="number" name="percentual_corretor"
+                                       value="{{ old('percentual_corretor', '000') }}" min="0.00" max="100.00" step="0.01"
+                                       class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300
+                                       focus:outline-none focus:ring-0" id="percentual_corretor">
                             </div>
                             <div class="flex flex-col">
-                                <label class="text-sm text-slate-500">Corretor R$</label>
-                                <input type="number" name="valor_corretor" value="{{ old('valor_corretor') ?? '000' }}"
-                                    class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="valor_corretor">
+                                <label class="text-sm text-slate-500">Valor Corretor</label>
+                                <input type="number" name="valor_corretor" value="{{ old('valor_corretor', '000') }}" min="0.00" max="999999.99" step="0.01"
+                                    class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300
+                                    focus:outline-none focus:ring-0" id="valor_corretor">
                             </div>
                         </div>
                     </div>

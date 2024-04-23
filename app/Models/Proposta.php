@@ -23,7 +23,7 @@ class Proposta extends Model
         'parcela_proposta',
         'liquido_proposta',
         'cliente_id',
-        'operacao_id',
+        'produto_id',
         'financeira_id',
         'correspondente_id',
         'situacao_id',

@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agente;
+use App\Models\Comissao;
+use App\Models\Correspondente;
+use App\Models\Financeira;
+use App\Models\Produto;
 use App\Models\Proposta;
+use App\Models\Situacao;
+use App\Models\Tabela;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -25,7 +31,7 @@ class ComissaoController extends Controller
 
         $mesAtual = $request->input('month') ? $request->input('month')  : date('m');
 
-        $propostas = Proposta::with(['cliente', 'comissao', 'correspondente', 'financeira', 'operacao', 'situacao', 'user'])
+        $propostas = Proposta::with(['cliente', 'comissao', 'correspondente', 'financeira', 'produto', 'situacao', 'user'])
             ->whereMonth('data_digitacao', $mesAtual)
             ->get();
         $all = $propostas->map(function ($proposta) {
@@ -64,9 +70,19 @@ class ComissaoController extends Controller
         //
     }
 
-    public function edit(string $id)
+    public function edit(Comissao $comissao)
     {
-        return view('admin.comissoes.edit');
+        return view('admin.comissoes.edit', [
+            'area' => $this->getarea(),
+            'page' => $this->getpage('Cadastradas'),
+            'rota' => $this->getrota(),
+            'correspondentes' => Correspondente::all(),
+            'financeiras' => Financeira::all(),
+            'comissao' => $comissao,
+            'produtos' => Produto::all(),
+            'situacoes' => Situacao::all(),
+            'tabelas' => Tabela::with(['correspondente', 'financeira', 'produto'])->get()
+        ]);
     }
 
     public function update(Request $request, string $id)

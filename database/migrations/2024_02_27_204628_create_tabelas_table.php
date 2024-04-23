@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('descricao');
             $table->string('codigo');
-            $table->string('produto');
-            $table->decimal('percentual_loja', 8, 4);
-            $table->decimal('percentual_agente', 8, 4);
-            $table->decimal('percentual_corretor', 8, 4);
-            $table->foreignId('correspondente_id')->constrained('correspondentes', 'id')->nullable()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('financeira_id')->constrained('financeiras', 'id')->nullable()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->decimal('percentual_loja', 20, 2);
+            $table->decimal('percentual_agente', 20, 2);
+            $table->decimal('percentual_corretor', 20, 2);
+            $table->foreignId('produto_id')->constrained('produtos', 'id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('correspondente_id')->constrained('correspondentes', 'id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('financeira_id')->constrained('financeiras', 'id')->cascadeOnUpdate()->cascadeOnDelete();
             $table->boolean('parcelado')->nullable()->default(false);
             $table->timestamps();
             $table->softDeletes();

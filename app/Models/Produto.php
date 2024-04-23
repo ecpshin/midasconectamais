@@ -19,4 +19,9 @@ class Produto extends Model
     {
         return $this->hasMany(Proposta::class);
     }
+
+    public function tabelas(): HasMany
+    {
+        return $this->hasMany(Proposta::class);
+    }
 }

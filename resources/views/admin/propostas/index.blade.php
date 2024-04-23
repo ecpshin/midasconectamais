@@ -52,7 +52,7 @@
                                             {{ $proposta->cliente->nome }}
                                         </td>
                                         <td class="px-3 text-sm capitalize">
-                                            {{ $proposta->operacao->descricao_operacao }}
+                                            {{ $proposta->produto->descricao_produto }}
                                         </td>
                                         <td class="px-3 text-right text-sm capitalize">
                                             {{ $proposta->prazo_proposta }}</td>
@@ -227,10 +227,10 @@
                                 <label>Operação</label>
                                 <select name="operacao_id" id="op"
                                     class="flex-1 rounded-lg border-gray-300 bg-white px-3 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
-                                    @forelse ($operacoes as $op)
-                                        <option value="{{ $op->id }}">{{ $op->descricao_operacao }}</option>
+                                    @forelse ($produtos as $produto)
+                                        <option value="{{ $produto->id }}">{{ $produto->descricao_produto }}</option>
                                     @empty
-                                        <option value="">Não há operações</option>
+                                        <option value="">Não há Produtos</option>
                                     @endforelse
                                 </select>
                             </div>

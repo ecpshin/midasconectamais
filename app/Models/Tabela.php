@@ -18,10 +18,10 @@ class Tabela extends Model
     protected $fillable = [
         'descricao',
         'codigo',
-        'produto',
         'percentual_loja',
         'percentual_agente',
         'percentual_corretor',
+        'produto_id',
         'correspondente_id',
         'financeira_id',
         'parcelado'
@@ -37,8 +37,14 @@ class Tabela extends Model
         return $this->belongsTo(Financeira::class, 'financeira_id', 'id');
     }
 
+    public function produto(): BelongsTo
+    {
+        return $this->belongsTo(Produto::class);
+    }
+
     public function comissao(): HasOne
     {
         return $this->hasOne(Comissao::class, 'tabela_id', 'id');
     }
+
 }
