@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Operacoes\OperacoesStoreRequest;
-use App\Models\Operacao;
+use App\Models\Produto;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 

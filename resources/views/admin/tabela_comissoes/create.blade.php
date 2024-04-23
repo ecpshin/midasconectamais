@@ -10,10 +10,26 @@
                     <form action="{{ route('admin.tabela.comissoes.store') }}" class="w-50 mx-auto mt-3 flex flex-col gap-3" method="post">
                         @csrf
                         <div class="flex flex-col">
-                            <label for="descricao" class="text-black">Descrição da Tabela</label>
+                            <label for="descricao" class="text-black">Nome da Tabela</label>
                             <input type="text" name="descricao" id="descricao" value="{{ old('descricao') }}" required
                                 class="rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
                             @error('descricao')
+                                <span class="text-nowrap mb-3 mt-3 rounded-full bg-red-400 px-2 py-2 text-center text-sm text-white">{{ $message }}. Tecle [F5]</span>
+                            @enderror
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="codigo" class="text-black">Código</label>
+                            <input type="text" name="codigo" id="codigo" value="{{ old('codigo') }}" required
+                                class="rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
+                            @error('codigo')
+                                <span class="text-nowrap mb-3 mt-3 rounded-full bg-red-400 px-2 py-2 text-center text-sm text-white">{{ $message }}. Tecle [F5]</span>
+                            @enderror
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="produto" class="text-black">Produto</label>
+                            <input type="text" name="produto" id="produto" value="{{ old('produto') }}" required
+                                class="rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
+                            @error('produto')
                                 <span class="text-nowrap mb-3 mt-3 rounded-full bg-red-400 px-2 py-2 text-center text-sm text-white">{{ $message }}. Tecle [F5]</span>
                             @enderror
                         </div>
@@ -44,10 +60,26 @@
                             @enderror
                         </div>
                         <div class="flex flex-col">
-                            <label for="percentual" class="text-black">Percentual</label>
-                            <input type="number" name="percentual" id="percentual" value="{{ old('percentual') }}" min="0.000" max="100.000" step="0.001"
-                                class="percentual rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
-                            @error('percentual')
+                            <label for="percentual_loja" class="text-black">Percentual Loja</label>
+                            <input type="number" name="percentual_loja" id="percentual_loja" v_corretoralue="{{ old('percentual_loja') }}" min="0.000" max="100.000"
+                                step="0.001" class="percentual rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
+                            @error('percentual_loja')
+                                <span class="text-nowrap mb-3 mt-3 rounded-full bg-red-400 px-2 py-2 text-center text-sm text-white">{{ $message }}. Tecle [F5]</span>
+                            @enderror
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="percentual_agente" class="text-black">Percentual Operador</label>
+                            <input type="number" name="percentual_agente" id="percentual_agente" value="{{ old('percentual_agente') }}" min="0.000" max="100.000"
+                                step="0.001" class="percentual rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
+                            @error('percentual_agente')
+                                <span class="text-nowrap mb-3 mt-3 rounded-full bg-red-400 px-2 py-2 text-center text-sm text-white">{{ $message }}. Tecle [F5]</span>
+                            @enderror
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="percentual_corretor" class="text-black">Percentual Corretor</label>
+                            <input type="number" name="percentual_corretor" id="percentual_corretor" value="{{ old('percentual_corretor') }}" min="0.000" max="100.000"
+                                step="0.001" class="percentual rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
+                            @error('percentual_corretor')
                                 <span class="text-nowrap mb-3 mt-3 rounded-full bg-red-400 px-2 py-2 text-center text-sm text-white">{{ $message }}. Tecle [F5]</span>
                             @enderror
                         </div>

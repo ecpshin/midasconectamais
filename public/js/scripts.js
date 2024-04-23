@@ -262,6 +262,8 @@ $("#tabela_id").on("change", function () {
     const url = $("#tabela_id").data("url").slice(0, -2);
     const searchUrl = `${url}/${valor}`;
 
+    alert(searchUrl)
+
     $.get(searchUrl, function (data) {
         const rs = JSON.parse(data);
         $("#correspondente_id").val(rs.correspondente_id);

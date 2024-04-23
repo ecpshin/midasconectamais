@@ -170,9 +170,9 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.operacoes.index') }}" class="nav-link">
+                                <a href="{{ route('admin.produtos.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon text-green-600"></i>
-                                    <p class="font-semibold text-yellow-600 hover:text-yellow-500">Operações</p>
+                                    <p class="font-semibold text-yellow-600 hover:text-yellow-500">Produtos</p>
                                 </a>
                             </li>
                         </ul>

@@ -10,8 +10,8 @@ use App\Http\Controllers\InfoBancariaController;
 use App\Http\Controllers\InfoResidencialController;
 use App\Http\Controllers\LigacaoController;
 use App\Http\Controllers\MailingController;
-use App\Http\Controllers\OperacaoController;
 use App\Http\Controllers\OrganizacaoController;
+use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropostaController;
 use App\Http\Controllers\SituacaoController;
@@ -90,15 +90,15 @@ Route::prefix('admin/organizacoes')->name('admin.organizacoes.')
         Route::delete('/{organizacao}/excluir-orgao', 'destroy')->name('destroy');
     });
 
-Route::prefix('admin/operacoes')->name('admin.operacoes.')
-    ->controller(OperacaoController::class)->group(function () {
+Route::prefix('admin/produtos')->name('admin.produtos.')
+    ->controller(ProdutoController::class)->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/cadastrar-operacao', 'create')->name('create');
-        Route::post('/cadastrar-operacao', 'store')->name('store');
-        Route::get('/{operacao}/exibir-operacao', 'show')->name('show');
-        Route::get('/{operacao}/editar-operacao', 'edit')->name('edit');
-        Route::patch('/{operacao}/atualiza-dados-operacao', 'update')->name('update');
-        Route::delete('/{operacao}/excluir-operacao', 'destroy')->name('destroy');
+        Route::get('/cadastrar-produto', 'create')->name('create');
+        Route::post('/cadastrar-produto', 'store')->name('store');
+        Route::get('/{produto}/exibir-produto', 'show')->name('show');
+        Route::get('/{produto}/editar-produto', 'edit')->name('edit');
+        Route::patch('/{produto}/atualiza-dados-produto', 'update')->name('update');
+        Route::delete('/{produto}/excluir-produto', 'destroy')->name('destroy');
     });
 
 Route::prefix('admin/situacoes')->name('admin.situacoes.')

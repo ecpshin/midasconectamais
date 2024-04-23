@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Operacao extends Model
+class Produto extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'produtos';
 
@@ -16,6 +17,6 @@ class Operacao extends Model
 
     public function propostas(): HasMany
     {
-        return $this->hasMany(Proposta::class, 'operacao_id', 'id');
+        return $this->hasMany(Proposta::class);
     }
 }

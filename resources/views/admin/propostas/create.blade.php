@@ -25,12 +25,12 @@
                             id="nome_cliente">
                     </div>
                 </fieldset>
-                <fieldset class="mb-3 flex flex-col gap-2 rounded-lg p-4 outline outline-1 outline-red-500">
-                    <h3 class="rounded-lg bg-rose-900 py-2 text-center text-lg text-slate-50">Dados da Proposta</h3>
+                <fieldset class="mb-3 flex flex-col gap-2 rounded-lg p-3 outline outline-1 outline-slate-500">
+                    <h3 class="rounded-lg bg-gradient-to-b from-gray-900 to-gray-700 py-2 text-center text-lg text-slate-50">Dados da Proposta</h3>
                     <div class="row mx-3 flex justify-between px-3 pb-3">
                         <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500">Controle</label>
-                            <input type="text" name="uuid" value="{{ \Ramsey\Uuid\Uuid::uuid4() }}" readonly
+                            <input type="text" name="uuid" value="{{ $uuid }}" readonly
                                 class="truncate rounded border-gray-300 bg-white py-1 focus:border-gray-300 focus:outline-none focus:ring-0" id="uuid">
                         </div>
                         <div class="col-lg-3 mb-2 flex flex-col">
@@ -78,13 +78,13 @@
                     </div>
                     <div class="row mx-3 justify-between px-3 pb-3">
                         <div class="col-lg-3 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="operacao_id">Operação</label>
-                            <select name="operacao_id" id="operacao_id"
+                            <label class="text-sm text-slate-500" for="operacao_id">Produtos</label>
+                            <select name="produto_id" id="produto_id"
                                 class="select2 rounded border-gray-300 py-1 text-sm text-black focus:border-gray-300 focus:outline-none focus:ring-0">
-                                @forelse ($operacoes as $op)
-                                    <option value="{{ $op->id }}">{{ $op->descricao_operacao }}</option>
+                                @forelse ($produtos as $produto)
+                                    <option value="{{ $produto->id }}">{{ $produto->descricao_produto }}</option>
                                 @empty
-                                    Não há Operações
+                                    Não há Produtos
                                 @endforelse
                             </select>
                         </div>
@@ -121,12 +121,12 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row mx-3 justify-between px-3 pb-3">
+                    <div class="row mx-3 justify-between px-3 pb-3 border">
                         @can('create comissao')
                             <div class="col-lg-4 mb-2 flex flex-col">
                                 <label class="text-sm text-slate-500" for="tabela_id">Tabela</label>
                                 <select name="tabela_id" id="tabela_id" data-url="{{ route('admin.tabelas.search', 0) }}"
-                                    class="rounded border-gray-300 py-1 text-sm focus:border-gray-300 focus:outline-none focus:ring-0">
+                                    class="select2 select2-blue rounded border-gray-300 py-1 text-sm focus:border-gray-300 focus:outline-none focus:ring-0">
                                     @forelse ($tabelas as $tabela)
                                         <option value="{{ $tabela->id }}">{{ $tabela->descricao }}</option>
                                     @empty
@@ -134,27 +134,45 @@
                                     @endforelse
                                 </select>
                             </div>
-                            <div class="col-lg-2 mb-2 flex flex-col">
-                                <label class="text-sm text-slate-500" for="percentual_loja">%Lj</label>
-                                <input type="text" name="percentual_loja" value="{{ old('percentual_loja') }}" min="0.00"
+                    </div>
+                    <div class="row mx-3" style="border: 1px solid #ccc;">
+                        <div class="flex flex-col col-lg-4 gap-3 px-5 py-3">
+                            <div class="flex flex-col ">
+                                <label class="text-sm text-slate-500">% Loja</label>
+                                <input type="number" name="percentual_loja" value="{{ old('percentual_loja') ?? '000' }}"
                                     class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="percentual_loja">
                             </div>
-                            <div class="col-lg-2 mb-2 flex flex-col">
-                                <label class="text-sm text-slate-500">R$ Loja</label>
-                                <input type="text" name="valor_loja" value="{{ old('valor_loja') }}"
+                            <div class="flex flex-col">
+                                <label class="text-sm text-slate-500">Loja R$</label>
+                                <input type="number" name="valor_loja" value="{{ old('valor_loja') ?? '000' }}"
                                     class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="valor_loja">
                             </div>
-                            <div class="col-lg-2 mb-2 flex flex-col">
-                                <label class="text-sm text-slate-500">%Ag</label>
-                                <input type="text" name="percentual_operador" value="{{ old('percentual_operador') }}"
-                                    class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="percentual_operador">
+                        </div>
+                        <div class="flex flex-col col-lg-4 gap-3 px-5 py-3">
+                            <div class="flex flex-col">
+                                <label class="text-sm text-slate-500">% Agente</label>
+                                <input type="number" name="percentual_agente" value="{{ old('percentual_agente') ?? '000' }}"
+                                       class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="percentual_agente">
                             </div>
-                            <div class="col-lg-2 mb-2 flex flex-col">
-                                <label class="text-sm text-slate-500">R$ Operador</label>
-                                <input type="text" name="valor_operador" value="{{ old('valor_operador') }}"
-                                    class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="valor_operador">
+                            <div class="flex flex-col">
+                                <label class="text-sm text-slate-500">Agente R$</label>
+                                <input type="number" name="valor_agente" value="{{ old('valor_agente') ?? '000' }}"
+                                       class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="valor_agente">
                             </div>
                         </div>
+                        <div class="flex flex-col col-lg-4 gap-3 px-5 py-3">
+                            <div class="flex flex-col">
+                                <label class="text-sm text-slate-500">% Corretor</label>
+                                <input type="number" name="percentual_corretor" value="{{ old('percentual_corretor') ?? '000' }}"
+                                       class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="percentual_corretor">
+                            </div>
+                            <div class="flex flex-col">
+                                <label class="text-sm text-slate-500">Corretor R$</label>
+                                <input type="number" name="valor_corretor" value="{{ old('valor_corretor') ?? '000' }}"
+                                    class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="valor_corretor">
+                            </div>
+                        </div>
+                    </div>
                     @endcan
                 </fieldset>
                 <div class="px-3 py-2">

@@ -55,9 +55,9 @@ class Proposta extends Model
         return $this->belongsTo(Financeira::class, 'financeira_id', 'id');
     }
 
-    public function operacao(): BelongsTo
+    public function produto(): BelongsTo
     {
-        return $this->belongsTo(Operacao::class, 'operacao_id', 'id');
+        return $this->belongsTo(Produto::class, 'produto_id', 'id');
     }
 
     public function situacao(): BelongsTo

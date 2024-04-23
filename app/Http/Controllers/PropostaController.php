@@ -5,16 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use App\Models\Correspondente;
 use App\Models\Financeira;
-use App\Models\Operacao;
+use App\Models\Produto;
 use App\Models\Proposta;
 use App\Models\Situacao;
 use App\Models\Tabela;
 use App\Models\User;
 use App\Services\ConvertersService;
+use App\Services\OperacoesService;
 use App\Services\SelectsService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Number;
+use Ramsey\Uuid\Uuid;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PropostaController extends Controller
@@ -36,7 +38,7 @@ class PropostaController extends Controller
             'page' => 'Propostas Lançadas',
             'rota' => 'admin.propostas.index',
             'propostas' => $this->getPropostas(),
-            'operacoes' => $this->getOperacoes(),
+            'produtos' => Produto::all(['id', 'descricao_produto']),
             'correspondentes' => $this->getCorrespondentes(),
             'financeiras' => $this->getFinanceiras(),
             'situacoes' => $this->getSituacoes(),
@@ -48,9 +50,9 @@ class PropostaController extends Controller
     {
         $correspondentes = Correspondente::all();
         $financeiras = Financeira::all();
-        $operacoes = Operacao::all();
         $situacoes = Situacao::all();
         $tabelas = Tabela::all();
+        $uuid = Uuid::uuid4();
 
         return view('admin.propostas.create', [
             'area' => 'Propostas',
@@ -59,9 +61,10 @@ class PropostaController extends Controller
             'clientes' => Cliente::all(),
             'correspondentes' => $correspondentes,
             'financeiras' => $financeiras,
-            'operacoes' => $this->getOperacoes(),
+            'produtos' => Produto::all(['id', 'descricao_produto']),
             'situacoes' => $situacoes,
-            'tabelas' => $tabelas
+            'tabelas' => $tabelas,
+            'uuid' => substr($uuid, 0, 13)
         ]);
     }
 
@@ -213,8 +216,8 @@ class PropostaController extends Controller
     }
     private function getOperacoes(): Collection
     {
-        $operacoes = new SelectsService;
-        return $operacoes->selectOperacoes();
+        $operacoes = new OperacoesService();
+        return $operacoes->getOperacoes();
     }
 
     private function getPropostas(): Collection

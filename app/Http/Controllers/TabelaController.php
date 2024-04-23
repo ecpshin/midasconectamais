@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Tabelas\StoreTabelaRequest;
 use App\Models\Correspondente;
 use App\Models\Financeira;
 use App\Models\Tabela;
@@ -17,11 +18,11 @@ class TabelaController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
-        $this->middleware('can:create tabela-comissao', ['only' =>['create','store']]);
-        $this->middleware('can:list tabela-comissao', ['only' =>['index','show']]);
-        $this->middleware('can:view tabela-comissao', ['only' =>['show']]);
-        $this->middleware('can:edit tabela-comissao', ['only' =>['edit','update']]);
-        $this->middleware('can:delete tabela-comissao', ['only' =>['destroy']]);
+        $this->middleware('can:create tabela-comissao', ['only' => ['create', 'store']]);
+        $this->middleware('can:list tabela-comissao', ['only' => ['index', 'show']]);
+        $this->middleware('can:view tabela-comissao', ['only' => ['show']]);
+        $this->middleware('can:edit tabela-comissao', ['only' => ['edit', 'update']]);
+        $this->middleware('can:delete tabela-comissao', ['only' => ['destroy']]);
         $this->fmt = new Number;
     }
 
@@ -56,9 +57,10 @@ class TabelaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTabelaRequest $request)
     {
-        Tabela::create($request->all());
+        $attributes = $request->validated();
+        Tabela::create($attributes);
         alert()->success('Sucesso', 'Tabela de comissão registrada com sucesso!');
         return redirect(route('admin.tabela.comissoes.index'));
     }
