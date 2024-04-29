@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('tabelas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('produto_id')->constrained('produtos', 'id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('correspondente_id')->constrained('correspondentes', 'id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('financeira_id')->constrained('financeiras', 'id')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('descricao');
             $table->string('codigo');
             $table->decimal('percentual_loja', 20, 2);
             $table->decimal('percentual_agente', 20, 2);
             $table->decimal('percentual_corretor', 20, 2);
-            $table->foreignId('produto_id')->constrained('produtos', 'id')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('correspondente_id')->constrained('correspondentes', 'id')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('financeira_id')->constrained('financeiras', 'id')->cascadeOnUpdate()->cascadeOnDelete();
             $table->boolean('parcelado')->nullable()->default(false);
             $table->timestamps();
             $table->softDeletes();
