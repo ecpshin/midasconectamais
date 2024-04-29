@@ -8,7 +8,7 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-4 text-gray-900">
                     <div class="overflow-x-auto rounded-lg bg-white px-8 py-6">
-                        <a href="{{ route('admin.tabela.comissoes.create') }}"
+                        <a href="{{ route('admin.tabelas.create') }}"
                             class="rounded-md bg-emerald-900 px-3 py-2 text-white shadow-md shadow-emerald-950 hover:bg-emerald-600">Adicionar</a>
                         <table class="my-8 w-full whitespace-nowrap text-xs" id="tabela">
                             <thead class="bg-gradient-to-b from-slate-950 via-slate-600 to-slate-800 font-bold text-slate-100">
@@ -24,7 +24,7 @@
                                     <td class="pl-2">% Corretor</td>
                                     <td class="pl-2">Gera Parcela</td>
                                     <td class="pl-2">Referência de Cálculo</td>
-                                    <td class="pl-2"></td>
+                                    <td class="pl-2">Ações</td>
                                 </tr>
                             </thead>
                             <tbody class="text-xs font-semibold">
@@ -40,9 +40,9 @@
                                         <td class="pl-2 capitalize">{{ $fmt->percentage($tabela->percentual_agente, 3, 2, 'pt-BR') }}</td>
                                         <td class="pl-2 capitalize">{{ $fmt->percentage($tabela->percentual_corretor, 3, 2, 'pt-BR') }}</td>
                                         <td class="pl-2 capitalize">{{ $tabela->parcelado == 1 ? 'Sim' : 'Não' }}</td>
-                                        <td class="pl-2 capitalize">BL</td>
+                                        <td class="pl-2 capitalize">{{ !is_null($tabela->referencia) ? $tabela->referencia : 'L' }}</td>
                                         <td class="flex items-center space-x-1 py-1 pl-2">
-                                            <a href="{{ route('admin.tabela.comissoes.show', $tabela) }}"
+                                            <a href="{{ route('admin.tabelas.show', $tabela) }}"
                                                 class="rounded-md bg-sky-800 px-2 py-2 shadow-md shadow-slate-500 hover:bg-sky-500">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-50 hover:text-slate-50" fill="none" viewBox="0 0 24 24"
                                                     stroke="currentColor">
@@ -51,7 +51,7 @@
                                                         d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                 </svg>
                                             </a>
-                                            <a href="{{ route('admin.tabela.comissoes.edit', $tabela) }}"
+                                            <a href="{{ route('admin.tabelas.edit', $tabela) }}"
                                                 class="rounded-md bg-yellow-700 px-2 py-2 shadow-md shadow-slate-500 hover:bg-yellow-500">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -65,7 +65,7 @@
                                                         d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                 </svg>
                                             </a>
-                                            <form action="{{ route('admin.tabela.comissoes.destroy', $tabela->id) }}" method="post" id="form_{{ $tabela->id }}">
+                                            <form action="{{ route('admin.tabelas.destroy', $tabela->id) }}" method="post" id="form_{{ $tabela->id }}">
                                                 @csrf @method('DELETE')
                                             </form>
                                         </td>

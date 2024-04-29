@@ -32,7 +32,7 @@ class TabelaController extends Controller
      */
     public function index()
     {
-        return view('admin.tabela_comissoes.index', [
+        return view('admin.tabelas.index', [
             'area' => 'Restrita',
             'page' => 'Tabelas de Comissões Registradas',
             'rota' => 'admin',
@@ -46,12 +46,13 @@ class TabelaController extends Controller
      */
     public function create()
     {
-        return view('admin.tabela_comissoes.create', [
+        return view('admin.tabelas.create', [
             'area' => 'Restrita',
             'page' => 'Registrar Comissão',
             'rota' => 'admin',
             'correspondentes' => Correspondente::all(['id', 'nome_correspondente']),
-            'financeiras' => Financeira::all(['id', 'nome_financeira'])
+            'financeiras' => Financeira::all(['id', 'nome_financeira']),
+            'produtos' => Produto::all(['id', 'descricao_produto']),
         ]);
     }
 
@@ -63,7 +64,7 @@ class TabelaController extends Controller
         $attributes = $request->validated();
         Tabela::create($attributes);
         alert()->success('Sucesso', 'Tabela de comissão registrada com sucesso!');
-        return redirect(route('admin.tabela.comissoes.index'));
+        return redirect(route('admin.tabelas.index'));
     }
 
     /**
@@ -73,10 +74,10 @@ class TabelaController extends Controller
     {
         $fmt = new Number;
 
-        return view('admin.tabela_comissoes.edit', [
+        return view('admin.tabelas.edit', [
             'area' => 'Restrita',
             'page' => 'Exibindo Tabela de Comissão',
-            'rota' => 'admin.tabela.comissoes.index',
+            'rota' => 'admin.tabelas.index',
             'tabela' => $tabela,
             'correspondentes' => Correspondente::all(['id', 'nome_correspondente']),
             'financeiras' => Financeira::all(['id', 'nome_financeira']),
@@ -90,10 +91,10 @@ class TabelaController extends Controller
      */
     public function edit(Tabela $tabela)
     {
-        return view('admin.tabela_comissoes.edit', [
+        return view('admin.tabelas.edit', [
             'area' => 'Restrita',
             'page' => 'Editar Tabela de Comissão',
-            'rota' => 'admin.tabela.comissoes.index',
+            'rota' => 'admin.tabelas.index',
             'tabela' => $tabela,
             'correspondentes' => Correspondente::all(['id', 'nome_correspondente']),
             'financeiras' => Financeira::all(['id', 'nome_financeira']),
@@ -109,7 +110,7 @@ class TabelaController extends Controller
     {
         $tabela->update($request->all());
         alert()->success('Sucesso', 'Tabela foi atualizada com sucesso');
-        return redirect(route('admin.tabela.comissoes.index'));
+        return redirect(route('admin.tabelas.index'));
     }
 
     /**

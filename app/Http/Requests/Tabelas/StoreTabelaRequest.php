@@ -24,13 +24,40 @@ class StoreTabelaRequest extends FormRequest
         return [
             'descricao' => 'required|string|min:3',
             'codigo' => 'required|string|min:3',
-            'produto' => 'required|string|min:3',
-            'percentual_loja' => 'nullable|decimal:0.000,100.000',
-            'percentual_agente' => 'nullable|decimal:0.000,100.000',
-            'percentual_corretor' => 'nullable|decimal:0.000,100.000',
+            'produto_id' => 'required|integer',
             'financeira_id' => 'required|integer',
             'correspondente_id' => 'required|integer',
-            'parcelado' => 'nullable|integer'
+            'percentual_loja' => 'nullable|decimal:0.00,100.00',
+            'percentual_agente' => 'nullable|decimal:0.00,100.00',
+            'percentual_corretor' => 'nullable|decimal:0.00,100.00',
+            'parcelado' => 'nullable|integer',
+            'referencia' => 'nullable|string'
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'descricao' => 'Descrição da Tabela',
+            'codigo' => 'Código da tabela',
+            'produto_id' => 'Produto',
+            'financeira_id' => 'Financeira',
+            'correspondente_id' => 'Correspondente',
+            'percentual_loja' => 'percentual loja',
+            'percentual_agente' => 'percentual agente',
+            'percentual_corretor' => 'percentual_corretor',
+            'parcelado' => 'gera parcela',
+            'referencia' => 'referência de cálculo'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'required' => 'O campo :attribute é obrigatório.',
+            'string' => 'O campo :attribute deve ser do tipo string.',
+            'integer' => 'O campo :attribute não é válido',
+            'decimal' => 'O campo :attribute deve ser um número entre 0,00 e 100,00',
         ];
     }
 }

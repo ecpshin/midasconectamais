@@ -177,32 +177,32 @@ Route::prefix('admin/mailings/agentes')->controller(AgenteMailingController::cla
         Route::post('/agentes/attach-mailing', 'store')->name('store');
     });
 
-Route::prefix('admin/tabela-comissoes')->name('admin.tabela.')
+Route::prefix('admin/tabelas')->name('admin.tabelas.')
     ->controller(TabelaController::class)->group(function () {
-        Route::get('/', 'index')->name('comissoes.index');
-        Route::get('/registrar', 'create')->name('comissoes.create');
-        Route::post('/store', 'store')->name('comissoes.store');
-        Route::get('/{tabela}/show', 'show')->name('comissoes.show');
-        Route::get('/{tabela}/edit', 'edit')->name('comissoes.edit');
-        Route::patch('/{tabela}/update', 'update')->name('comissoes.update');
-        Route::delete('/{tabela}/delete', 'destroy')->name('comissoes.destroy');
+        Route::get('/', 'index')->name('index');
+        Route::get('/registrar', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/{tabela}/show', 'show')->name('show');
+        Route::get('/{tabela}/edit', 'edit')->name('edit');
+        Route::patch('/{tabela}/update', 'update')->name('update');
+        Route::delete('/{tabela}/delete', 'destroy')->name('destroy');
 
         Route::get('/tabela-correspondente/{id}', 'getcorrespontes')->name('correspondentes');
         Route::get('/tabela-correspondente-financeira/{id}', 'getfinanceiras')->name('financeiras');
     })->middleware(['auth', 'verified']);
 
-Route::prefix('admin/tabelas')->name('admin.tabelas.')
-    ->controller(TabelaController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/registrar-tabela', 'create')->name('create');
-        Route::post('/salvar-tabela', 'store')->name('create');
-        Route::get('/{tabela}/editar-tabela', 'edit')->name('edit');
-        Route::patch('/{tabela}/atualizar-tabela', 'update')->name('update');
-        Route::get('/{tabela}/exibir-tabela', 'show')->name('show');
-        Route::delete('/{tabela}/excluir-tabela', 'destroy')->name('destroy');
+// Route::prefix('admin/tabelas')->name('admin.tabelas.')
+//     ->controller(TabelaController::class)->group(function () {
+//         Route::get('/', 'index')->name('index');
+//         Route::get('/registrar-tabela', 'create')->name('create');
+//         Route::post('/salvar-tabela', 'store')->name('create');
+//         Route::get('/{tabela}/editar-tabela', 'edit')->name('edit');
+//         Route::patch('/{tabela}/atualizar-tabela', 'update')->name('update');
+//         Route::get('/{tabela}/exibir-tabela', 'show')->name('show');
+//         Route::delete('/{tabela}/excluir-tabela', 'destroy')->name('destroy');
 
-        Route::get('/search/{id}', 'get_tabela')->name('search');
-    });
+//         Route::get('/search/{id}', 'get_tabela')->name('search');
+//     });
 
 Route::prefix('admin/call-center')->name('admin.calls.')
     ->controller(LigacaoController::class)->group(function () {
