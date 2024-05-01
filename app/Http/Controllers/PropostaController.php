@@ -49,11 +49,13 @@ class PropostaController extends Controller
 
     public function create()
     {
-        $correspondentes = Correspondente::all();
-        $financeiras = Financeira::all();
+        $correspondentes = Correspondente::all(['id', 'nome_correspondente']);
+        $financeiras = Financeira::all(['id', 'nome_financeira']);
         $situacoes = Situacao::all();
+        $produtos = Produto::all(['id', 'descricao_produto']);
         $tabelas = Tabela::all();
         $uuid = Uuid::uuid4();
+        $cliente = Cliente::with(['vinculos'])->first();
 
         return view('admin.propostas.create', [
             'area' => 'Propostas',
@@ -65,6 +67,7 @@ class PropostaController extends Controller
             'produtos' => Produto::all(['id', 'descricao_produto']),
             'situacoes' => $situacoes,
             'tabelas' => $tabelas,
+            'cliente' => $cliente,
             'uuid' => substr($uuid, 0, 13)
         ]);
     }
