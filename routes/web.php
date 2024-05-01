@@ -16,6 +16,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropostaController;
 use App\Http\Controllers\SituacaoController;
 use App\Http\Controllers\TabelaController;
+use App\Http\Controllers\TesteController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VinculoController;
 use Illuminate\Support\Facades\Route;
@@ -191,6 +192,11 @@ Route::prefix('admin/tabelas')->name('admin.tabelas.')
         Route::get('/tabela-correspondente-financeira/{id}', 'getfinanceiras')->name('financeiras');
     })->middleware(['auth', 'verified']);
 
+Route::prefix('testes')->controller(TesteController::class)->name('testes.')
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+    });
 // Route::prefix('admin/tabelas')->name('admin.tabelas.')
 //     ->controller(TabelaController::class)->group(function () {
 //         Route::get('/', 'index')->name('index');

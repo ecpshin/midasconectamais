@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Vinculo extends Model
 {
@@ -12,7 +13,7 @@ class Vinculo extends Model
 
     protected $table = 'vinculos';
 
-    protected $fillable = ['cliente_id', 'organizacao_id', 'nome_organizacao','nrbeneficio','phone1','phone2','phone3','phone4','emails_senhas'];
+    protected $fillable = ['cliente_id', 'organizacao_id', 'nome_organizacao', 'nrbeneficio', 'phone1', 'phone2', 'phone3', 'phone4', 'emails_senhas'];
 
     public function cliente(): BelongsTo
     {

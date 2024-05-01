@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('produto_id')->constrained('produtos', 'id')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('correspondente_id')->constrained('correspondentes', 'id')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('financeira_id')->constrained('financeiras', 'id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('vinculo_id')->constrained('vinculos', 'id')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('descricao');
             $table->string('codigo');
             $table->decimal('percentual_loja', 20, 2);

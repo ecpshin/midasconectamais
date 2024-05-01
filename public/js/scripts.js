@@ -194,6 +194,26 @@ function calculaComissao() {
     $("#valop").val(calculo.toFixed(2));
 }
 
+function calcularComissoes() {
+    const total_proposta = $("#total_proposta").val();
+    const liquido_proposta = $("#liquido_proposta").val();
+    const perc_loja = $("#perc_loja").val();
+    const perc_agente = $("#perc_agente").val();
+    const perc_corretor = $("#perc_corretor").val();
+
+    const referencia = localStorage.getItem("referencia");
+
+    if (referencia === "BL") {
+        $("#val_loja").val(total_proposta * (perc_loja / 100));
+        $("#val_agente").val(liquido_proposta * perc_agente);
+        $("#val_corretor").val(liquido_proposta * (perc_corretor / 100));
+    } else {
+        $("#val_loja").val(liquido_proposta * (perc_loja / 100));
+        $("#val_agente").val(liquido_proposta * (perc_agente / 100));
+        $("#val_corretor").val(liquido_proposta * (perc_corretor / 100));
+    }
+}
+
 function formatDate(date) {
     var d = new Date(date),
         month = "" + (d.getMonth() + 1),
@@ -259,15 +279,36 @@ $("#modal-obs").on("change", function () {
 
 $("#tabela_id").on("change", function () {
     const valor = $("#tabela_id").val();
-    const url = $("#tabela_id").data("url").slice(0, -2);
-    const searchUrl = `${url}/${valor}`;
+    let url = $("#tabela_id").data("url").slice(0, -1);
+    url += `${valor}`;
 
-    alert(searchUrl)
+    $.get(url, function (res) {
+        const rs = res.data;
+        $("#correspondente_id").val(rs.correspondente.id);
+        $("#financeira_id").val(rs.financeira.id);
+        $("#percentual_loja").val(rs.percentual_loja);
+        $("#produto_id").val(rs.produto.id);
+        $("#perc_loja").val(Number(rs.percentual_loja).toFixed(2));
+        $("#perc_agente").val(Number(rs.percentual_agente).toFixed(2));
+        $("#perc_corretor").val(Number(rs.percentual_corretor).toFixed(2));
 
-    $.get(searchUrl, function (data) {
-        const rs = JSON.parse(data);
-        $("#correspondente_id").val(rs.correspondente_id);
-        $("#financeira_id").val(rs.financeira_id);
-        $("#percentual_loja").val(rs.percentual);
+        localStorage.setItem("referencia", rs.referencia);
     });
 });
+
+function teste(obj) {
+    let url = $(obj).data("url");
+    url = `${url.slice(0, -1)}${obj.value}`;
+    $.get(`${url}`, function (res) {
+        const tabelas = res.data;
+        const selectTabela = document.querySelector("#tabela_id");
+
+        tabelas.map((tabela) => {
+            const option = document.createElement("option");
+            option.value = `${tabela.id}`;
+            option.innerText =
+                `${tabela.descricao} | ${tabela.codigo} | ${tabela.produto.descricao_produto} | ${tabela.financeira.nome_financeira} | ${tabela.correspondente.nome_correspondente}`.toLocaleUpperCase();
+            selectTabela.append(option);
+        });
+    });
+}

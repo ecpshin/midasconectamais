@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Operacoes;
+namespace App\Http\Resources\Financeiras;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OperacaoResource extends JsonResource
+class FinanceirasResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +15,8 @@ class OperacaoResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-         'id' => $this->id,
-         'data_digitacao',
-         'data_finalizacao',
+            'id' => $this->id,
+            'nome_financeira' => $this->nome_financeira
         ];
     }
 }

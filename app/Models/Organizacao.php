@@ -18,4 +18,9 @@ class Organizacao extends Model
     {
         return $this->hasMany(Vinculo::class, 'organizacao_id', 'id');
     }
+
+    public function tabelas(): HasMany
+    {
+        return $this->hasMany(Tabela::class, 'organizacao_id', 'id');
+    }
 }
