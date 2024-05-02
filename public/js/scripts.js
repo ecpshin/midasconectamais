@@ -227,7 +227,6 @@ function formatDate(date) {
 
 $("#buscaCep").on("blur", async function () {
     const cep = $("#buscaCep").val();
-
     if (cep !== "") {
         let response = (
             await fetch(`https://viacep.com.br/ws/${cep}/json/`, {
@@ -277,6 +276,25 @@ $("#modal-obs").on("change", function () {
     alert(n);
 });
 
+$("#organizacao_id").on("change", function () {
+    let url = $("#organizacao_id").data("url");
+    const id = $("#organizacao_id").val();
+    url = `${url.slice(0, -2)}/${id}`;
+
+    $.get(url, function (res) {
+        const tabelas = res.data;
+        const selectTabela = document.querySelector("#tabela_id");
+
+        tabelas.map((tabela) => {
+            const option = document.createElement("option");
+            option.value = `${tabela.id}`;
+            option.innerText =
+                `${tabela.descricao} | ${tabela.codigo} | ${tabela.produto.descricao_produto} | ${tabela.financeira.nome_financeira} | ${tabela.correspondente.nome_correspondente}`.toLocaleUpperCase();
+            selectTabela.append(option);
+        });
+    });
+});
+
 $("#tabela_id").on("change", function () {
     const valor = $("#tabela_id").val();
     let url = $("#tabela_id").data("url").slice(0, -1);
@@ -296,19 +314,6 @@ $("#tabela_id").on("change", function () {
     });
 });
 
-function teste(obj) {
-    let url = $(obj).data("url");
-    url = `${url.slice(0, -1)}${obj.value}`;
-    $.get(`${url}`, function (res) {
-        const tabelas = res.data;
-        const selectTabela = document.querySelector("#tabela_id");
-
-        tabelas.map((tabela) => {
-            const option = document.createElement("option");
-            option.value = `${tabela.id}`;
-            option.innerText =
-                `${tabela.descricao} | ${tabela.codigo} | ${tabela.produto.descricao_produto} | ${tabela.financeira.nome_financeira} | ${tabela.correspondente.nome_correspondente}`.toLocaleUpperCase();
-            selectTabela.append(option);
-        });
-    });
-}
+// $("#organizacao_id").on("blur", function () {
+//
+// });

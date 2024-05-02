@@ -5,108 +5,118 @@
 
     <div class="w-full">
         <div class="mx-auto w-full sm:px-4 lg:px-6">
-            <div class="mx-auto mt-5 max-w-7xl rounded-lg bg-white px-5 py-5 shadow-xl shadow-yellow-900">
-                <h1 class="mb-3 text-center text-2xl">Perfil do Agente</h1>
-                <form action="{{ route('admin.agentes.pessoais', $agente) }}" method="post" enctype="multipart/form-data" class="flex flex-col gap-3">
+            <div class="mx-auto mt-5 max-w-7xl rounded-lg bg-white">
+                <h4 class="rounded-t-lg bg-gradient-to-br from-slate-900 to-slate-700 py-2 text-center text-white">Perfil do Agente</h4>
+                <form action="{{ route('admin.agentes.pessoais', $agente) }}" method="post" enctype="multipart/form-data" class="flex flex-col gap-3 p-4 text-indigo-900">
                     @csrf @method('PATCH')
-                    <div class="border-1 flex flex-wrap gap-2 rounded-lg border-orange-600 p-3">
-                        <div class="row mb-3 w-full">
-                            <div class="col-lg-5 col-sm-12 mb-3 flex flex-col">
-                                <x-input-label class="text-sm font-bold" for="name" :value="__('Nome')" />
-                                <x-text-input type="text" name="name" id="name" value="{{ $agente->name }}" />
-                            </div>
-                            <div class="col-sm-12 col-lg-4 mb-3 flex flex-col">
-                                <x-input-label class="text-sm font-bold" for="email" :value="__('E-mail')" />
-                                <x-text-input type="email" name="email" id="email" value="{{ $agente->email }}" />
-                            </div>
-                            <div class="col-sm-12 col-lg-3 mb-3 flex flex-col">
-                                <x-input-label class="text-sm font-bold" for="cpf" :value="__('CPF')" />
-                                <x-text-input type="text" name="cpf" id="cpf" class="cpf" value="{{ $agente->cpf }}" />
-                            </div>
+                    <div class="row mb-3 flex flex-row justify-center">
+                        <img src="{{ asset($agente->path) }}" class="w-48" alt="User Image">
+                    </div>
+                    <div class="row space-between flex flex-row text-xs">
+                        <div class="col-lg-3 mb-3 flex flex-col">
+                            <label for="name" class="form-label">Nome</label>
+                            <input type="text" name="name" id="name" value="{{ $agente->name }}" class="form-input rounded-lg border-slate-400 text-xs">
                         </div>
-                        <div class="row w-full">
-                            <div class="col-lg-2 col-sm-12 mb-3 flex flex-col">
-                                <x-input-label class="text-sm font-bold" for="data_nascimento" :value="__('Data Nascimento')" />
-                                <x-text-input type="date" name="data_nascimento" id="data_nascimento" value="{{ $agente->data_nascimento->format('Y-m-d') }}" />
-                            </div>
-                            <div class="col-lg-3 col-sm-12 mb-3 flex flex-col">
-                                <x-input-label class="text-sm font-bold" for="phone" :value="__('Contato')" />
-                                <x-text-input type="text" name="phone" id="phone" class="phone" value="{{ $agente->phone }}" />
-                            </div>
+                        <div class="col-lg-3 mb-3 flex flex-col">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input type="email" name="email" id="email" value="{{ $agente->email }}" class="form-input rounded-lg border-slate-400 text-xs">
+                        </div>
+                        <div class="col-lg-3 mb-3 flex flex-col">
+                            <label for="cpf" class="form-label">CPF</label>
+                            <input type="text" name="cpf" id="cpf" value="{{ $agente->cpf }}" class="form-input rounded-lg border-slate-400 text-xs">
+                        </div>
+                        <div class="col-lg-3 mb-3 flex flex-col">
+                            <label for="data_nascimento" class="form-label">Data Nasc.</label>
+                            <input type="date" name="data_nascimento" id="data_nascimento" value="{{ $agente->data_nascimento }}"
+                                class="form-input rounded-lg border-slate-400 text-xs">
                         </div>
                     </div>
-                    <div class="border-1 flex flex-wrap gap-2 rounded-lg border-orange-600 p-3">
-                        <div class="flex w-full flex-col gap-2">
-                            <x-input-label class="text-sm font-bold text-gray-900" for="file_input" :value="__('Upload de Foto')" />
-                            <x-text-input type="file" name="picture" id="file_input" />
-                        </div />
-                    </div>
-                    <div class="border-1 flex flex-wrap gap-2 rounded-lg border-orange-600 p-3">
-                        <div class="row w-full">
-                            <div class="col-lg-2 col-sm-12 mb-3 flex flex-col">
-                                <x-input-label class="text-sm font-bold" for="codigo" :value="__('Código')" />
-                                <x-text-input type="text" name="codigo" id="codigo" value="{{ $agente->codigo }}" />
-                            </div>
-                            <div class="col-sm-12 col-lg-5 mb-3 flex flex-col">
-                                <x-input-label class="text-sm font-bold" for="banco" :value="__('Banco')" />
-                                <x-text-input type="text" name="banco" id="banco" value="{{ $agente->banco }}" />
-                            </div>
-                            <div class="col-lg-2 col-sm-12 mb-3 flex flex-col">
-                                <x-input-label class="text-sm font-bold" for="agencia" :value="__('Agência')" />
-                                <x-text-input type="text" name="agencia" value="{{ $agente->agencia }}" />
-                            </div>
-                            <div class="col-lg-3 col-sm-12 mb-3 flex flex-col">
-                                <x-input-label class="text-sm font-bold" for="conta" :value="__('Conta')" />
-                                <x-text-input type="text" name="conta" id="conta" value="{{ $agente->conta }}" />
-                            </div>
+                    <div class="row space-between flex flex-row text-xs">
+                        <div class="col-lg-1 mb-3 flex flex-col">
+                            <label for="codigo" class="form-label">Código</label>
+                            <input type="text" name="codigo" id="codigo" value="{{ $agente->codigo }}" class="form-input rounded-lg border-slate-400 text-xs">
                         </div>
-                        <div class="row w-full">
-                            <div class="col-sm-12 col-lg-6 mb-3 flex flex-col">
-                                <x-input-label class="text-sm font-bold" for="tipo_conta" :value="__('Tipo Conta')" />
-                                <x-text-input type="text" name="tipo_conta" id="tipo_conta" value="{{ $agente->tipo_conta }}" />
-                            </div>
-                            <div class="col-lg-6 col-sm-12 flex flex-col">
-                                <x-input-label class="text-sm font-bold" for="codigo_op" :value="__('Operação')" />
-                                <x-text-input type="text" name="codigo_op" value="{{ $agente->codigo_op }}" />
-                            </div>
+                        <div class="col-lg-3 mb-3 flex flex-col">
+                            <label for="banco" class="form-label">Banco</label>
+                            <input type="text" name="banco" id="banco" value="{{ $agente->banco }}" class="form-input rounded-lg border-slate-400 text-xs">
+                        </div>
+                        <div class="col-lg-1 mb-3 flex flex-col">
+                            <label for="agencia" class="form-label">Agência</label>
+                            <input type="text" name="agencia" id="agencia" value="{{ $agente->agencia }}" class="form-input rounded-lg border-slate-400 text-xs">
+                        </div>
+                        <div class="col-lg-2 mb-3 flex flex-col">
+                            <label for="conta" class="form-label">Conta</label>
+                            <input type="text" name="conta" id="conta" value="{{ $agente->conta }}" class="form-input rounded-lg border-slate-400 text-xs">
+                        </div>
+                        <div class="col-lg-2 mb-3 flex flex-col">
+                            <label for="conta" class="form-label">Conta</label>
+                            <select name="tipo_conta" id="tipo_conta" class="form-select rounded-lg border-slate-400 text-xs">
+                                <option value="Conta Corrente">Conta Corrente</option>
+                                <option value="Conta Poupança">Conta Poupança</option>
+                                <option value="Conta Salário">Conta Salário</option>
+                                <option value="Conta Benefício">Conta Benefício</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 mb-3 flex flex-col">
+                            <label for="conta" class="form-label">Cód. Operação</label>
+                            <input type="text" name="conta" id="conta" value="{{ $agente->codigo_op }}" class="form-input rounded-lg border-slate-400 text-xs">
                         </div>
                     </div>
-                    <div class="border-1 flex flex-row gap-2 rounded-lg border-orange-600 p-3">
-                        <div class="col-lg-6 col-sm-12 mb-3 flex flex-col">
-                            <x-input-label class="text-sm font-bold" for="tipo_chave_pix" :value="__('Tipo Chave PIX')" />
-                            <x-text-input type="text" name="tipo_chave_pix" id="tipo_chave_pix" value="{{ $agente->tipo_chave_pix }}" />
+                    <div class="row space-between flex flex-row text-xs">
+                        <div class="col-lg-3 mb-3 flex flex-col">
+                            <label>Tipo</label>
+                            <div class="form-input flex flex-row items-center justify-around rounded-lg border py-1 text-xs">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tipo" id="agente" value="agente"
+                                        @if ($agente->tipo == 'agente') checked @endif />
+                                    <label class="form-check-label font-semibold" for="agente">Agente</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tipo" id="corretor" value="corretor"
+                                        @if ($agente->tipo != 'agente') checked @endif />
+                                    <label class="form-check-label font-semibold" for="corretor">Corretor</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-6 col-sm-12 flex flex-col">
-                            <x-input-label class="text-sm font-bold" for="chave_pix" :value="__('Chave PIX')" />
-                            <x-text-input type="text" name="chave_pix" id="chave_pix" value="{{ $agente->chave_pix }}" />
+                        <div class="col-lg-3 mb-3 flex flex-col">
+                            <label for="phone" class="form-label">Contato</label>
+                            <input type="text" name="phone" id="phone" value="{{ $agente->phone }}" class="form-input rounded-lg border-slate-400 text-xs">
                         </div>
-                    </div>
-                    <div>
-                        <button type="submit" class="rounded-full bg-blue-900 px-4 py-2 text-sm text-white hover:bg-orange-700 hover:text-slate-500">Salvar</button>
+                        <div class="col-lg-3 mb-3 flex flex-col">
+                            <label class="form-label">Tipo Chave Pix</label>
+                            <select name="tipo_chave_pix" id="tipo_chave_pix"" class="rounded-lg border-slate-400 text-xs">
+                                <option value="CPF">CPF</option>
+                                <option value="Email">Email</option>
+                                <option value="Celular">Celular</option>
+                                <option value="Chave aleatória">Chave aleatória</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mb-3 flex flex-col">
+                            <label for="chave_pix" class="form-label">Chave Pix</label>
+                            <input type="text" name="chave_pix" id="chave_pix" value="{{ $agente->chave_pix }}" class="rounded-lg border-slate-400 text-xs">
+                        </div>
                     </div>
                 </form>
             </div>
-            <div class="mx-auto mt-5 max-w-7xl rounded-lg bg-white px-5 py-5 shadow-xl shadow-yellow-900">
-                <h1 class="mb-5 text-center text-2xl">Reset de Senha</h1>
-                <form action="{{ route('admin.agentes.password', $agente) }}" method="post" class="flex flex-col gap-8">
+            <div class="mx-auto mt-5 max-w-7xl rounded-lg bg-white">
+                <h4 class="rounded-t-lg bg-gradient-to-br from-slate-900 to-slate-700 py-2 text-center text-white">Reset de Senha</h4>
+                <form action="{{ route('admin.agentes.password', $agente) }}" method="post" class="flex flex-col gap-3 px-10 py-4">
                     @csrf @method('PATCH')
-                    <div class="row flex w-full items-end">
-                        <div class="col-sm-12 col-lg-5 flex flex-col gap-2">
-                            <x-input-label class="text-sm font-bold" for="password" value="Senha" />
-                            <x-text-input type="password" name="password" id="password" value="" />
+                    <div class="row flex flex-row">
+                        <div class="col-lg-5 flex flex-col">
+                            <input type="password" name="password" id="password" class="rounded-lg border-slate-400 text-xs" placeholder="Digite a senha" />
                         </div>
-                        <div class="col-sm-12 col-lg-5 flex flex-col gap-2">
-                            <x-input-label class="text-sm font-bold" for="password_confirmation" value="Confirme a Senha" />
-                            <x-text-input type="password" name="password_confirmation" id="password_confirmation" value="" />
+                        <div class="col-lg-5 flex flex-col gap-2">
+                            <input type="password" name="password_confirmation" id="password_confirmation" class="rounded-lg border-slate-400 text-xs"
+                                placeholder="Confirme a senha" />
                         </div>
-                        <div class="col-lg-2 col-sm-12 p-1">
+                        <div class="col-lg-2 flex flex-col">
                             <button type="submit" class="rounded-full bg-blue-900 px-4 py-2 text-sm text-white hover:bg-orange-700 hover:text-slate-500">Reset</button>
                         </div>
                     </div>
                 </form>
             </div>
-            {{-- Permissões e Roles --}}
-            <div class="mx-auto mt-3 max-w-7xl rounded-lg bg-white px-5 py-5 shadow-xl shadow-yellow-900">
+            <div class="mx-auto mb-3 mt-3 max-w-7xl rounded-xl bg-white px-5 py-5">
                 <h1 class="mb-2 text-center text-2xl font-bold">Nível de Acesso {{ ucfirst($role[0]) }}</h1>
                 <h1 class="mb-3 text-center text-xl font-semibold">Permissões do Agente</h1>
                 <div class="mx-auto flex flex-col gap-8">

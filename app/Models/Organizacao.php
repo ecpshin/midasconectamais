@@ -23,4 +23,9 @@ class Organizacao extends Model
     {
         return $this->hasMany(Tabela::class, 'organizacao_id', 'id');
     }
+
+    public function ligacoes(): HasMany
+    {
+        return $this->hasMany(Ligacao::class, 'organizacao_id', 'id');
+    }
 }

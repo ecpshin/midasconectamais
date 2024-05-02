@@ -8,6 +8,7 @@ use App\Models\Financeira;
 use App\Models\Ligacao;
 use App\Models\Operacao;
 use App\Models\Organizacao;
+use App\Models\Produto;
 use App\Models\Situacao;
 use App\Models\Status;
 use App\Models\Tabela;
@@ -38,7 +39,7 @@ class LigacaoController extends Controller
         $calls = [];
 
         if (auth()->user()->hasRole('super-admin')) {
-            $calls = Ligacao::whereNotNull('user_id')->get();
+            $calls = Ligacao::whereNotNull('user_id')->limit(10)->get();
         } else {
             $calls = Ligacao::where('user_id', auth()->user()->id)->limit(100)->get();
         }
@@ -48,7 +49,9 @@ class LigacaoController extends Controller
             'rota' => 'admin.calls.index',
             'calls' => $calls,
             "users" => User::all(),
-            'statuses' => Status::all()
+            'statuses' => Status::all(),
+            'produtos' => Produto::all(['id', 'descricao_produto']),
+            'orgaos' => Organizacao::all(['id', 'nome_organizacao'])
         ]);
     }
 
@@ -58,7 +61,8 @@ class LigacaoController extends Controller
             'area' => 'Call Center',
             'page' => 'Realizar Ligação',
             'rota' => 'admin.calls.index',
-            'statuses' => Status::all()
+            'statuses' => Status::all(),
+            'orgaos' => Organizacao::all(['id', 'nome_organizacao'])
         ]);
     }
 
@@ -132,22 +136,24 @@ class LigacaoController extends Controller
     {
         $correspondentes = Correspondente::all();
         $financeiras = Financeira::orderBy('nome_financeira', 'asc')->get();
-        $operacoes = Operacao::orderBy('descricao_operacao', 'asc')->get();
+        $produtos = Produto::orderBy('descricao_produto', 'asc')->get();
         $situacoes = Situacao::all();
         $tabelas = Tabela::all();
-        $orgaos = Organizacao::orderBy('nome_organizacao', 'asc')->get();
+        $orgaos = Organizacao::select('id', 'nome_organizacao')->orderBy('nome_organizacao', 'asc')->get();
+        $cliente = Ligacao::with('organizacao')->findOrFail($ligacao->id);
 
         return view('calls.proposta', [
-            'cliente' => $ligacao,
+            'cliente' => $cliente,
             'area' => 'Call Center - Proposta',
             'page' => 'Proposta Cliente',
             'rota' => 'admin.calls.index',
             'correspondentes' => $correspondentes,
             'financeiras' => $financeiras,
-            'operacoes' => $operacoes,
+            'produtos' => $produtos,
             'situacoes' => $situacoes,
             'tabelas' => $tabelas,
-            'orgaos' => $orgaos
+            'orgaos' => $orgaos,
+            'uuid' => substr(Str::uuid(), 0, 18)
         ]);
     }
 

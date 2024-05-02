@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ligacao extends Model
@@ -16,6 +18,7 @@ class Ligacao extends Model
     protected $fillable = [
         'user_id',
         'status_id',
+        'organizacao_id',
         'data_ligacao',
         'data_agendamento',
         'nome',
@@ -36,6 +39,11 @@ class Ligacao extends Model
     public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class, 'status_id', 'id');
+    }
+
+    public function organizacao(): BelongsTo
+    {
+        return $this->belongsTo(Organizacao::class, 'organizacao_id', 'id');
     }
 
     protected $casts = [

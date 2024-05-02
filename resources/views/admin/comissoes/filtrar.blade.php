@@ -68,7 +68,7 @@
                                             {{ $tax->cliente->nome }}
                                         </td>
                                         <td class="text-xs font-semibold capitalize">
-                                            {{ $tax->operacao->descricao_operacao }}
+                                            {{ $tax->produto->descricao_produto }}
                                         </td>
                                         <td class="text-xs font-semibold capitalize">
                                             {{ $fmt->currency($tax->total_proposta, 'BRL', 'pt_BR') }}
@@ -86,10 +86,10 @@
                                             {{ $fmt->currency($tax->comissao->valor_loja, 'BRL', 'pt_BR') }}
                                         </td>
                                         <td class="text-xs font-semibold capitalize">
-                                            {{ $fmt->percentage($tax->comissao->percentual_operador, 2) }}
+                                            {{ $fmt->percentage($tax->comissao->percentual_agente, 2) }}
                                         </td>
                                         <td class="text-xs font-semibold capitalize">
-                                            {{ $fmt->currency($tax->comissao->valor_operador, 'BRL', 'pt_BR') }}
+                                            {{ $fmt->currency($tax->comissao->valor_agente, 'BRL', 'pt_BR') }}
                                         </td>
                                         <td class="overflow-hidden text-clip text-xs font-semibold capitalize">{{ $tax->user->name }}</td>
                                         <td class="flex items-center">
@@ -106,7 +106,7 @@
                                                 class="rounded-sm bg-yellow-700 px-2 py-2 shadow-md shadow-slate-500 hover:bg-yellow-500">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036h6v-3.572L16.732 3.732z" />
                                                 </svg>
                                             </a>
                                             <a href="#" class="rounded-sm bg-red-700 px-2 py-2 shadow-md shadow-slate-500 hover:bg-red-900"
@@ -131,19 +131,19 @@
             <div class="bg-white px-3 py-6 shadow-sm sm:rounded-lg">
                 <div class="flex w-auto flex-row items-center justify-center gap-3 text-xs">
                     <div class="flex flex-col gap-2 rounded-lg border bg-green-100 px-4 py-3 shadow-md">
-                        <h3 class="tex-center font-bold uppercase">Valor total propostas:</h3>
+                        <h6 class="text-center text-xs font-bold uppercase">Valor total propostas:</h6>
                         <p class="text-center font-semibold italic">{{ $total_propostas }}</p>
                     </div>
                     <div class="flex flex-col gap-2 rounded-lg border bg-sky-100 px-4 py-3 shadow-md">
-                        <h3 class="tex-center font-bold uppercase">Valor líquido propostas:</h3>
+                        <h6 class="text-center text-xs font-bold uppercase">Valor líquido propostas:</h6>
                         <p class="text-center font-semibold italic">{{ $total_liquido }}
                     </div>
                     <div class="flex flex-col gap-2 rounded-lg border bg-yellow-100 px-4 py-3 shadow-md">
-                        <h3 class="tex-center font-bold uppercase">Total comissão loja:</h3>
+                        <h6 class="text-center text-xs font-bold uppercase">Total comissão loja:</h6>
                         <p class="text-center font-semibold italic">{{ $total_loja }}</p>
                     </div>
                     <div class="flex flex-col gap-2 rounded-lg border bg-red-100 px-4 py-3 shadow-md">
-                        <h3 class="tex-center font-bold uppercase">Total comissão agentes:</h3>
+                        <h6 class="text-center text-xs font-bold uppercase">Total comissão agentes:</h6>
                         <p class="text-center font-semibold italic">{{ $total_agente }}</p>
                     </div>
                 </div>

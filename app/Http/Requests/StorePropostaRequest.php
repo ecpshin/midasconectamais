@@ -22,27 +22,28 @@ class StorePropostaRequest extends FormRequest
     public function rules(): array
     {
         return [
-          'uuid' => 'nullable|string',
-          'numero_contrato' => 'nullable|string|min:3|max:50',
-          'data_digitacao' => 'required|date',
-          'data_pagamento' => 'nullable|date',
-          'prazo_proposta' => 'nullable|integer',
-          'total_proposta' => 'nullable|numeric',
-          'parcela_proposta' => 'nullable|numeric',
-          'liquido_proposta' => 'nullable|numeric',
-          'percentual_loja' => 'nullable|numeric',
-          'valor_loja' => 'nullable|numeric',
-          'percentual_agente' => 'nullable|numeric',
-          'valor_agente' => 'nullable|numeric',
-          'percentual_corretor' => 'nullable|numeric',
-          'valor_corretor' => 'nullable|numeric',
-          'cliente_id' => 'required|integer',
-          'tabela_id' => 'required|integer',
-          'produto_id' => 'required|integer',
-          'financeira_id' => 'required|integer',
-          'correspondente_id' => 'required|integer',
-          'situacao_id' => 'required|integer',
-          'user_id' => 'nullable|integer',
+            'uuid' => 'nullable|string',
+            'numero_contrato' => 'nullable|string|min:3|max:50',
+            'data_digitacao' => 'required|date',
+            'data_pagamento' => 'nullable|date',
+            'prazo_proposta' => 'nullable|integer',
+            'total_proposta' => 'nullable|decimal:0.00,1000000.00',
+            'parcela_proposta' => 'nullable|decimal:0.00,1000000.00',
+            'liquido_proposta' => 'nullable|decimal:0.00,1000000.00',
+            'percentual_loja' => 'nullable|decimal:0.00,100.00',
+            'valor_loja' => 'nullable|decimal:0.00,1000000.00',
+            'percentual_agente' => 'nullable|decimal:0.00,100.00',
+            'valor_agente' => 'nullable|decimal:0.00,1000000.00',
+            'percentual_corretor' => 'nullable|decimal:0.00,100.00',
+            'valor_corretor' => 'nullable|decimal:0.00,1000000.00',
+            'cliente_id' => 'nullable|integer',
+            'tabela_id' => 'required|integer',
+            'produto_id' => 'required|integer',
+            'financeira_id' => 'required|integer',
+            'organizacao_id' => 'required|integer',
+            'correspondente_id' => 'required|integer',
+            'situacao_id' => 'required|integer',
+            'user_id' => 'nullable|integer',
         ];
     }
 
@@ -76,13 +77,13 @@ class StorePropostaRequest extends FormRequest
     public function messages(): array
     {
         return [
-          'date' => 'O campo :attribute deve ser uma data válida.',
-          'max' => 'O campo :attribute deve ter no máximo :max caracteres.',
-          'min' => 'O campo :attribute deve ter no mínimo :min caracteres.',
-          'integer' => 'O campo :attribute não é válido.',
-          'numeric' => 'O campo :attribute não é um número válido.',
-          'required' => 'O campo :attribute é obrigatório.',
-          'string' => 'O campo :attribute deve ser uma string.',
+            'date' => 'O campo :attribute deve ser uma data válida.',
+            'max' => 'O campo :attribute deve ter no máximo :max caracteres.',
+            'min' => 'O campo :attribute deve ter no mínimo :min caracteres.',
+            'integer' => 'O campo :attribute não é válido.',
+            'numeric' => 'O campo :attribute não é um número válido.',
+            'required' => 'O campo :attribute é obrigatório.',
+            'string' => 'O campo :attribute deve ser uma string.',
         ];
     }
 }

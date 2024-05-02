@@ -111,7 +111,7 @@ class ComissaoController extends Controller
         $mesAtual = $request->input('month') ? $request->input('month')  : date('m');
         $agente = $request->input('user_id') ? $request->input('user_id')  : null;
 
-        $propostas = Proposta::with(['cliente', 'comissao', 'correspondente', 'financeira', 'operacao', 'situacao', 'user'])
+        $propostas = Proposta::with(['cliente', 'comissao', 'correspondente', 'financeira', 'produto', 'situacao', 'user'])
             ->whereMonth('data_digitacao', $mesAtual)
             ->whereNot('user_id', 1)
             ->get();

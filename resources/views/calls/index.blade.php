@@ -69,63 +69,82 @@
         <div class="modal fade text-stone-700" id="modalLigacao" tabindex="-1" aria-labelledby="modaLigacaoLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title fs-5 text-slate-700" aria-label="modalLigacaoLabel">Call Center</h5>
+                    <div class="modal-header bg-gradient-to-b from-slate-900 via-slate-600 to-slate-800">
+                        <h3 class="modal-title w-100 text-center text-slate-50" aria-label="modalLigacaoLabel">Call Center</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('admin.calls.store') }}" class="mt-3" method="post">
+                        <form action="{{ route('admin.calls.store') }}" class="mt-3 flex flex-col" method="post">
                             @csrf
-                            <div class="row">
-                                <div class="col-lg-3 form-group mb-3">
-                                    <label class="text-xs font-semibold" for="data_ligacao">Ligação</label>
-                                    <input type="date" name="data_ligacao" id="data_ligacao" required value="{{ date('Y-m-d') }}"
-                                        class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
+                            <div class="row flex flex-row justify-between">
+                                <div class="col-lg-3">
+                                    <div class="form-group flex flex-col">
+                                        <label class="text-xs font-semibold" for="data_ligacao">Ligação</label>
+                                        <input type="date" name="data_ligacao" id="data_ligacao" required value="{{ date('Y-m-d') }}"
+                                            class="form-input rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
+                                    </div>
                                 </div>
-                                <div class="col-lg-3 form-group mb-3">
-                                    <label class="text-xs font-semibold" for="agendado">Agendamento</label>
-                                    <input type="date" name="data_agendamento" id="data_agendamento" value="{{ date('Y-m-d') }}"
-                                        class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
+                                <div class="col-lg-3">
+                                    <div class="form-group mb-3 flex flex-col">
+                                        <label class="text-xs font-semibold" for="agendado">Agendamento</label>
+                                        <input type="date" name="data_agendamento" id="data_agendamento" value="{{ date('Y-m-d') }}"
+                                            class="form-input rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
+                                    </div>
                                 </div>
-                                <div class="col-lg-3 form-group mb-3">
-                                    <label class="text-xs font-semibold" for="status_id">Status</label>
-                                    <select name="status_id" id="status_id" required
-                                        class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
-                                        <option value="1">Selecione</option>
-                                        @foreach ($statuses as $status)
-                                            <option value="{{ $status->id }}" @if ($status->id == 1) selected @endif>{{ $status->status_description }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8 form-group mb-3">
-                                    <label class="text-xs font-semibold" for="nome">Nome</label>
-                                    <input type="text" name="nome" id="nome" required
-                                        class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
-                                </div>
-                                <div class="col-lg-4 form-group mb-3">
-                                    <label class="text-xs font-semibold" for="cpf">CPF</label>
-                                    <input type="text" name="cpf" id="cpf"
-                                        class="cpf w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
+                                <div class="col-lg-6">
+                                    <div class="form-group flex flex-col">
+                                        <label class="text-xs font-semibold" for="status_id">Status</label>
+                                        <select name="status_id" id="status_id" required class="form-select rounded-lg border-gray-300 text-xs">
+                                            <option value="1">Selecione</option>
+                                            @foreach ($statuses as $status)
+                                                <option value="{{ $status->id }}" @if ($status->id == 1) selected @endif>{{ $status->status_description }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-3 form-group mb-3">
-                                    <label class="text-xs font-semibold" for="matricula">Matrícula</label>
-                                    <input type="text" name="matricula" id="matricula"
-                                        class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
+                            <div class="row flex flex-row items-baseline justify-between">
+                                <div class="col-lg-8">
+                                    <div class="form-group flex flex-col">
+                                        <label class="text-xs font-semibold" for="nome">Nome</label>
+                                        <input type="text" name="nome" id="nome" required
+                                            class="rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
+                                    </div>
                                 </div>
-                                <div class="form-group col-lg-6 mb-3">
-                                    <label class="text-xs font-semibold" for="orgao">Órgão</label>
-                                    <input type="text" name="orgao" id="orgao"
-                                        class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
+                                <div class="col-lg-4">
+                                    <div class="form-group flex flex-col">
+                                        <label class="text-xs font-semibold" for="cpf">CPF</label>
+                                        <input type="text" name="cpf" id="cpf"
+                                            class="cpf rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
+                                    </div>
                                 </div>
-
-                                <div class="form-group col-lg-3 mb-3">
-                                    <label class="text-xs font-semibold" for="margem">Margem</label>
-                                    <input type="number" name="margem" id="margem" min="0" max="1000000" step="0.01"
-                                        class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-right text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
+                            </div>
+                            <div class="row flex flex-row items-baseline justify-between">
+                                <div class="col-lg-3">
+                                    <div class="form-group flex flex-col">
+                                        <label class="text-xs font-semibold" for="matricula">Matrícula</label>
+                                        <input type="text" name="matricula" id="matricula"
+                                            class="rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group flex flex-col">
+                                        <label class="text-xs font-semibold" for="orgao">Órgão</label>
+                                        <select name="organizacao_id" id="orgao_id" class="form-select rounded-lg border-gray-300 text-xs">
+                                            @forelse ($orgaos as $orgao)
+                                                <option value="{{ $orgao->id }}">{{ $orgao->nome_organizacao }}</option>
+                                            @empty
+                                                Não há órgãos cadastrados
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group flex flex-col">
+                                        <label class="text-xs font-semibold" for="margem">Margem</label>
+                                        <input type="number" name="margem" id="margem" min="0" max="1000000" step="0.01"
+                                            class="rounded-lg border-gray-300 text-right text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -136,8 +155,13 @@
                                 </div>
                                 <div class="form-group col-lg-4 mb-3">
                                     <label class="text-xs font-semibold" for="produto">Produto</label>
-                                    <input type="text" name="produto" id="produto" placeholder="Produto oferecido"
-                                        class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
+                                    <select name="produto_id" id="product_id" class="form-select rounded-lg border-gray-300 text-xs">
+                                        @forelse ($produtos as $produto)
+                                            <option value="{{ $produto->id }}">{{ $produto->descricao_produto }}</option>
+                                        @empty
+                                            Não há órgãos cadastrados
+                                        @endforelse
+                                    </select>
                                 </div>
                             </div>
 

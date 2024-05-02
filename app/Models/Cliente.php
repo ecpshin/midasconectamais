@@ -15,7 +15,24 @@ class Cliente extends Model
 
     protected $table = 'clientes';
 
-    protected $fillable = ['nome', 'cpf', 'data_nascimento', 'rg', 'orgao_exp', 'data_exp', 'naturalidade', 'genitora', 'genitor', 'sexo', 'estado_civil', 'user_id'];
+    protected $fillable = [
+        'nome',
+        'cpf',
+        'data_nascimento',
+        'rg',
+        'orgao_exp',
+        'data_exp',
+        'naturalidade',
+        'genitora',
+        'genitor',
+        'sexo',
+        'estado_civil',
+        'phone1',
+        'phone2',
+        'phone3',
+        'phone4',
+        'user_id'
+    ];
 
     public function user(): BelongsTo
     {
