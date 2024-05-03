@@ -138,58 +138,140 @@ class PropostaController extends Controller
         //
     }
 
-    public function pagePropostaPorAgente()
+    public function propostasAgente(Request $request)
     {
-        if (auth()->user()->hasRole(['super-admin'])) {
-            $agentes = User::withoutRole(['super-admin'])->whereNot('id', auth()->user()->id)->get();
+        $mesAtual = $request->input('month') ? $request->input('month')  : date('m');
+        $users = User::with('roles')->where('tipo', 'agente')->get();
+        $soma_total = 0;
+        $soma_liquido = 0;
+        $propostas = [];
+
+        if (count($request->all()) > 0) {
+            $user = $request->user_id;
+            $mes = $request->month;
+            $propostas = Proposta::with(['comissao', 'user'])->where(function ($query) use ($user, $mes) {
+                $query->where('user_id', $user)->whereMonth('data_digitacao', $mes);
+            })->get();
+        } else {
+            $propostas = Proposta::with(['comissao', 'user'])->get();
         }
 
-        return view('admin.propostas.producao-mensal', [
-            'area' => 'Propostas',
-            'page' => 'Produção Mensal Agente',
-            'rota' => 'admin.propostas.index',
-            'propostas' => [],
-            'agentes' => $agentes,
-            'meses' => $this->getMonths(),
-            'fmt' => new Number
-        ]);
-    }
-
-    public function producaoPorAgente(Request $request)
-    {
-        if (!$request->input('mes')) {
-            return redirect()->back()->with('error', 'Selecione o mês.');
+        foreach ($propostas as $p) {
+            $aux[] = $p->comissao;
         }
 
-        if (!$request->input('user_id')) {
-            return redirect()->back()->with('error', 'Selecione o agente.');
-        }
-
-        if (auth()->user()->hasRole(['super-admin'])) {
-            $agentes = User::withoutRole(['super-admin'])->whereNot('id', auth()->user()->id)->get();
-        }
-
-        $propostas = Proposta::whereMonth('data_digitacao', $request->input('mes'))
-            ->where('user_id', $request->input('user_id'))->paginate(5);
-
-        $total_propostas = $propostas->sum('total_proposta');
-
-        $liquido_propostas = $propostas->sum('liquido_proposta');
+        $soma_total = $propostas->sum('total_proposta');
+        $soma_liquido = $propostas->sum('liquido_proposta');
 
         $fmt = new Number;
 
-        return view('admin.propostas.producao-mensal', [
+        return view('admin.propostas.agente', [
             'area' => 'Propostas',
-            'page' => 'Produção Mensal Agente',
+            'page' => 'Propostas Lançadas',
             'rota' => 'admin.propostas.index',
-            'propostas' => $propostas,
-            'agentes' => $agentes,
-            'meses' => $this->getMonths(),
-            'fmt' => $fmt,
-            'total_propostas' => $total_propostas,
-            'liquido_propostas' => $liquido_propostas
+            'months' => $this->getMonths(),
+            'mesAtual' => $mesAtual,
+            'propostas' => $propostas ?? [],
+            'agentes' => $users,
+            'soma_total' => $this->toMoeda($soma_total ?? 0),
+            'soma_liquido' => $this->toMoeda($soma_liquido ?? 0),
+            'fmt' => $fmt
         ]);
     }
+
+    public function propostasCorretor(Request $request)
+    {
+        $mesAtual = $request->input('month') ? $request->input('month')  : date('m');
+        $users = User::with('roles')->where('tipo', 'corretor')->get();
+        $soma_total = 0;
+        $soma_liquido = 0;
+        $propostas = [];
+
+        if (count($request->all()) > 0) {
+            $user = $request->user_id;
+            $mes = $request->month;
+            $propostas = Proposta::where(function ($query) use ($user, $mes) {
+                $query->where('user_id', $user)->whereMonth('data_digitacao', $mes);
+            })->get();
+        } else {
+            $propostas = Proposta::with(['comissao', 'user'])->get();
+        }
+
+        foreach ($propostas as $p) {
+            $aux[] = $p->comissao;
+        }
+
+        $soma_total = $propostas->sum('total_proposta');
+        $soma_liquido = $propostas->sum('liquido_proposta');
+
+        $fmt = new Number;
+
+        return view('admin.propostas.corretor', [
+            'area' => 'Propostas',
+            'page' => 'Propostas Lançadas',
+            'rota' => 'admin.propostas.index',
+            'months' => $this->getMonths(),
+            'mesAtual' => $mesAtual,
+            'propostas' => $propostas ?? [],
+            'agentes' => $users,
+            'soma_total' => $this->toMoeda($soma_total ?? 0),
+            'soma_liquido' => $this->toMoeda($soma_liquido ?? 0),
+            'fmt' => $fmt
+        ]);
+    }
+
+    // public function pagePropostaPorAgente()
+    // {
+    //     if (auth()->user()->hasRole(['super-admin'])) {
+    //         $agentes = User::withoutRole(['super-admin'])->whereNot('id', auth()->user()->id)->get();
+    //     }
+
+    //     return view('admin.propostas.producao-mensal', [
+    //         'area' => 'Propostas',
+    //         'page' => 'Produção Mensal Agente',
+    //         'rota' => 'admin.propostas.index',
+    //         'propostas' => [],
+    //         'agentes' => $agentes,
+    //         'meses' => $this->getMonths(),
+    //         'fmt' => new Number
+    //     ]);
+    // }
+
+    // public function producaoPorAgente(Request $request)
+    // {
+    //     if (!$request->input('mes')) {
+    //         return redirect()->back()->with('error', 'Selecione o mês.');
+    //     }
+
+    //     if (!$request->input('user_id')) {
+    //         return redirect()->back()->with('error', 'Selecione o agente.');
+    //     }
+
+    //     if (auth()->user()->hasRole(['super-admin'])) {
+    //         $agentes = User::withoutRole(['super-admin'])->whereNot('id', auth()->user()->id)->get();
+    //     }
+
+    //     $propostas = Proposta::whereMonth('data_digitacao', $request->input('mes'))
+    //         ->where('user_id', $request->input('user_id'))->paginate(5);
+
+    //     $total_propostas = $propostas->sum('total_proposta');
+
+    //     $liquido_propostas = $propostas->sum('liquido_proposta');
+
+    //     $fmt = new Number;
+
+    //     return view('admin.propostas.producao-mensal', [
+    //         'area' => 'Propostas',
+    //         'page' => 'Produção Mensal Agente',
+    //         'rota' => 'admin.propostas.index',
+    //         'propostas' => $propostas,
+    //         'agentes' => $agentes,
+    //         'meses' => $this->getMonths(),
+    //         'fmt' => $fmt,
+    //         'total_propostas' => $total_propostas,
+    //         'liquido_propostas' => $liquido_propostas
+    //     ]);
+    // }
 
     public function filtrarPorData()
     {
@@ -277,7 +359,7 @@ class PropostaController extends Controller
         ];
     }
 
-    public function toMoeda($valor, $currency, $locale)
+    public function toMoeda($valor = 0.0, $currency = 'BRL', $locale = 'pt_BR'): string
     {
         return Number::currency($valor, $currency, $locale);
     }

@@ -175,6 +175,7 @@ class ComissaoController extends Controller
             '12' => 'Dezembro'
         ];
     }
+
     public function toMoeda($valor = 0.0, $currency = 'BRL', $locale = 'pt_BR'): string
     {
         return Number::currency($valor, $currency, $locale);
@@ -234,7 +235,6 @@ class ComissaoController extends Controller
         $soma_liquido = 0;
         $soma_agente = 0;
         $propostas = [];
-        $comissoes = [];
 
         if (count($request->all()) > 0) {
             $user = $request->user_id;
