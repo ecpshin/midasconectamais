@@ -30,60 +30,35 @@
                             <thead class="bg-black font-bold text-slate-100">
                                 <tr>
                                     <th class="text-xs font-semibold text-white">ID</th>
+                                    <th class="text-xs font-semibold text-white">Nº Contrato</th>
                                     <th class="text-xs font-semibold text-white">Lançamento</th>
                                     <th class="text-xs font-semibold text-white">Pagamento</th>
                                     <th class="text-xs font-semibold text-white">Cliente</th>
                                     <th class="text-xs font-semibold text-white">Operação</th>
                                     <th class="text-xs font-semibold text-white">Total</th>
                                     <th class="text-xs font-semibold text-white">Líquido</th>
-                                    <th class="text-xs font-semibold text-white">Parcela</th>
-                                    <th class="text-xs font-semibold text-white">% Loja</th>
                                     <th class="text-xs font-semibold text-white">Val. Loja</th>
-                                    <th class="text-xs font-semibold text-white">% Agente</th>
                                     <th class="text-xs font-semibold text-white">Val. Agente</th>
+                                    <th class="text-xs font-semibold text-white">Val. Corretor</th>
                                     <th class="text-xs font-semibold text-white">Agente</th>
                                     <th class="text-xs font-semibold text-white"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($propostas ?? [] as $tax)
+                                @foreach ($comissoes as $tax)
                                     <tr class="odd:bg-fuchsia-100">
-                                        <td class="text-xs font-semibold">
-                                            {{ $tax->comissao->id }}</td>
-                                        <td class="text-xs font-semibold capitalize">
-                                            {{ $tax->data_digitacao->format('d/m/y') }}
-                                        </td>
-                                        <td class="text-xs font-semibold capitalize">
-                                            {{ $tax->data_pagamento->format('d/m/y') }}
-                                        </td>
-                                        <td class="text-xs font-semibold capitalize">
-                                            {{ $tax->cliente->nome }}
-                                        </td>
-                                        <td class="text-xs font-semibold capitalize">
-                                            {{ $tax->produto->descricao_produto }}
-                                        </td>
-                                        <td class="text-xs font-semibold capitalize">
-                                            {{ $fmt->currency($tax->total_proposta, 'BRL', 'pt_BR') }}
-                                        </td>
-                                        <td class="text-xs font-semibold capitalize">
-                                            {{ $fmt->currency($tax->liquido_proposta, 'BRL', 'pt_BR') }}
-                                        </td>
-                                        <td class="text-xs font-semibold capitalize">
-                                            {{ $fmt->currency($tax->parcela_proposta, 'BRL', 'pt_BR') }}
-                                        </td>
-                                        <td class="text-xs font-semibold capitalize">
-                                            {{ $fmt->percentage($tax->comissao->percentual_loja, 2) }}
-                                        </td>
-                                        <td class="text-xs font-semibold capitalize">
-                                            {{ $fmt->currency($tax->comissao->valor_loja, 'BRL', 'pt_BR') }}
-                                        </td>
-                                        <td class="text-xs font-semibold capitalize">
-                                            {{ $fmt->percentage($tax->comissao->percentual_agente, 2) }}
-                                        </td>
-                                        <td class="text-xs font-semibold capitalize">
-                                            {{ $fmt->currency($tax->comissao->valor_agente, 'BRL', 'pt_BR') }}
-                                        </td>
-                                        <td class="overflow-hidden text-clip text-xs font-semibold capitalize">{{ $tax->user->name }}</td>
+                                        <td class="text-xs font-semibold">{{ $tax->id }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->numero_contrato }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->data_digitacao->format('d/m/y') }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->data_pagamento->format('d/m/y') }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->cliente->nome }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->produto->descricao_produto }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->total_proposta }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->liquido_proposta }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $tax->valor_loja }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $tax->valor_agente }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $tax->valor_corretor }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->user->name }}</td>
                                         <td class="flex items-center">
                                             <a href="{{ route('admin.comissoes.show', $tax) }}"
                                                 class="rounded-sm bg-sky-800 px-2 py-2 shadow-md shadow-slate-500 hover:bg-sky-500">
@@ -119,25 +94,33 @@
                 </div>
             </div>
         </div>
-        <div class="mx-auto mt-3 w-full sm:px-4 lg:px-6">
+        <div class="mx-auto mb-3 mt-3 w-full text-xs sm:px-4 lg:px-6">
             <div class="bg-white px-3 py-6 shadow-sm sm:rounded-lg">
                 <div class="flex w-auto flex-row items-center justify-center gap-3 text-xs">
-                    <div class="flex flex-col gap-2 rounded-lg border bg-green-100 px-4 py-3 shadow-md">
-                        <h6 class="text-center text-sm font-bold uppercase">Valor total propostas:</h6>
-                        <p class="text-center font-semibold italic">{{ $total }}</p>
-                    </div>
-                    <div class="flex flex-col gap-2 rounded-lg border bg-sky-100 px-4 py-3 shadow-md">
-                        <h6 class="text-center text-sm font-bold uppercase">Valor líquido propostas:</h6>
-                        <p class="text-center font-semibold italic">{{ $liquido }}
-                    </div>
-                    <div class="flex flex-col gap-2 rounded-lg border bg-yellow-100 px-4 py-3 shadow-md">
-                        <h6 class="text-center text-sm font-bold uppercase">Total comissão loja:</h6>
-                        <p class="text-center font-semibold italic">{{ $loja }}</p>
-                    </div>
-                    <div class="flex flex-col gap-2 rounded-lg border bg-red-100 px-4 py-3 shadow-md">
-                        <h6 class="text-center text-sm font-bold uppercase">Total comissão agentes:</h6>
-                        <p class="text-center font-semibold italic">{{ $agente }}</p>
-                    </div>
+                    <table class="w-75 rounded-lg border">
+                        <thead class="bg-gradient-to-br from-slate-900 to-indigo-700 p-2 text-center text-sm text-slate-50">
+                            <tr>
+                                <th class="p-2">Total Propostas</th>
+                                <th class="p-2">Líquido Propostas</th>
+                                @hasrole('super-admin')
+                                    <th class="p-2">Comissão Loja</th>
+                                @endhasrole
+                                <th class="p-2">Comissão Agente</th>
+                                <th class="p-2">Comissão Corretor</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center text-sm font-semibold">
+                            <tr>
+                                <td class="p-2">{{ $total }}</td>
+                                <td class="p-2">{{ $liquido }}</td>
+                                @hasrole('super-admin')
+                                    <td class="bg-emerald-500 p-2 text-white">{{ $loja }}</td>
+                                @endhasrole
+                                <td class="bg-yellow-500 p-2 text-slate-700">{{ $agente }}</td>
+                                <td class="bg-cyan-500 p-2 text-white">{{ $corretor }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

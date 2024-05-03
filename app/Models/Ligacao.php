@@ -16,9 +16,10 @@ class Ligacao extends Model
     protected $table = 'ligacoes';
 
     protected $fillable = [
-        'user_id',
-        'status_id',
         'organizacao_id',
+        'produto_id',
+        'status_id',
+        'user_id',
         'data_ligacao',
         'data_agendamento',
         'nome',
@@ -44,6 +45,11 @@ class Ligacao extends Model
     public function organizacao(): BelongsTo
     {
         return $this->belongsTo(Organizacao::class, 'organizacao_id', 'id');
+    }
+
+    public function produto(): BelongsTo
+    {
+        return $this->belongsTo(Produto::class, 'produto_id', 'id');
     }
 
     protected $casts = [

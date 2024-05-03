@@ -17,10 +17,10 @@ class Comissao extends Model
         'tabela_id',
         'data_repasse',
         'percentual_loja',
-        'valor_loja',
         'percentual_agente',
-        'valor_agente',
         'percentual_corretor',
+        'valor_loja',
+        'valor_agente',
         'valor_corretor',
         'is_pago'
     ];

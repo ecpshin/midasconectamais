@@ -56,8 +56,8 @@ class PropostaController extends Controller
         $situacoes = Situacao::all();
         $produtos = Produto::all(['id', 'descricao_produto']);
         $tabelas = Tabela::all();
+        $orgaos = Organizacao::all(['id', 'nome_organizacao']);
         $uuid = Uuid::uuid4();
-        $cliente = Cliente::with(['vinculos'])->first();
 
         return view('admin.propostas.create', [
             'area' => 'Propostas',
@@ -69,18 +69,32 @@ class PropostaController extends Controller
             'produtos' => Produto::all(['id', 'descricao_produto']),
             'situacoes' => $situacoes,
             'tabelas' => $tabelas,
-            'cliente' => $cliente,
-            'orgaos' => Organizacao::all(['id', 'nome_organizacao']),
+            'orgaos' => $orgaos,
             'uuid' => substr($uuid, 0, 13)
         ]);
     }
 
-    public function store(StorePropostaRequest $request)
+
+    public function special(StorePropostaRequest $request)
     {
         $attributes = $request->validated();
         $attributes['user_id'] = auth()->id();
         $request['user_id'] = auth()->id();
         $cliente = Cliente::create($request->all());
+        $proposta = $cliente->propostas()->create($attributes);
+        $proposta->comissao()->create($attributes);
+
+        if ($proposta instanceof Proposta) {
+            alert()->success('Sucesso', 'Lançamento de proposta realizado com sucesso.');
+            return redirect(route('admin.propostas.index'));
+        }
+    }
+    public function store(StorePropostaRequest $request)
+    {
+        $attributes = $request->validated();
+        $attributes['user_id'] = auth()->id();
+        $request['user_id'] = auth()->id();
+        $cliente = Cliente::find($request->cliente_id);
         $proposta = $cliente->propostas()->create($attributes);
         $proposta->comissao()->create($attributes);
 

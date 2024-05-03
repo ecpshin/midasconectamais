@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('nome_responsavel', 50)->nullable();
             $table->string('phone_contato', 50)->nullable();
             $table->string('cpf_cnpj', 50)->nullable();
-            $table->decimal('percentual_comissao', 20, 6)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

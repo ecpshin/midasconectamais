@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('info_bancarias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cliente_id')->constrained('clientes', 'id');
+            $table->foreignId('cliente_id')->constrained('clientes', 'id')->cascadeOnUpdate()->restrictOnDelete();
             $table->string('codigo', 50)->nullable();
             $table->string('banco')->nullable();
             $table->string('agencia', 50)->nullable();

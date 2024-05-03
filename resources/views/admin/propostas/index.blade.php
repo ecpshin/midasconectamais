@@ -14,22 +14,22 @@
                     </a>
                     <div class="my-3 flex flex-col overflow-x-scroll rounded-lg border bg-slate-50 px-3 py-6">
                         <table class="table-auto" id="tabela">
-                            <thead class="bg-red-700 font-bold text-slate-100">
+                            <thead class="bg-gradient-to-br from-slate-900 to-indigo-700 font-bold text-slate-100">
                                 <tr>
-                                    <th class="text-sm font-semibold text-white">ID</th>
-                                    <th class="text-sm font-semibold text-white">Lançamento</th>
-                                    <th class="text-sm font-semibold text-white">Pagamento</th>
-                                    <th class="text-sm font-semibold text-white">Cliente</th>
-                                    <th class="text-sm font-semibold text-white">Operação</th>
-                                    <th class="text-sm font-semibold text-white">Prazo</th>
-                                    <th class="text-sm font-semibold text-white">Total</th>
-                                    <th class="text-sm font-semibold text-white">Parcela</th>
-                                    <th class="text-sm font-semibold text-white">Líquido</th>
-                                    <th class="text-sm font-semibold text-white">Financeira</th>
-                                    <th class="text-sm font-semibold text-white">Correspondente</th>
-                                    <th class="text-sm font-semibold text-white">Status</th>
-                                    <th class="text-sm font-semibold text-white">Agente</th>
-                                    <th class="text-sm font-semibold text-white"></th>
+                                    <th class="py-2 text-sm font-semibold text-white">ID</th>
+                                    <th class="py-2 text-sm font-semibold text-white">Lançamento</th>
+                                    <th class="py-2 text-sm font-semibold text-white">Pagamento</th>
+                                    <th class="py-2 text-sm font-semibold text-white">Cliente</th>
+                                    <th class="py-2 text-sm font-semibold text-white">Produto</th>
+                                    <th class="py-2 text-sm font-semibold text-white">Prazo</th>
+                                    <th class="py-2 text-sm font-semibold text-white">Total</th>
+                                    <th class="py-2 text-sm font-semibold text-white">Parcela</th>
+                                    <th class="py-2 text-sm font-semibold text-white">Líquido</th>
+                                    <th class="py-2 text-sm font-semibold text-white">Financeira</th>
+                                    <th class="py-2 text-sm font-semibold text-white">Correspondente</th>
+                                    <th class="py-2 text-sm font-semibold text-white">Status</th>
+                                    <th class="py-2 text-sm font-semibold text-white">Agente</th>
+                                    <th class="py-2 text-sm font-semibold text-white"></th>
                                 </tr>
                             </thead>
                             <tbody class="text-nowrap">

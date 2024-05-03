@@ -101,7 +101,7 @@ function loadCliente(cliente) {
     const data = JSON.parse(cliente);
     $("#cliente_id").val(data.id);
     $("#cpf").val(data.cpf);
-    $("#nome_cliente").val(data.nome);
+    $("#nome").val(data.nome);
 }
 
 function fn(valor) {

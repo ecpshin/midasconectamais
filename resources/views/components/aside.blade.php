@@ -188,31 +188,38 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('admin.propostas.index') }}" class="nav-link">
-                                    <i class="bi bi-card-list nav-icon"></i>
+                                    <i class="fas fa-funnel-dollar nav-icon"></i>
                                     <p class="font-semibold text-yellow-600 hover:text-yellow-500">Relatório Mensal</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="bi bi-calendar3 nav-icon"></i>
-                                    <p class="font-semibold text-yellow-600 hover:text-yellow-500">Relatório Agente</p>
+                                <a href="{{ route('admin.comissoes.operadores') }}" class="nav-link">
+                                    <i class="fas fa-hand-holding-usd nav-icon"></i>
+                                    <p class="font-semibold text-yellow-600 hover:text-yellow-500">Comissões Agente</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.comissoes.corretores') }}" class="nav-link">
+                                    <i class="fas fa-hand-holding-usd nav-icon"></i>
+                                    <p class="font-semibold text-yellow-600 hover:text-yellow-500">Comissões Corretor</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('admin.comissoes.index') }}" class="nav-link">
-                                    <i class="bi bi-calendar3 nav-icon"></i>
+                                    <i class="fas fa-hand-holding-usd nav-icon"></i>
                                     <p class="font-semibold text-yellow-600 hover:text-yellow-500">Geral</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="{{ route('admin.comissoes.ajustar') }}" class="nav-link">
-                                    <i class="bi bi-calendar3 nav-icon"></i>
+                                    <i class="bi bi-wrench-adjustable-circle nav-icon"></i>
                                     <p class="font-semibold text-yellow-600 hover:text-yellow-500">Ajuste</p>
                                 </a>
                             </li>
+                            --}}
                             <li class="nav-item">
                                 <a href="{{ route('admin.tabelas.index') }}" class="nav-link">
-                                    <i class="bi bi-calendar3 nav-icon"></i>
+                                    <i class="fas fa-file-invoice-dollar nav-icon"></i>
                                     <p class="font-semibold text-yellow-600 hover:text-yellow-500">Tabelas</p>
                                 </a>
                             </li>

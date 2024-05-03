@@ -143,15 +143,20 @@ Route::prefix('admin/comissoes')->controller(ComissaoController::class)
     ->name('admin.comissoes.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'index')->name('index');
-        Route::get('/create-comissoes', 'create')->name('create');
         Route::get('/{comissao}/editar-comissao', 'edit')->name('edit');
         Route::patch('/{comissao}/update-comissao', 'update')->name('update');
-        Route::delete('/{comissao}/excluir-comissao', 'destroy')->name('destroy');
-        Route::get('/{comissao}/exibir-comissao', 'show')->name('show');
+        Route::delete('/{comissao}/delete', 'destroy')->name('destroy');
+        Route::get('/{comissao}/show', 'show')->name('show');
 
-        Route::get('/ajuste-por-agente', 'porAgente')->name('ajustar');
+        Route::get('/ajuste-por-agente', 'porAgente')->name('agente');
         Route::post('/comissoes-por-agente', 'porAgente')->name('agente');
-    })->middleware(['role:super-admin', 'auth', 'verified']);
+
+        Route::get('/comissoes-agentes', 'comissoesAgente')->name('operadores');
+        Route::post('/comissoes-agente', 'comissoesAgente')->name('operador');
+        Route::get('/comissoes-corretores', 'comissoesCorretor')->name('corretores');
+        Route::post('/comissoes-corretor', 'comissoesCorretor')->name('corretor');
+    });
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

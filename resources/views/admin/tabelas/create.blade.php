@@ -12,7 +12,7 @@
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="flex flex-col">
-                                    <label for="descricao" class="text-black">Nome da Tabela</label>
+                                    <label for="descricao" class="text-black">Descrição</label>
                                     <input type="text" name="descricao" id="descricao" value="{{ old('descricao') }}" required
                                         class="rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
                                 </div>

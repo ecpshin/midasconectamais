@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('situacoes', function (Blueprint $table) {
             $table->id();
-            $table->string('descricao_situacao', '255');
-            $table->string('motivo_situacao', '100')->nullable()->default('Não se aplica');
-            $table->string('estilo_situacao', '50')->nullable()->default('rounded-full text-black');;
+            $table->string('descricao_situacao', 255);
+            $table->string('motivo_situacao', 100)->nullable()->default('Não se aplica');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

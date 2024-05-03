@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('tabelas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('produto_id')->constrained('produtos', 'id')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('correspondente_id')->constrained('correspondentes', 'id')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('financeira_id')->constrained('financeiras', 'id')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('vinculo_id')->constrained('vinculos', 'id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('produto_id')->constrained('produtos', 'id')->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId('financeira_id')->constrained('financeiras', 'id')->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId('correspondente_id')->constrained('correspondentes', 'id')->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId('organizacao_id')->constrained('organizacoes', 'id')->cascadeOnUpdate()->restrictOnDelete();
             $table->string('descricao');
             $table->string('codigo');
             $table->decimal('percentual_loja', 20, 2);

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('info_residenciais', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cliente_id')->constrained('clientes', 'id');
+            $table->foreignId('cliente_id')->constrained('clientes', 'id')->cascadeOnUpdate()->restrictOnDelete();
             $table->string('cep', 25)->nullable();
             $table->string('logradouro', 255)->nullable();
             $table->string('complemento', 100)->nullable();

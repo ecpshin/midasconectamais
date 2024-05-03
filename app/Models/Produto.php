@@ -22,6 +22,11 @@ class Produto extends Model
 
     public function tabelas(): HasMany
     {
-        return $this->hasMany(Proposta::class);
+        return $this->hasMany(Tabela::class);
+    }
+
+    public function ligacoes(): HasMany
+    {
+        return $this->hasMany(Ligacao::class);
     }
 }

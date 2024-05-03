@@ -8,7 +8,6 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-4 text-gray-900">
                     <div class="flex h-10 flex-row items-center justify-between">
-
                         <form method="post" action="{{ route('admin.comissoes.agente') }}">
                             @csrf
                             <label for="month" class="mr-3 font-semibold">Filtros:</label>

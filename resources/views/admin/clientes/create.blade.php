@@ -4,10 +4,9 @@
     </x-slot>
     <div class="mx-auto w-full px-8 py-8">
         <div class="overflow-hidden bg-white p-3 shadow-sm shadow-slate-700 sm:rounded-lg">
-            <form action="{{ route('admin.clientes.store') }}" method="post" class="flex flex-col">@csrf
-                {{-- InfoPessoais --}}
-                <fieldset x-show="true" title="Dados pessoais" class="mb-3 flex flex-col gap-2 rounded-lg p-4 outline outline-1 outline-red-500">
-                    <h3 class="rounded bg-rose-900 py-2 text-center text-lg text-slate-50">Dados Pessoais</h3>
+            <form action="{{ route('admin.clientes.store') }}" method="post" class="flex flex-col px-3">@csrf
+                <fieldset x-show="true" title="Dados pessoais" class="mb-3 flex flex-col gap-2 rounded-lg p-4 outline outline-1 outline-slate-700">
+                    <h3 class="rounded bg-gradient-to-br from-slate-900 via-slate-700 to-indigo-700 py-2 text-center text-lg text-slate-50">Dados Pessoais</h3>
                     <div class="row mx-3 justify-between px-3 py-2">
                         <div class="col-lg-6 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="nome">Nome Completo</label>
@@ -89,10 +88,36 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row mx-3 justify-between px-3 pb-3">
+                        <div class="col-lg-3 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="phone1">Tel. Principal</label>
+                            <input type="text" name="phone1" id="phone1" value="{{ old('phone1') }}"
+                                class="phone rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
+                                placeholder="(84)9 9999-9999">
+                        </div>
+                        <div class="col-lg-3 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="phone2">Tel. Família</label>
+                            <input type="text" name="phone2" id="phone2" value="{{ old('phone2') }}"
+                                class="phone rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
+                                placeholder="(84)9 9999-9999">
+                        </div>
+                        <div class="col-lg-3 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="phone3">Tel. Recado 1</label>
+                            <input type="text" name="phone3" id="phone3" value="{{ old('phone3') }}"
+                                class="phone rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
+                                placeholder="(84)9 9999-9999">
+                        </div>
+                        <div class="col-lg-3 mb-2 flex flex-col">
+                            <label class="text-sm text-slate-500" for="phone">Tel. Recado 2</label>
+                            <input type="text" name="phone4" id="phone4" value="{{ old('phone4') }}"
+                                class="phone rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
+                                placeholder="(84)9 9999-9999">
+                        </div>
+                    </div>
                 </fieldset>
                 {{-- InfoResidenciais --}}
-                <fieldset title="Informações Residenciais" class="mb-4 flex flex-col gap-2 rounded-lg p-4 outline outline-1 outline-red-500">
-                    <h3 class="rounded-lg bg-rose-900 py-2 text-center text-lg text-slate-50">Dados Residenciais</h3>
+                <fieldset title="Informações Residenciais" class="mb-4 flex flex-col gap-2 rounded-lg p-4 outline outline-1 outline-slate-700">
+                    <h3 class="rounded bg-gradient-to-br from-slate-900 via-slate-700 to-indigo-700 py-2 text-center text-lg text-slate-50">Dados Residenciais</h3>
                     <div class="row mx-3 mt-2 justify-between">
                         <div class="col-lg-2 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="buscaCep">CEP</label>
@@ -132,10 +157,10 @@
                     </div>
                 </fieldset>
                 {{-- InfoFuncionais --}}
-                <fieldset title="Info Funcionais" class="mb-4 flex flex-col gap-2 rounded-lg p-4 outline outline-1 outline-red-500">
-                    <h3 class="rounded-lg bg-rose-900 py-2 text-center text-lg text-slate-50">Dados Funcionais</h3>
-                    <div class="row mx-3 justify-between px-3 pb-3">
-                        <div class="col-lg-6 mb-2 flex flex-col">
+                <fieldset title="Info Funcionais" class="mb-4 flex flex-col gap-2 rounded-lg p-4 outline outline-1 outline-slate-700">
+                    <h3 class="rounded bg-gradient-to-br from-slate-900 via-slate-700 to-indigo-700 py-2 text-center text-lg text-slate-50">Dados Funcionais</h3>
+                    <div class="row mx-3 flex flex-row justify-between px-3 pb-3">
+                        <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="organizacao_id">Órgão</label>
                             <select name="organizacao_id" id="organizacao_id" class="rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
                                 @forelse ($orgaos as $orgao)
@@ -145,50 +170,27 @@
                                 @endforelse
                             </select>
                         </div>
-                        <div class="col-lg-4 mb-2 flex flex-col">
+                        <div class="col-lg-3 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="nrbeneficio">Nº Benefício | Matrícula</label>
                             <input type="text" name="nrbeneficio" id="nrbeneficio" value="{{ old('nrbeneficio') }}"
                                 class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
                                 placeholder="Número do benefício ou matrícula">
                         </div>
-                    </div>
-                    <div class="row mx-3 justify-between px-3 pb-3">
                         <div class="col-lg-3 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="phone1">Tel. Principal</label>
-                            <input type="text" name="phone1" id="phone1" value="{{ old('phone1') }}"
-                                class="phone rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
-                                placeholder="(84)9 9999-9999">
+                            <label class="text-sm text-slate-500" for="Senha e e-mails">Emails</label>
+                            <input id="email" name="email" type="email" value="{{ old('email', 'cliente@email.com') }}"
+                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0" placeholder="Email">
                         </div>
                         <div class="col-lg-3 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="phone2">Tel. Família</label>
-                            <input type="text" name="phone2" id="phone2" value="{{ old('phone2') }}"
-                                class="phone rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
-                                placeholder="(84)9 9999-9999">
-                        </div>
-                        <div class="col-lg-3 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="phone3">Tel. Recado 1</label>
-                            <input type="text" name="phone3" id="phone3" value="{{ old('phone3') }}"
-                                class="phone rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
-                                placeholder="(84)9 9999-9999">
-                        </div>
-                        <div class="col-lg-3 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="phone">Tel. Recado 2</label>
-                            <input type="text" name="phone4" id="phone4" value="{{ old('phone4') }}"
-                                class="phone rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0"
-                                placeholder="(84)9 9999-9999">
-                        </div>
-                    </div>
-                    <div class="row mx-3 justify-between px-3 pb-3">
-                        <div class="col-lg-12 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="Senha e e-mails">Senha e emails</label>
-                            <textarea id="emails_senhas" name="emails_senhas" class="mt-2 rounded-lg border-gray-400 placeholder:text-slate-400 focus:border-emerald-400 focus:outline-none focus:ring-0"
-                                placeholder="Espaço reservado para Senhas e Emails">{{ old('emails_senhas') }}</textarea>
+                            <label class="text-sm text-slate-500" for="Senha e e-mails">Senha</label>
+                            <input type="text" id="senha" name="senha" value="{{ old('senha', '*********') }}"
+                                class="rounded border-gray-300 py-1 placeholder:text-slate-400 focus:border-gray-300 focus:outline-emerald-300 focus:ring-0" placeholder="Senhas">
                         </div>
                     </div>
                 </fieldset>
                 {{-- InfoBancárias --}}
-                <fieldset title="infoBancárias" class="mb-4 flex flex-col gap-2 rounded-lg p-2 outline outline-1 outline-red-500">
-                    <h3 class="rounded-lg bg-rose-900 py-2 text-center text-lg text-slate-50">Dados Bancários</h3>
+                <fieldset title="infoBancárias" class="mb-4 flex flex-col gap-2 rounded-lg p-2 outline outline-1 outline-slate-700">
+                    <h3 class="rounded bg-gradient-to-br from-slate-900 via-slate-700 to-indigo-700 py-2 text-center text-lg text-slate-50">Dados Bancários</h3>
                     <div class="row mx-3 justify-between px-3 pb-3">
                         <div class="col-lg-2 mb-2 flex flex-col">
                             <label class="text-sm text-slate-500" for="codigo">Código</label>
@@ -231,139 +233,6 @@
                                 placeholder="Código ou nome da operação">
                         </div>
                     </div>
-                </fieldset>
-                {{-- Dados da Proposta --}}
-                <fieldset class="mb-3 flex flex-col gap-2 rounded-lg p-4 outline outline-1 outline-red-500">
-                    <h3 class="rounded-lg bg-rose-900 py-2 text-center text-lg text-slate-50">Dados da Proposta</h3>
-                    <div class="row mx-3 flex justify-between px-3 pb-3">
-                        <div class="col-lg-3 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500">Controle</label>
-                            <input type="text" name="uuid" value="{{ \Ramsey\Uuid\Uuid::uuid4() }}" readonly
-                                class="truncate rounded border-gray-300 bg-white py-1 focus:border-gray-300 focus:outline-none focus:ring-0" id="uuid">
-                        </div>
-                        <div class="col-lg-3 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="numero_contrato">Nº Contrato</label>
-                            <input type="text" name="numero_contrato" onblur="fn(this)"
-                                class="rounded border-gray-300 bg-white py-1 focus:border-gray-300 focus:outline-none focus:ring-0" id="numero_contrato">
-                        </div>
-                        <div class="col-lg-3 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="data_digitacao">Digitado</label>
-                            <input type="date" name="data_digitacao"
-                                class="flex-1 rounded-lg border-gray-300 bg-white py-1 focus:border-gray-300 focus:outline-none focus:ring-0" id="data_digitacao">
-                        </div>
-                        <div class="col-lg-3 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="data_pagamento">Pago</label>
-                            <input type="date" name="data_pagamento"
-                                class="flex-1 rounded-lg border-gray-300 bg-white py-1 focus:border-gray-300 focus:outline-none focus:ring-0" id="data_pagamento">
-                        </div>
-                    </div>
-                    <div class="mx-3 flex flex-row px-3 pb-3">
-                        <div class="col-lg-3 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="tabela_id">Tabela</label>
-                            <select name="tabela_id" id="tabela_id" data-url="{{ route('admin.tabelas.search', 0) }}"
-                                class="rounded border-gray-300 py-1 text-sm focus:border-gray-300 focus:outline-none focus:ring-0">
-                                @forelse ($tabelas as $tabela)
-                                    <option value="{{ $tabela->id }}">{{ $tabela->descricao }}</option>
-                                @empty
-                                    Não há Operações
-                                @endforelse
-                            </select>
-                        </div>
-                        <div class="col-lg-1 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="prazo">Prazo</label>
-                            <input type="number" name="prazo_proposta"
-                                class="rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="prazo">
-                        </div>
-                        <div class="col-lg-2 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="total_proposta">Total</label>
-                            <input type="text" name="total_proposta"
-                                class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="total_proposta">
-                        </div>
-                        <div class="col-lg-2 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="parcela_proposta">Parcela</label>
-                            <input type="text" name="parcela_proposta"
-                                class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="parcela_proposta">
-                        </div>
-                        <div class="col-lg-2 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="liquido_proposta">Líquido</label>
-                            <input type="text" name="liquido_proposta"
-                                class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="liquido_proposta">
-                        </div>
-                    </div>
-                    <div class="row mx-3 justify-between px-3 pb-3">
-                        <div class="col-lg-3 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="operacao_id">Operação</label>
-                            <select name="operacao_id" id="operacao_id"
-                                class="select2 rounded border-gray-300 py-1 text-sm focus:border-gray-300 focus:outline-none focus:ring-0">
-                                @forelse ($operacoes as $op)
-                                    <option value="{{ $op->id }}">{{ $op->descricao_operacao }}</option>
-                                @empty
-                                    Não há Operações
-                                @endforelse
-                            </select>
-                        </div>
-                        <div class="col-lg-3 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="situacao_id">Situação</label>
-                            <select name="situacao_id" id="situacao_id"
-                                class="select2 rounded border-gray-300 py-1 text-base focus:border-gray-300 focus:outline-none focus:ring-0">
-                                @forelse ($situacoes as $situacao)
-                                    <option value="{{ $situacao->id }}">{{ $situacao->descricao_situacao }}</option>
-                                @empty
-                                    <option value="">Não há situação cadastrada</option>
-                                @endforelse
-                            </select>
-                        </div>
-                        <div class="col-lg-3 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="financeira_id">Financeiras</label>
-                            <select name="financeira_id" id="financeira_id" class="border-gray-300 py-1 text-base focus:border-gray-300 focus:outline-none focus:ring-0">
-                                @forelse ($financeiras as $fin)
-                                    <option value="{{ $fin->id }}">{{ $fin->nome_financeira }}</option>
-                                @empty
-                                    <option>Não ha financeiras</option>
-                                @endforelse
-                            </select>
-                        </div>
-                        <div class="col-lg-3 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500" for="correspondente_id">Correspondente</label>
-                            <select name="correspondente_id" id="correspondente_id" onchange="carrega(this)"
-                                class="border-gray-300 py-1 text-base focus:border-gray-300 focus:outline-none focus:ring-0">
-                                @forelse ($correspondentes as $corr)
-                                    <option value="{{ $corr->id }}" class="{{ $corr->percentual_comissao }}">
-                                        {{ $corr->nome_correspondente }}</option>
-                                @empty
-                                @endforelse
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mx-3 justify-between px-3 pb-3">
-                        <div class="col-lg-4 mb-2 flex flex-col">
-                            <label class="text-sm text-slate-500">Tabela</label>
-                            <input type="text" name="tabela_comissao" value="{{ old('tabela_comissao') }}"
-                                class="rounded-lg border-gray-300 bg-white py-1 focus:border-gray-300 focus:outline-none focus:ring-0" id="tabela_comissao">
-                        </div>
-                        @can('create comissao')
-                            <div class="col-lg-2 mb-2 flex flex-col">
-                                <label class="text-sm text-slate-500" for="percentual_loja">%Lj</label>
-                                <input type="text" name="percentual_loja" value="{{ old('percentual_loja') }}" min="0.00"
-                                    class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="percentual_loja">
-                            </div>
-                            <div class="col-lg-2 mb-2 flex flex-col">
-                                <label class="text-sm text-slate-500">R$ Loja</label>
-                                <input type="text" name="valor_loja" value="{{ old('valor_loja') }}"
-                                    class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="valor_loja">
-                            </div>
-                            <div class="col-lg-2 mb-2 flex w-full flex-col">
-                                <label class="text-sm text-slate-500">%Ag</label>
-                                <input type="text" name="percentual_operador" value="{{ old('percentual_operador') }}"
-                                    class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="percentual_operador">
-                            </div>
-                            <div class="col-lg-2 mb-2 flex w-full flex-col">
-                                <label class="text-sm text-slate-500">R$ Operador</label>
-                                <input type="text" name="valor_operador" value="{{ old('valor_operador') }}"
-                                    class="valor rounded border-gray-300 bg-white py-1 text-right focus:border-gray-300 focus:outline-none focus:ring-0" id="valor_operador">
-                            </div>
-                        </div>
-                    @endcan
                 </fieldset>
                 {{-- Botões --}}
                 <div class="my-3 flex items-center justify-center gap-2">
