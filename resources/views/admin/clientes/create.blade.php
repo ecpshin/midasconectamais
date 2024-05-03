@@ -188,7 +188,7 @@
                         </div>
                     </div>
                 </fieldset>
-                {{-- InfoBancárias --}}
+
                 <fieldset title="infoBancárias" class="mb-4 flex flex-col gap-2 rounded-lg p-2 outline outline-1 outline-slate-700">
                     <h3 class="rounded bg-gradient-to-br from-slate-900 via-slate-700 to-indigo-700 py-2 text-center text-lg text-slate-50">Dados Bancários</h3>
                     <div class="row mx-3 justify-between px-3 pb-3">
@@ -234,7 +234,7 @@
                         </div>
                     </div>
                 </fieldset>
-                {{-- Botões --}}
+
                 <div class="my-3 flex items-center justify-center gap-2">
                     <button type="submit"
                         class="rounded-lg bg-emerald-500 px-6 py-1.5 text-gray-100 transition duration-150 hover:bg-emerald-900 hover:text-slate-50 hover:shadow-xl">Salvar</button>

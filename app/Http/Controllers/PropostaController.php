@@ -63,7 +63,7 @@ class PropostaController extends Controller
             'area' => 'Propostas',
             'page' => 'Lançamento de Proposta',
             'rota' => 'admin.propostas.index',
-            'clientes' => Cliente::all(),
+            'clientes' => Cliente::all(['id', 'nome', 'cpf']),
             'correspondentes' => $correspondentes,
             'financeiras' => $financeiras,
             'produtos' => Produto::all(['id', 'descricao_produto']),

@@ -276,6 +276,13 @@ $("#modal-obs").on("change", function () {
     alert(n);
 });
 
+function loadCliente(obj) {
+    const data = JSON.parse(obj);
+    $("#cliente_id").val(data.id);
+    $("#nome_cliente").val(data.nome);
+    $("#cpf_cliente").val(data.cpf);
+}
+
 $("#organizacao_id").on("change", function () {
     let url = $("#organizacao_id").data("url");
     const id = $("#organizacao_id").val();

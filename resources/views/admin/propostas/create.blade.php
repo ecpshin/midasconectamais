@@ -13,16 +13,18 @@
                         <div class="flex flex-col gap-4 p-3 text-indigo-700">
                             <div class="row flex flex-row text-xs">
                                 <div class="col-lg-2 mb-3 flex flex-col">
-                                    <label class="form-label" data-toggle="modal" data-target="#modalClientes">ID</label>
+                                    <label class="form-label">
+                                        <button type="button" data-toggle="modal" data-target="#modal-lg">ID</button>
+                                    </label>
                                     <input type="text" name="cliente_id" id="cliente_id" class="form-input rounded-lg border-gray-300 text-xs">
                                 </div>
                                 <div class="col-lg-8 mb-3 flex flex-col">
                                     <label class="form-label">Nome</label>
-                                    <input type="text" id="nome" class="form-input rounded-lg border-gray-300 text-xs">
+                                    <input type="text" id="nome_cliente" class="form-input rounded-lg border-gray-300 text-xs">
                                 </div>
                                 <div class="col-lg-2 mb-3 flex flex-col">
                                     <label class="form-label">CPF</label>
-                                    <input type="text" id="cpf" value="" class="form-input rounded-lg border-gray-300 text-xs">
+                                    <input type="text" id="cpf_cliente" value="" class="form-input rounded-lg border-gray-300 text-xs">
                                 </div>
                             </div>
                         </div>
@@ -188,12 +190,12 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="modalClientes" tabindex="-1" aria-labelledby="modalClientesLabel" aria-hidden="true">
+    <div class="modal fade" id="modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-teal-800 bg-gradient-to-br from-slate-900 via-indigo-700 to-slate-700">
-                    <h1 class="w-100 text-center text-xl font-semibold text-teal-50" id="modalClientesLabel">Seleção de Cliente</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-circle"></i></button>
+                    <h5 class="modal-title w-100 text-center text-xl font-semibold text-teal-50" id="modalClientesLabel">Seleção de Cliente</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body overflow-hidden overflow-y-auto px-16 py-10">
                     <table class="table-striped table text-sm" id="tabela" style="width: 100%;">
@@ -208,7 +210,8 @@
                             @foreach ($clientes as $cli)
                                 <tr class="even:bg-slate-300">
                                     <td class="px-3 py-2 text-left">
-                                        <button type="button" onclick="loadCliente('{{ $cli }}')" data-bs-dismiss="modal">{{ $cli->id }}</button>
+                                        <a role="button" id="cliente_{{ $cli->id }}" onclick="loadCliente('{{ $cli }}')" data-dismiss="modal"
+                                            class="h-5 w-5 rounded-full bg-yellow-300 px-3 py-2 font-bold">{{ $cli->id }}</a>
                                     </td>
                                     <td class="px-3 py-2 text-left">{{ $cli->nome }}</td>
                                     <td class="px-3 py-2 text-left">{{ $cli->cpf }}</td>
@@ -217,10 +220,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" disabled class="rounded-lg bg-green-400 px-3 py-2 text-gray-700 hover:bg-amber-600 hover:text-gray-50"
-                        onclick="document.getElementById('form_modal').submit()">Atualizar</button>
-                </div>
+                <div class="modal-footer"></div>
             </div>
         </div>
     </div>

@@ -128,6 +128,7 @@ Route::prefix('admin/propostas')->controller(PropostaController::class)->name('a
         Route::get('/', 'index')->name('index');
         Route::get('/nova-proposta', 'create')->name('create');
         Route::post('/salvar-proposta', 'store')->name('store');
+        Route::post('/propostas/cliente-call-center', 'special')->name('special');
         Route::get('/{proposta}/editar-proposta', 'edit')->name('edit');
         Route::patch('/{proposta}/atualizar-proposta', 'update')->name('update');
         Route::get('/{proposta}/exibir-proposta', 'show')->name('show');

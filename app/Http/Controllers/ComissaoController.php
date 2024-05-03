@@ -183,31 +183,33 @@ class ComissaoController extends Controller
     public function comissoesAgente(Request $request)
     {
         $mesAtual = $request->input('month') ? $request->input('month')  : date('m');
-        $total = 0;
-        $liquido = 0;
-        $agente = 0;
+        $users = User::with('roles')->where('tipo', 'agente')->get();
+        $soma_total = 0;
+        $soma_liquido = 0;
+        $soma_agente = 0;
         $propostas = [];
-        $coll = [];
+        $comissoes = [];
 
-        $comissoes = Comissao::with(['proposta'])->get();
-
-        if (count($request->all()) == 0) {
-            foreach ($comissoes as $com) {
-                $propostas[] = $com->proposta;
-            }
-            $coll = collect($propostas);
-            $total = ($coll->sum('total_proposta'));
-            $liquido = ($coll->sum('liquido_proposta'));
-            $agente = $comissoes->sum('valor_agente');
+        if (count($request->all()) > 0) {
+            $user = $request->user_id;
+            $mes = $request->month;
+            $propostas = Proposta::with(['comissao', 'user'])->where(function ($query) use ($user, $mes) {
+                $query->where('user_id', $user)->whereMonth('data_digitacao', $mes);
+            })->get();
         } else {
-            $propostas = Proposta::with(['comissao'])->where('user_id', $request->user_id)->whereMonth('data_digitacao', $request->month)->get();
-            $total = $propostas->sum('total_proposta');
-            $liquido = $propostas->sum('liquido_proposta');
-            $agente = 0;
+            $propostas = Proposta::with(['comissao', 'user'])->get();
         }
 
+        foreach ($propostas as $p) {
+            $aux[] = $p->comissao;
+        }
+
+        $comissoes = collect($aux);
+        $soma_agente = $comissoes->sum('valor_agente');
+        $soma_total = $propostas->sum('total_proposta');
+        $soma_liquido = $propostas->sum('liquido_proposta');
+
         $fmt = new Number;
-        $users = User::with('roles')->where('tipo', 'agente')->get();
 
         return view('admin.comissoes.agentes', [
             'area' => 'Comissões',
@@ -217,35 +219,56 @@ class ComissaoController extends Controller
             'mesAtual' => $mesAtual,
             'comissoes' => $comissoes ?? [],
             'users' => $users,
-            'total' => $this->toMoeda($total ?? 0),
-            'liquido' => $this->toMoeda($liquido ?? 0),
-            'agente' => $this->toMoeda($agente ?? 0),
+            'soma_total' => $this->toMoeda($soma_total ?? 0),
+            'soma_liquido' => $this->toMoeda($soma_liquido ?? 0),
+            'soma_agente' => $this->toMoeda($soma_agente ?? 0),
             'fmt' => $fmt
         ]);
     }
 
     public function comissoesCorretor(Request $request)
     {
-        $comissoes = [];
-        if (!$request->all()) {
-            $comissoes = null;
-        }
         $mesAtual = $request->input('month') ? $request->input('month')  : date('m');
         $users = User::with('roles')->where('tipo', 'corretor')->get();
+        $soma_total = 0;
+        $soma_liquido = 0;
+        $soma_agente = 0;
+        $propostas = [];
+        $comissoes = [];
+
+        if (count($request->all()) > 0) {
+            $user = $request->user_id;
+            $mes = $request->month;
+            $propostas = Proposta::with(['comissao', 'user'])->where(function ($query) use ($user, $mes) {
+                $query->where('user_id', $user)->whereMonth('data_digitacao', $mes);
+            })->get();
+        } else {
+            $propostas = Proposta::with(['comissao', 'user'])->get();
+        }
+
+        foreach ($propostas as $p) {
+            $aux[] = $p->comissao;
+        }
+
+        $comissoes = collect($aux);
+        $soma_agente = $comissoes->sum('valor_agente');
+        $soma_total = $propostas->sum('total_proposta');
+        $soma_liquido = $propostas->sum('liquido_proposta');
+
+        $fmt = new Number;
+
         return view('admin.comissoes.corretores', [
             'area' => 'Comissões',
             'page' => 'Comissões Lançadas',
             'rota' => 'admin.comissoes.index',
             'months' => $this->getMonths(),
             'mesAtual' => $mesAtual,
-            'comissoes' => $comissoes,
+            'comissoes' => $comissoes ?? [],
             'agentes' => $users,
-            // 'loja' => $this->toMoeda($comissoes->sum('valor_loja') ?? 0),
-            // 'agente' => $this->toMoeda($comissoes->sum('valor_agente') ?? 0),
-            // 'corretor' => $this->toMoeda($comissoes->sum('valor_corretor') ?? 0),
-            // 'total' => $this->toMoeda($coll->sum('total_proposta') ?? 0),
-            // 'liquido' => $this->toMoeda($coll->sum('liquido_proposta') ?? 0),
-            // 'fmt' => $fmt,
+            'soma_total' => $this->toMoeda($soma_total ?? 0),
+            'soma_liquido' => $this->toMoeda($soma_liquido ?? 0),
+            'soma_agente' => $this->toMoeda($soma_agente ?? 0),
+            'fmt' => $fmt
         ]);
     }
 }

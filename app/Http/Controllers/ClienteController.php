@@ -33,8 +33,11 @@ class ClienteController extends Controller
 
     public function index()
     {
-        $clientes = Cliente::where('user_id', auth()->user()->id)->get();
-
+        if (auth()->user()->hasRole('super-admin')) {
+            $clientes = Cliente::all();
+        } else {
+            $clientes = Cliente::where('user_id', auth()->user()->id)->get();
+        }
         return view('admin.clientes.index', [
             'clientes' => $clientes,
             'area' => 'Clientes',
