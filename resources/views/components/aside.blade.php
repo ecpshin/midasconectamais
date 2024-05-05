@@ -62,7 +62,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.propostas.filtrar-por-data') }}" class="nav-link">
+                            <a href="{{ route('admin.propostas.filtrar') }}" class="nav-link">
                                 <i class="fas fa-history nav-icon text-yellow-400"></i>
                                 <p class="font-semibold text-yellow-600 hover:text-yellow-400">Resumo</p>
                             </a>

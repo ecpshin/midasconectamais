@@ -7,23 +7,23 @@ use App\Http\Requests\StorePropostaRequest;
 use App\Models\Cliente;
 use App\Models\Correspondente;
 use App\Models\Financeira;
-use App\Models\Organizacao;
-use App\Models\Produto;
 use App\Models\Proposta;
 use App\Models\Situacao;
-use App\Models\Tabela;
 use App\Models\User;
 use App\Services\ConvertersService;
-use App\Services\OperacoesService;
-use App\Services\SelectsService;
+use App\Services\GeneralService;
+
+
+use App\Services\PropostaService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Number;
+use Illuminate\Support\Number;
 use Ramsey\Uuid\Uuid;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PropostaController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
@@ -36,40 +36,41 @@ class PropostaController extends Controller
 
     public function index()
     {
+        $svc = new GeneralService;
+        $fmt = new ConvertersService;
+
         return view('admin.propostas.index', [
             'area' => 'Propostas',
-            'page' => 'Propostas Lançadas',
+            'page' => 'Visão Geral',
             'rota' => 'admin.propostas.index',
-            'propostas' => $this->getPropostas(),
-            'produtos' => Produto::all(['id', 'descricao_produto']),
-            'correspondentes' => $this->getCorrespondentes(),
-            'financeiras' => $this->getFinanceiras(),
-            'situacoes' => $this->getSituacoes(),
-            "fmt" => new ConvertersService
+            'agentes' => $svc->agentes(['id', 'name', 'tipo']),
+            'propostas' => $svc->propostas(),
+            'produtos' => $svc->produtos(['id', 'descricao_produto']),
+            'correspondentes' => $svc->correspondentes(['id', 'nome_correspondente']),
+            'financeiras' => $svc->clientes(['id', 'nome', 'cpf']),
+            'situacoes' => $svc->situacoes(['id', 'descricao_situacao', 'motivo_situacao']),
+            'soma_totais' => 0,
+            'soma_liquidos' => 0,
+            "fmt" => $fmt
         ]);
     }
 
     public function create()
     {
-        $correspondentes = Correspondente::all(['id', 'nome_correspondente']);
-        $financeiras = Financeira::all(['id', 'nome_financeira']);
-        $situacoes = Situacao::all();
-        $produtos = Produto::all(['id', 'descricao_produto']);
-        $tabelas = Tabela::all();
-        $orgaos = Organizacao::all(['id', 'nome_organizacao']);
+        $svc = new GeneralService;
         $uuid = Uuid::uuid4();
 
         return view('admin.propostas.create', [
             'area' => 'Propostas',
             'page' => 'Lançamento de Proposta',
             'rota' => 'admin.propostas.index',
-            'clientes' => Cliente::all(['id', 'nome', 'cpf']),
-            'correspondentes' => $correspondentes,
-            'financeiras' => $financeiras,
-            'produtos' => Produto::all(['id', 'descricao_produto']),
-            'situacoes' => $situacoes,
-            'tabelas' => $tabelas,
-            'orgaos' => $orgaos,
+            'clientes' => $svc->clientes(['id', 'nome', 'cpf']),
+            'correspondentes' => $svc->correspondentes(['id', 'nome_correspondente']),
+            'financeiras' => $svc->financeiras(['id', 'nome_financeira']),
+            'situacoes' => $svc->situacoes(['id', 'descricao_situacao', 'motivo_situacao']),
+            'produtos' => $svc->produtos(['id', 'descricao_produto']),
+            'tabelas' => $svc->tabelas(),
+            'orgaos' => $svc->organizacoes(['id', 'nome_organizacao']),
             'uuid' => substr($uuid, 0, 13)
         ]);
     }
@@ -106,20 +107,34 @@ class PropostaController extends Controller
 
     public function show(Proposta $proposta)
     {
-        //
-    }
+        $svc = new GeneralService;
 
-    public function edit(Proposta $proposta)
-    {
         return view('admin.propostas.edit', [
             'area' => 'Propostas',
             'page' => 'Editar Dados de Proposta',
             'rota' => 'admin.propostas.index',
             'clientes' => Cliente::select(['id', 'nome', 'cpf'])->get(),
-            'correspondentes' => $this->getCorrespondentes(),
-            'financeiras' => $this->getFinanceiras(),
-            'operacoes' => $this->getOperacoes(),
-            'situacoes' => $this->getSituacoes(),
+            'correspondentes' => $svc->correspondentes(['id', 'nome_correspondente']),
+            'financeiras' => $svc->financeiras(['id', 'nome_financeira']),
+            'operacoes' => $svc->produtos(['id', 'descricao_produto']),
+            'situacoes' => $svc->situacoes(['id', 'descricao_situacao', 'motivo_situacao']),
+            'proposta' => $proposta
+        ]);
+    }
+
+    public function edit(Proposta $proposta)
+    {
+        $svc = new GeneralService;
+
+        return view('admin.propostas.edit', [
+            'area' => 'Propostas',
+            'page' => 'Editar Dados de Proposta',
+            'rota' => 'admin.propostas.index',
+            'clientes' => Cliente::select(['id', 'nome', 'cpf'])->get(),
+            'correspondentes' => $svc->correspondentes(),
+            'financeiras' => $svc->financeiras(),
+            'operacoes' => $svc->produtos(),
+            'situacoes' => $svc->situacoes(),
             'proposta' => $proposta
         ]);
     }
@@ -135,7 +150,9 @@ class PropostaController extends Controller
 
     public function destroy(Proposta $proposta)
     {
-        //
+        $proposta->delete();
+        Alert::warning('Ohh', 'Proposta excluída com sucesso.');
+        return redirect()->route('admin.propostas.index');
     }
 
     public function propostasAgente(Request $request)
@@ -220,65 +237,35 @@ class PropostaController extends Controller
         ]);
     }
 
-    // public function pagePropostaPorAgente()
-    // {
-    //     if (auth()->user()->hasRole(['super-admin'])) {
-    //         $agentes = User::withoutRole(['super-admin'])->whereNot('id', auth()->user()->id)->get();
-    //     }
-
-    //     return view('admin.propostas.producao-mensal', [
-    //         'area' => 'Propostas',
-    //         'page' => 'Produção Mensal Agente',
-    //         'rota' => 'admin.propostas.index',
-    //         'propostas' => [],
-    //         'agentes' => $agentes,
-    //         'meses' => $this->getMonths(),
-    //         'fmt' => new Number
-    //     ]);
-    // }
-
-    // public function producaoPorAgente(Request $request)
-    // {
-    //     if (!$request->input('mes')) {
-    //         return redirect()->back()->with('error', 'Selecione o mês.');
-    //     }
-
-    //     if (!$request->input('user_id')) {
-    //         return redirect()->back()->with('error', 'Selecione o agente.');
-    //     }
-
-    //     if (auth()->user()->hasRole(['super-admin'])) {
-    //         $agentes = User::withoutRole(['super-admin'])->whereNot('id', auth()->user()->id)->get();
-    //     }
-
-    //     $propostas = Proposta::whereMonth('data_digitacao', $request->input('mes'))
-    //         ->where('user_id', $request->input('user_id'))->paginate(5);
-
-    //     $total_propostas = $propostas->sum('total_proposta');
-
-    //     $liquido_propostas = $propostas->sum('liquido_proposta');
-
-    //     $fmt = new Number;
-
-    //     return view('admin.propostas.producao-mensal', [
-    //         'area' => 'Propostas',
-    //         'page' => 'Produção Mensal Agente',
-    //         'rota' => 'admin.propostas.index',
-    //         'propostas' => $propostas,
-    //         'agentes' => $agentes,
-    //         'meses' => $this->getMonths(),
-    //         'fmt' => $fmt,
-    //         'total_propostas' => $total_propostas,
-    //         'liquido_propostas' => $liquido_propostas
-    //     ]);
-    // }
-
-    public function filtrarPorData()
+    public function filtrarPropostas(Request $req)
     {
-        return view('admin.propostas.filtrar', [
+        $propostas = [];
+        $psvc = new PropostaService;
+        $svc = new GeneralService;
+        $fmt = new ConvertersService;
+
+        if ($req->inicio && $req->fim) {
+            $inicio = $req->inicio;
+            $fim = $req->fim;
+            $propostas = $psvc->propostasPorIntervalo($inicio, $fim);
+        }
+
+        $soma_totais = $psvc->somaTotais($propostas);
+        $soma_liquidos = $psvc->somaTotais($propostas);
+
+        return view('admin.propostas.index', [
             'area' => 'Propostas',
             'page' => 'Filtrar de Proposta',
             'rota' => 'admin.propostas.index',
+            'propostas' => $propostas,
+            'correspondentes' => $svc->correspondentes(),
+            'financeiras' => $svc->financeiras(),
+            'produtos' => $svc->produtos(),
+            'situacoes' => $svc->statuses(),
+            'orgaos' => $svc->organizacoes(),
+            'soma_totais' => $soma_totais ?? 0,
+            'soma_liquidos' => $soma_liquidos ?? 0,
+            'fmt' => $fmt
         ]);
     }
 
@@ -309,36 +296,6 @@ class PropostaController extends Controller
             'rota' => 'admin.propostas.index',
             'propostas' => $filtro
         ]);
-    }
-
-    private function getFinanceiras(): Collection
-    {
-        return Financeira::select(['id', 'nome_financeira'])->get();
-    }
-
-    private function getCorrespondentes(): Collection
-    {
-        return Correspondente::select(['id', 'nome_correspondente'])->get();
-    }
-    private function getOperacoes(): Collection
-    {
-        $operacoes = new OperacoesService();
-        return $operacoes->getOperacoes();
-    }
-
-    private function getPropostas(): Collection
-    {
-        return Proposta::all();
-    }
-
-    private function getSituacoes(): Collection
-    {
-        return Situacao::select(['id', 'descricao_situacao'])->get();
-    }
-
-    public function getpercentual($id)
-    {
-        return Correspondente::select('percentual_comissao')->where('id', $id);
     }
 
     private function getMonths()

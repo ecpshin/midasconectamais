@@ -134,10 +134,12 @@ Route::prefix('admin/propostas')->controller(PropostaController::class)->name('a
         Route::get('/{proposta}/exibir-proposta', 'show')->name('show');
         Route::delete('/{proposta}/excluir-proposta', 'destroy')->name('destroy');
 
-        Route::get('/filtrar-por-data', 'filtrarPorData')->name('filtrar-por-data');
-        Route::post('/aplicar-filtro-por-data', 'pordata')->name('aplicar_filtro_por_data');
-        Route::get('/filtrar-por-agente', 'pagePropostaPorAgente')->name('propostas-por-agente');
-        Route::post('/filtrar-por-agente', 'producaoPorAgente')->name('producao-por-agente');
+        //Filtros específicos
+        Route::post('/filtrar-propostas', 'filtrarPropostas')->name('filtrar');
+        Route::get('/page-agente', 'propostasPorAgente')->name('agentes');
+        Route::post('/propostas-agente', 'propostasAgente')->name('agente');
+        Route::get('/page-corretor', 'propostasCorretor')->name('corretor');
+        Route::post('/propostas-corretor', 'propostasCorretor')->name('corretores');
     })->middleware(['auth', 'verified']);
 
 Route::prefix('admin/comissoes')->controller(ComissaoController::class)
