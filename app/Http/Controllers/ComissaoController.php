@@ -11,6 +11,9 @@ use App\Models\Proposta;
 use App\Models\Situacao;
 use App\Models\Tabela;
 use App\Models\User;
+use App\Services\ComissoesService;
+use App\Services\ConvertersService;
+use App\Services\GeneralService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Number;
@@ -19,6 +22,9 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ComissaoController extends Controller
 {
+    public $svc = null;
+    public $fmt;
+
     public function __construct()
     {
         $this->middleware('can:create comissao', ['only' => ['create', 'store']]);
@@ -27,35 +33,57 @@ class ComissaoController extends Controller
         $this->middleware('can:update comissao', ['only' => ['update']]);
         $this->middleware('can:list comissao', ['only' => ['index']]);
         $this->middleware('can:view comissao', ['only' => ['show']]);
+        $this->svc = new GeneralService;
+        $this->fmt = new ConvertersService;
     }
 
     public function index(Request $request)
     {
-
-        $mesAtual = $request->input('month') ? $request->input('month')  : date('m');
-        $comissoes = Comissao::with(['proposta'])->get();
+        $mesAtual = !empty($request->all()) ? $request->month : date('m');
+        $users = User::with('roles')->get();
+        $soma_total = 0;
+        $soma_liquido = 0;
+        $soma_loja = 0;
+        $soma_agente = 0;
+        $soma_corretor = 0;
         $propostas = [];
+        $comissoes = [];
 
-        foreach ($comissoes as $com) {
-            $propostas[] = $com->proposta;
+        $service = new ComissoesService;
+
+        if (!empty($request->all())) {
+            $propostas = $service->comissoesAgente($mesAtual);
+        } else {
+            $propostas = $service->comissoesAgente();
         }
-        $coll = collect($propostas);
 
-        $fmt = new Number;
+        foreach ($propostas as $p) {
+            $aux[] = $p->comissao;
+        }
+
+        if (count($aux) > 0) {
+            $comissoes = collect($aux);
+            $soma_loja = $comissoes->sum('valor_loja');
+            $soma_agente = $comissoes->sum('valor_agente');
+            $soma_corretor = $comissoes->sum('valor_corretor');
+        }
+        $soma_total = $propostas->sum('total_proposta');
+        $soma_liquido = $propostas->sum('liquido_proposta');
 
         return view('admin.comissoes.index', [
             'area' => 'Comissões',
             'page' => 'Comissões Lançadas',
             'rota' => 'admin.comissoes.index',
-            'comissoes' => $comissoes,
             'months' => $this->getMonths(),
             'mesAtual' => $mesAtual,
-            'loja' => $this->toMoeda($comissoes->sum('valor_loja') ?? 0),
-            'agente' => $this->toMoeda($comissoes->sum('valor_agente') ?? 0),
-            'corretor' => $this->toMoeda($comissoes->sum('valor_corretor') ?? 0),
-            'total' => $this->toMoeda($coll->sum('total_proposta') ?? 0),
-            'liquido' => $this->toMoeda($coll->sum('liquido_proposta') ?? 0),
-            'fmt' => $fmt,
+            'comissoes' => $comissoes ?? [],
+            'users' => $users,
+            'soma_total' => $this->toMoeda($soma_total ?? 0),
+            'soma_liquido' => $this->toMoeda($soma_liquido ?? 0),
+            'soma_loja' => $this->toMoeda($soma_loja ?? 0),
+            'soma_agente' => $this->toMoeda($soma_agente ?? 0),
+            'soma_corretor' => $this->toMoeda($soma_corretor ?? 0),
+            'fmt' => $this->fmt
         ]);
     }
 
@@ -87,6 +115,7 @@ class ComissaoController extends Controller
 
     public function edit(Comissao $comissao)
     {
+
         return view('admin.comissoes.edit', [
             'area' => 'Comissões',
             'page' => 'Editar Comissão',
@@ -205,10 +234,12 @@ class ComissaoController extends Controller
             $aux[] = $p->comissao;
         }
 
-        $comissoes = collect($aux);
-        $soma_agente = $comissoes->sum('valor_agente');
-        $soma_total = $propostas->sum('total_proposta');
-        $soma_liquido = $propostas->sum('liquido_proposta');
+        if (count($aux) > 0) {
+            $comissoes = collect($aux);
+            $soma_agente = $comissoes->sum('valor_agente');
+            $soma_total = $propostas->sum('total_proposta');
+            $soma_liquido = $propostas->sum('liquido_proposta');
+        }
 
         $fmt = new Number;
 

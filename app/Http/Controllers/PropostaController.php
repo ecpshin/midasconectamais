@@ -2,20 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Clientes\ClienteStoreRequest;
+
 use App\Http\Requests\StorePropostaRequest;
 use App\Models\Cliente;
-use App\Models\Correspondente;
-use App\Models\Financeira;
 use App\Models\Proposta;
-use App\Models\Situacao;
 use App\Models\User;
 use App\Services\ConvertersService;
 use App\Services\GeneralService;
-
-
 use App\Services\PropostaService;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Number;
 use Ramsey\Uuid\Uuid;
@@ -133,16 +127,17 @@ class PropostaController extends Controller
             'clientes' => Cliente::select(['id', 'nome', 'cpf'])->get(),
             'correspondentes' => $svc->correspondentes(),
             'financeiras' => $svc->financeiras(),
-            'operacoes' => $svc->produtos(),
+            'orgaos' => $svc->organizacoes(['id', 'nome_organizacao']),
+            'produtos' => $svc->produtos(),
             'situacoes' => $svc->situacoes(),
+            'tabelas' => $svc->tabelas(),
             'proposta' => $proposta
         ]);
     }
 
     public function update(Request $request, Proposta $proposta)
     {
-        $request['user_id'] = $request->user()->id;
-        $attributes = $request->only(['tabela_comissao', 'percentual_loja', 'valor_loja', 'percentual_operador', 'valor_operador']);
+        $attributes = $request->only(['tabela_id', 'organizacao_id', 'percentual_loja', 'valor_loja', 'percentual_agente', 'valor_agente', 'percentual_corretor', 'valor_corretor']);
         $proposta->update($request->all());
         $proposta->comissao()->update($attributes);
         return redirect()->route('admin.propostas.index')->with('success', 'Proposta atualizada com sucesso.');

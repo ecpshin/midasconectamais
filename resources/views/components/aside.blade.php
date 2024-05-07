@@ -69,7 +69,7 @@
                         </li>
                     </ul>
                 </li>
-
+                @hasrole('super-admin')
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="bi bi-cash-coin nav-icon text-yellow-400"></i>
@@ -182,7 +182,7 @@
                         </li>
                     </ul>
                 </li>
-
+                @endhasrole
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fas fa-phone-volume nav-icon text-yellow-400"></i>

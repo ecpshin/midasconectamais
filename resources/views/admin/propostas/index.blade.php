@@ -3,7 +3,6 @@
         <x-bread :page="$page" :area="$area" :rota="$rota"></x-bread>
     </x-slot>
 
-
     <div class="mx-auto w-full sm:px-4 lg:px-6">
         <div class="bg-white shadow-sm sm:rounded-lg">
             <div class="w-100 p-4 text-gray-900">

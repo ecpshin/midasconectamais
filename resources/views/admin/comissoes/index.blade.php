@@ -45,22 +45,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($comissoes as $tax)
+                                @foreach ($comissoes as $com)
                                     <tr class="odd:bg-fuchsia-100">
-                                        <td class="text-xs font-semibold">{{ $tax->id }}</td>
-                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->numero_contrato }}</td>
-                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->data_digitacao->format('d/m/y') }}</td>
-                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->data_pagamento->format('d/m/y') }}</td>
-                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->cliente->nome }}</td>
-                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->produto->descricao_produto }}</td>
-                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->total_proposta }}</td>
-                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->liquido_proposta }}</td>
-                                        <td class="text-xs font-semibold capitalize">{{ $tax->valor_loja }}</td>
-                                        <td class="text-xs font-semibold capitalize">{{ $tax->valor_agente }}</td>
-                                        <td class="text-xs font-semibold capitalize">{{ $tax->valor_corretor }}</td>
-                                        <td class="text-xs font-semibold capitalize">{{ $tax->proposta->user->name }}</td>
+                                        <td class="text-xs font-semibold">{{ $com->id }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $com->proposta->numero_contrato }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $com->proposta->data_digitacao->format('d/m/y') }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $com->proposta->data_pagamento->format('d/m/y') }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $com->proposta->cliente->nome }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $com->proposta->produto->descricao_produto }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $fmt->toCurrencyBRL($com->proposta->total_proposta) }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $fmt->toCurrencyBRL($com->proposta->liquido_proposta) }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $fmt->toCurrencyBRL($com->valor_loja) }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $fmt->toCurrencyBRL($com->valor_agente) }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $fmt->toCurrencyBRL($com->valor_corretor) }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $com->proposta->user->name }}</td>
                                         <td class="flex items-center">
-                                            <a href="{{ route('admin.comissoes.show', $tax) }}"
+                                            <a href="{{ route('admin.comissoes.show', $com) }}"
                                                 class="rounded-sm bg-sky-800 px-2 py-2 shadow-md shadow-slate-500 hover:bg-sky-500">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-50 hover:text-slate-50" fill="none" viewBox="0 0 24 24"
                                                     stroke="currentColor">
@@ -69,7 +69,7 @@
                                                         d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                 </svg>
                                             </a>
-                                            <a href="{{ route('admin.comissoes.edit', $tax) }}"
+                                            <a href="{{ route('admin.comissoes.edit', $com) }}"
                                                 class="rounded-sm bg-yellow-700 px-2 py-2 shadow-md shadow-slate-500 hover:bg-yellow-500">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -77,13 +77,13 @@
                                                 </svg>
                                             </a>
                                             <a href="#" class="rounded-sm bg-red-700 px-2 py-2 shadow-md shadow-slate-500 hover:bg-red-900"
-                                                onclick="document.getElementById('form_{{ $tax->id }}').submit();">
+                                                onclick="document.getElementById('form_{{ $com->id }}').submit();">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                 </svg>
                                             </a>
-                                            <form action="{{ route('admin.comissoes.destroy', $tax) }}" method="post" id="form_{{ $tax->id }}">@csrf @method('DELETE')
+                                            <form action="{{ route('admin.comissoes.destroy', $com) }}" method="post" id="form_{{ $com->id }}">@csrf @method('DELETE')
                                             </form>
                                         </td>
                                     </tr>
@@ -111,13 +111,13 @@
                         </thead>
                         <tbody class="text-center text-sm font-semibold">
                             <tr>
-                                <td class="p-2">{{ $total }}</td>
-                                <td class="p-2">{{ $liquido }}</td>
+                                <td class="p-2">{{ $soma_total }}</td>
+                                <td class="p-2">{{ $soma_liquido }}</td>
                                 @hasrole('super-admin')
-                                    <td class="bg-emerald-500 p-2 text-white">{{ $loja }}</td>
+                                    <td class="bg-emerald-500 p-2 text-white">{{ $soma_loja }}</td>
                                 @endhasrole
-                                <td class="bg-yellow-500 p-2 text-slate-700">{{ $agente }}</td>
-                                <td class="bg-cyan-500 p-2 text-white">{{ $corretor }}</td>
+                                <td class="bg-yellow-500 p-2 text-slate-700">{{ $soma_agente }}</td>
+                                <td class="bg-cyan-500 p-2 text-white">{{ $soma_corretor }}</td>
                             </tr>
                         </tbody>
                     </table>
