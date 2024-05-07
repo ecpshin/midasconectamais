@@ -345,7 +345,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row flex flex-row justify-between text-xs">
+                         
+                        <div class="row flex flex-row justify-between text-xs @if (!Auth::user()->hasrole('super-admin')) d-none @endif">
                             <div class="col-lg-4 mb-3 flex flex-row">
                                 <div class="col-lg-5 flex flex-col text-xs">
                                     <label class="form-label">% Loja</label>

@@ -45,7 +45,7 @@
                                         @endif
                                     </td>
                                     <td class="text-truncate px-2 py-2 capitalize">{{ $call->status->status_description ?? 'Nulo' }}</td>
-                                    <td class="text-truncate px-2 py-2 capitalize">{{ $call->user->name ?? 'Naõ definido' }}</td>
+                                    <td class="text-truncate px-2 py-2 font-bold capitalize">{{ $call->user->name ?? 'Naõ definido' }}</td>
                                     <td class="text-truncate px-2 py-2 capitalize">{{ $call->nome }}</td>
                                     <td class="text-truncate px-2 py-2 capitalize">{{ $call->cpf }}</td>
                                     <td class="text-truncate px-2 py-2 capitalize">{{ $call->matricula }}</td>
@@ -94,10 +94,9 @@
                                 <div class="col-lg-6">
                                     <div class="form-group flex flex-col">
                                         <label class="text-xs font-semibold" for="status_id">Status</label>
-                                        <select name="status_id" id="status_id" required class="form-select rounded-lg border-gray-300 text-xs">
-                                            <option value="1">Selecione</option>
+                                        <select name="status_id" id="status_id" required class="select2 rounded-lg text-black border-gray-300 text-xs">
                                             @foreach ($statuses as $status)
-                                                <option value="{{ $status->id }}" @if ($status->id == 1) selected @endif>{{ $status->status_description }}</option>
+                                                <option value="{{ $status->id }}">{{ $status->status }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -130,9 +129,9 @@
                                 <div class="col-lg-6">
                                     <div class="form-group flex flex-col">
                                         <label class="text-xs font-semibold" for="orgao">Órgão</label>
-                                        <select name="organizacao_id" id="orgao_id" class="form-select rounded-lg border-gray-300 text-xs">
+                                        <select name="organizacao_id" id="orgao_id" class="form-control rounded-lg border-gray-300 text-black text-xs">
                                             @forelse ($orgaos as $orgao)
-                                                <option value="{{ $orgao->id }}">{{ $orgao->nome_organizacao }}</option>
+                                                <option value="{{ $orgao->id }}" class="text-black">{{ $orgao->nome_organizacao }}</option>
                                             @empty
                                                 Não há órgãos cadastrados
                                             @endforelse

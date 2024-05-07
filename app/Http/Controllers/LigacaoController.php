@@ -39,9 +39,9 @@ class LigacaoController extends Controller
         $calls = [];
 
         if (auth()->user()->hasRole('super-admin')) {
-            $calls = Ligacao::whereNotNull('user_id')->limit(10)->get();
+            $calls = Ligacao::whereNotNull('user_id')->get();
         } else {
-            $calls = Ligacao::where('user_id', auth()->user()->id)->limit(100)->get();
+            $calls = Ligacao::where('user_id', auth()->user()->id)->get();
         }
         return view('calls.index', [
             'area' => 'Call Center',
