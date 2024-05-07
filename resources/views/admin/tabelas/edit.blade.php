@@ -22,11 +22,20 @@
                                         class="rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
                                 </div>
                                 <div class="flex flex-col">
+                                    <label for="organizacao_id" class="text-black">Órgão</label>
+                                    <select type="text" name="organizacao_id" id="organizacao_id" required
+                                        class="select2 rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
+                                        @foreach ($organizacoes as $organizacao)
+                                            <option value="{{ $organizacao->id }}")>{{ $organizacao->nome_organizacao }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="flex flex-col">
                                     <label for="produto_id" class="text-black">Produto</label>
                                     <select type="text" name="produto_id" id="produto_id" required
                                         class="select2 rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
                                         @foreach ($produtos as $produto)
-                                            <option value="{{ $produto->id }}" @if ($produto->id == $tabela->produto->id) selected @endif>{{ $produto->descricao_produto }}</option>
+                                            <option value="{{ $produto->id }}")>{{ $produto->descricao_produto }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -35,7 +44,7 @@
                                     <select type="text" name="financeira_id" id="financeira_id" required
                                         class="seelct2 rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
                                         @foreach ($financeiras as $fin)
-                                            <option value="{{ $fin->id }}" @if ($fin->id == $tabela->financeira->financeira_id) selected @endif>{{ $fin->nome_financeira }}</option>
+                                            <option value="{{ $fin->id }}">{{ $fin->nome_financeira }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -44,15 +53,20 @@
                                     <select type="text" name="correspondente_id" id="correspondente_id" required
                                         class="rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
                                         @foreach ($correspondentes as $corr)
-                                            <option value="{{ $corr->id }}" @if ($corr->id == $tabela->correspondente->correspondente_id)  @endif>{{ $corr->nome_correspondente }}</option>
+                                            <option value="{{ $corr->id }}">{{ $corr->nome_correspondente }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-6 flex flex-col gap-3">
                                 <div class="flex flex-col">
-                                    <label for="percentual_loja" class="text-black">% Loja</label>
+                                    <label for="percentual_deferido" class="text-black">% Loja</label>
                                     <input type="number" name="percentual_loja" id="percentual_loja" value="{{ number_format($tabela->percentual_loja, 2) }}" min="0.00"
+                                        max="100.00" step="0.01" class="percentual rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
+                                </div>
+                                <div class="flex flex-col">
+                                    <label for="percentual_deferido" class="text-black">% Deferido</label>
+                                    <input type="number" name="percentual_deferido" id="percentual_deferido" value="{{ number_format($tabela->percentual_deferido, 2) }}" min="0.00"
                                         max="100.00" step="0.01" class="percentual rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
                                 </div>
                                 <div class="flex flex-col">
@@ -85,9 +99,9 @@
                                     <label for="referencia" class="text-black">Referência de Cálculo</label>
                                     <select type="text" name="referencia" id="referencia" required
                                         class="select2 rounded border-gray-300 py-1 focus:border-gray-300 focus:outline-none focus:ring-0">
-                                        <option value="B" @if ($tabela->referencia == 'B') selected @endif>Bruto</option>
-                                        <option value="L" @if ($tabela->referencia == 'L') selected @endif>Líquido</option>
-                                        <option value="BL" @if ($tabela->referencia == 'BL') selected @endif>Bruto|Líquido</option>
+                                        <option value="B">Bruto</option>
+                                        <option value="L">Líquido</option>
+                                        <option value="BL">Bruto | Líquido</option>
                                     </select>
                                 </div>
                             </div>

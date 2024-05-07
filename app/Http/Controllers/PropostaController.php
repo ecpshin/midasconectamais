@@ -32,19 +32,22 @@ class PropostaController extends Controller
     {
         $svc = new GeneralService;
         $fmt = new ConvertersService;
+        $scvPropostas = new PropostaService;
 
+        $propostas = $svc->propostas();
+        
         return view('admin.propostas.index', [
             'area' => 'Propostas',
             'page' => 'Visão Geral',
             'rota' => 'admin.propostas.index',
             'agentes' => $svc->agentes(['id', 'name', 'tipo']),
-            'propostas' => $svc->propostas(),
+            'propostas' => $propostas,
             'produtos' => $svc->produtos(['id', 'descricao_produto']),
             'correspondentes' => $svc->correspondentes(['id', 'nome_correspondente']),
             'financeiras' => $svc->clientes(['id', 'nome', 'cpf']),
             'situacoes' => $svc->situacoes(['id', 'descricao_situacao', 'motivo_situacao']),
-            'soma_totais' => 0,
-            'soma_liquidos' => 0,
+            'soma_totais' => $propostas->sum('total_proposta'),
+            'soma_liquidos' => $propostas->sum('liquido_proposta'),
             "fmt" => $fmt
         ]);
     }

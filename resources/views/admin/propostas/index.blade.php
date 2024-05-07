@@ -118,14 +118,21 @@
                 </div>
             </div>
         </div>
-        <div class="row mb-3 mt-3 flex flex-col">
-            <h1 class="text-slate-700">Totais</h1>
-            <div class="card">
-                <div class="card-body">
-                    <p>Total: {{ $soma_totais }}</p>
-                    <p>Liquido: {{ $soma_liquidos }}</p>
-                </div>
-            </div>
+        <div class="row mb-3 mt-3 flex flex-col items-center">            
+            <table class="w-50 text-sm py-2 rounded-lg">
+                <thead class="bg-gradient-to-b from-slate-900 to-slate-700 text-center py-2">
+                    <tr class="py-2">
+                        <th class="py-2">Total Propostas</th>
+                        <th class="py-2">Líquido Propostas</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    <tr class="odd:bg-slate-100">
+                        <td class="font-semibold py-2 text-slate-800">{{ $fmt->toCurrencyBRL($soma_totais) }}</td>
+                        <td class="font-semibold py-2 text-slate-800">{{ $fmt->toCurrencyBRL($soma_liquidos) }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 

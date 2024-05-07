@@ -24,7 +24,6 @@ class ApiTabelaController extends Controller
     public function tabela(string $id)
     {
         $tabelas = Tabela::find($id);
-
         return TabelasResource::make($tabelas);
     }
 

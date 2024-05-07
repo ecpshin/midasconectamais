@@ -16,15 +16,17 @@ class Tabela extends Model
     protected $table = 'tabelas';
 
     protected $fillable = [
-        'descricao',
-        'codigo',
         'financeira_id',
         'correspondente_id',
         'organizacao_id',
         'produto_id',
+        'descricao',
+        'codigo',
         'percentual_loja',
+        'percentual_deferido',
         'percentual_agente',
         'percentual_corretor',
+        'prazo',
         'parcelado',
         'referencia'
     ];

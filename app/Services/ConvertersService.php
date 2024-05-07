@@ -23,4 +23,9 @@ class ConvertersService
     {
         return Number::format($valor, $digits, $digits, 'pt-BR');
     }
+    
+    public function toPercentage($valor, $digits)
+    {
+        return Number::percentage(doubleval($valor), $digits, $digits, 'pt_BR');
+    }
 }

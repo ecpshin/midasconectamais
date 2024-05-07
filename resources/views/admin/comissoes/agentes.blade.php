@@ -59,16 +59,16 @@
                                 <td class="text-xs font-semibold capitalize">{{ $tax->proposta->cliente->nome }}</td>
                                 <td class="text-xs font-semibold capitalize">{{ $tax->proposta->produto->descricao_produto }}</td>
                                 <td class="text-xs font-semibold capitalize">
-                                    {{ $fmt->currency($tax->proposta->total_proposta, 'BRL', 'pt_BR') }}
+                                    {{ $fmt->toCurrencyBRL($tax->proposta->total_proposta) }}
                                 </td>
                                 <td class="text-xs font-semibold capitalize">
-                                    {{ $fmt->currency($tax->proposta->liquido_proposta, 'BRL', 'pt_BR') }}
+                                    {{ $fmt->toCurrencyBRL($tax->proposta->liquido_proposta) }}
                                 </td>
                                 <td class="text-xs font-semibold capitalize">
-                                    {{ $fmt->percentage($tax->percentual_agente, 2) }}
+                                    {{ $fmt->toPercentage($tax->percentual_agente, 2, 2) }}
                                 </td>
                                 <td class="text-xs font-semibold capitalize">
-                                    {{ $fmt->currency($tax->valor_agente, 'BRL', 'pt_BR') }}
+                                    {{ $fmt->toCurrencyBRL($tax->valor_agente, 'BRL', 'pt_BR') }}
                                 </td>
                                 <td class="overflow-hidden text-clip text-xs font-semibold capitalize">{{ $tax->proposta->user->name }}</td>
                                 <td class="flex items-center">

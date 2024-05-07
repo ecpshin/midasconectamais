@@ -78,11 +78,11 @@ class ComissaoController extends Controller
             'mesAtual' => $mesAtual,
             'comissoes' => $comissoes ?? [],
             'users' => $users,
-            'soma_total' => $this->toMoeda($soma_total ?? 0),
-            'soma_liquido' => $this->toMoeda($soma_liquido ?? 0),
-            'soma_loja' => $this->toMoeda($soma_loja ?? 0),
-            'soma_agente' => $this->toMoeda($soma_agente ?? 0),
-            'soma_corretor' => $this->toMoeda($soma_corretor ?? 0),
+            'soma_total' => $this->fmt->toCurrencyBRL($soma_total ?? 0),
+            'soma_liquido' => $this->fmt->toCurrencyBRL($soma_liquido ?? 0),
+            'soma_loja' => $this->fmt->toCurrencyBRL($soma_loja ?? 0),
+            'soma_agente' => $this->fmt->toCurrencyBRL($soma_agente ?? 0),
+            'soma_corretor' => $this->fmt->toCurrencyBRL($soma_corretor ?? 0),
             'fmt' => $this->fmt
         ]);
     }
@@ -212,7 +212,7 @@ class ComissaoController extends Controller
 
     public function comissoesAgente(Request $request)
     {
-        $mesAtual = $request->input('month') ? $request->input('month')  : date('m');
+        $mesAtual = !is_null($request->month) ? $request->month : date('m');
         $users = User::with('roles')->where('tipo', 'agente')->get();
         $soma_total = 0;
         $soma_liquido = 0;
@@ -241,7 +241,7 @@ class ComissaoController extends Controller
             $soma_liquido = $propostas->sum('liquido_proposta');
         }
 
-        $fmt = new Number;
+        $fmt = new ConvertersService;
 
         return view('admin.comissoes.agentes', [
             'area' => 'Comissões',

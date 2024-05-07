@@ -25,7 +25,7 @@ $(document).ready(function () {
         reverse: true,
     });
 
-    $(".percentual").mask("999.999", {
+    $(".percentual").mask("999.99", {
         reverse: true,
     });
 

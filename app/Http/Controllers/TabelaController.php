@@ -7,9 +7,11 @@ use App\Models\Correspondente;
 use App\Models\Financeira;
 use App\Models\Produto;
 use App\Models\Tabela;
+use App\Services\ConvertersService;
+use App\Services\GeneralService;
 use Illuminate\Http\Request;
 use Number;
-
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TabelaController extends Controller
 {
@@ -46,13 +48,18 @@ class TabelaController extends Controller
      */
     public function create()
     {
+         $fmt = new ConvertersService;
+        $geralSvc = new GeneralService;
+
         return view('admin.tabelas.create', [
             'area' => 'Restrita',
             'page' => 'Registrar Comissão',
             'rota' => 'admin',
-            'correspondentes' => Correspondente::all(['id', 'nome_correspondente']),
-            'financeiras' => Financeira::all(['id', 'nome_financeira']),
-            'produtos' => Produto::all(['id', 'descricao_produto']),
+            'correspondentes' => $geralSvc->correspondentes(['id', 'nome_correspondente']),
+            'financeiras' => $geralSvc->financeiras(['id', 'nome_financeira']),
+            'orgaos' => $geralSvc->organizacoes(['id', 'nome_organizacao']),
+            'produtos' => $geralSvc->produtos(),
+            'fmt' => $fmt           
         ]);
     }
 
@@ -61,9 +68,10 @@ class TabelaController extends Controller
      */
     public function store(StoreTabelaRequest $request)
     {
+        dd($request->all());
         $attributes = $request->validated();
         Tabela::create($attributes);
-        alert()->success('Sucesso', 'Tabela de comissão registrada com sucesso!');
+        Alert::success('Sucesso', 'Tabela de comissão registrada com sucesso!');
         return redirect(route('admin.tabelas.index'));
     }
 
@@ -72,17 +80,19 @@ class TabelaController extends Controller
      */
     public function show(Tabela $tabela)
     {
-        $fmt = new Number;
+        $fmt = new ConvertersService;
+        $geralSvc = new GeneralService;
 
         return view('admin.tabelas.edit', [
             'area' => 'Restrita',
             'page' => 'Exibindo Tabela de Comissão',
             'rota' => 'admin.tabelas.index',
             'tabela' => $tabela,
-            'correspondentes' => Correspondente::all(['id', 'nome_correspondente']),
-            'financeiras' => Financeira::all(['id', 'nome_financeira']),
-            'produtos' => Produto::all(),
-            'fmt' => $this->fmt
+            'correspondentes' => $geralSvc->correspondentes(['id', 'nome_correspondente']),
+            'financeiras' => $geralSvc->financeiras(['id', 'nome_financeira']),
+            'organizacoes' => $geralSvc->organizacoes(['id', 'nome_organizacao']),
+            'produtos' => $geralSvc->produtos(),
+            'fmt' => $fmt
         ]);
     }
 
@@ -91,16 +101,21 @@ class TabelaController extends Controller
      */
     public function edit(Tabela $tabela)
     {
+        $fmt = new ConvertersService;
+        $geralSvc = new GeneralService;
+
         return view('admin.tabelas.edit', [
             'area' => 'Restrita',
-            'page' => 'Editar Tabela de Comissão',
+            'page' => 'Exibindo Tabela de Comissão',
             'rota' => 'admin.tabelas.index',
             'tabela' => $tabela,
-            'correspondentes' => Correspondente::all(['id', 'nome_correspondente']),
-            'financeiras' => Financeira::all(['id', 'nome_financeira']),
-            'fmt' => $this->fmt
+            'correspondentes' => $geralSvc->correspondentes(['id', 'nome_correspondente']),
+            'financeiras' => $geralSvc->financeiras(['id', 'nome_financeira']),
+            'organizacoes' => $geralSvc->organizacoes(['id', 'nome_organizacao']),
+            'produtos' => $geralSvc->produtos(),
+            'fmt' => $fmt
         ]);
-        //
+       
     }
 
     /**
