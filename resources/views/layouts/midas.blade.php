@@ -19,10 +19,10 @@
 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" />
-        <link rel="stylesheet" href="{{ asset('build/assets/app.css') }}">
-        <link rel="stylesheet" href="{{ asset('build/assets/tailwindcss.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/assets/app-cb41d22e.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/assets/tailwindcss-5b4c9dfe.css') }}">
 
-        @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/tailwindcss.css'])
+            @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/tailwindcss.css'])
 
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('adminlte/css/adminlte.min.css') }}" />
