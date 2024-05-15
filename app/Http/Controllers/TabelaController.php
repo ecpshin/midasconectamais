@@ -48,7 +48,7 @@ class TabelaController extends Controller
      */
     public function create()
     {
-         $fmt = new ConvertersService;
+        $fmt = new ConvertersService;
         $geralSvc = new GeneralService;
 
         return view('admin.tabelas.create', [
@@ -59,7 +59,7 @@ class TabelaController extends Controller
             'financeiras' => $geralSvc->financeiras(['id', 'nome_financeira']),
             'orgaos' => $geralSvc->organizacoes(['id', 'nome_organizacao']),
             'produtos' => $geralSvc->produtos(),
-            'fmt' => $fmt           
+            'fmt' => $fmt
         ]);
     }
 
@@ -68,11 +68,10 @@ class TabelaController extends Controller
      */
     public function store(StoreTabelaRequest $request)
     {
-        dd($request->all());
         $attributes = $request->validated();
         Tabela::create($attributes);
         Alert::success('Sucesso', 'Tabela de comissão registrada com sucesso!');
-        return redirect(route('admin.tabelas.index'));
+        return redirect()->route('admin.tabelas.index');
     }
 
     /**
@@ -115,7 +114,6 @@ class TabelaController extends Controller
             'produtos' => $geralSvc->produtos(),
             'fmt' => $fmt
         ]);
-       
     }
 
     /**
