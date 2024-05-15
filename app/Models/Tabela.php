@@ -23,7 +23,7 @@ class Tabela extends Model
         'descricao',
         'codigo',
         'percentual_loja',
-        'percentual_deferido',
+        'percentual_diferido',
         'percentual_agente',
         'percentual_corretor',
         'prazo',
