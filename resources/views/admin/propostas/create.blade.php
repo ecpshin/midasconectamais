@@ -152,31 +152,37 @@
                                 <div class="col-lg-4 mb-3 flex flex-row">
                                     <div class="col-lg-5 flex flex-col text-xs">
                                         <label class="form-label">% Loja</label>
-                                        <input type="number" name="percentual_loja" id="perc_loja" class="form-input rounded-lg border-gray-300 text-right text-xs">
+                                        <input type="number" name="percentual_loja" id="perc_loja" min="0.00" max="100.00" step="0.01"
+                                            class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                     <div class="col-lg-7 flex flex-col text-xs">
                                         <label class="form-label">R$</label>
-                                        <input type="number" name="valor_loja" id="val_loja" class="form-input rounded-lg border-gray-300 text-right text-xs">
+                                        <input type="number" name="valor_loja" id="val_loja" min="0.00" max="1000000.00" step="0.01"
+                                            class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
                                 <div class="col-lg-4 mb-3 flex flex-row">
                                     <div class="col-lg-5 flex flex-col text-xs">
                                         <label class="form-label">% Agente</label>
-                                        <input type="number" name="percentual_agente" id="perc_agente" class="form-input rounded-lg border-gray-300 text-right text-xs">
+                                        <input type="number" name="percentual_agente" id="perc_agente" min="0.00" max="100.00" step="0.01"
+                                            class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                     <div class="col-lg-7 flex flex-col text-xs">
                                         <label class="form-label">R$</label>
-                                        <input type="number" name="valor_agente" id="val_agente" class="form-input rounded-lg border-gray-300 text-right text-xs">
+                                        <input type="number" name="valor_agente" id="val_agente" min="0.00" max="1000000.00" step="0.01"
+                                            class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
                                 <div class="col-lg-4 mb-3 flex flex-row">
                                     <div class="col-lg-5 flex flex-col text-xs">
                                         <label class="form-label">% Corretor</label>
-                                        <input type="number" name="percentual_corretor" id="perc_corretor" class="form-input rounded-lg border-gray-300 text-right text-xs">
+                                        <input type="number" name="percentual_corretor" id="perc_corretor" min="0.00" max="100.00" step="0.01"
+                                            class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                     <div class="col-lg-7 flex flex-col">
                                         <label class="form-label">R$</label>
-                                        <input type="number" name="valor_corretor" id="val_corretor" class="form-input rounded-lg border-gray-300 text-right text-xs">
+                                        <input type="number" name="valor_corretor" id="val_corretor" min="0.00" max="1000000.00" step="0.01"
+                                            class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
                             </div>
