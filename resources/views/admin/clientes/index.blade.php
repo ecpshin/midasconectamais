@@ -12,8 +12,7 @@
                         <a href="{{ route('admin.clientes.create') }}"
                             class="rounded-full bg-emerald-500 px-3 py-2 text-white shadow-md shadow-emerald-950 hover:bg-emerald-600 hover:text-white">Adicionar</a>
                         <table class="my-8 w-full whitespace-nowrap text-sm" id="tabela">
-                            <thead class="bg-red-700 font-bold text-slate-100">
-                                <th></th>
+                            <thead class="bg-gradient-to-b from-slate-900 to-indigo-700 font-bold text-slate-100">
                                 <th class="py-2 pl-2">ID</th>
                                 <th class="py-2 pl-2">Nome</th>
                                 <th class="py-2 pl-2">Data Nascimento</th>
@@ -25,13 +24,10 @@
                             <tbody class="text-sm">
                                 @foreach ($clientes as $cliente)
                                     <tr class="bg-gray-200 transition duration-200 even:bg-slate-50 hover:bg-red-400 hover:bg-opacity-20">
-                                        <td class="py-3 pl-2">
-                                            <input type="checkbox" class="ml-2 rounded checked:bg-red-500 focus:ring-0">
-                                        </td>
                                         <td class="py-3 pl-2">{{ $cliente->id }}</td>
                                         <td class="py-3 pl-2 capitalize">{{ $cliente->nome }}</td>
-                                        <td class="py-3 pl-2 capitalize">{{ ($cliente->data_nascimento) ? $cliente->data_nascimento->format('d/m/Y'):'Não informado' }}</td>
-                                        <td class="py-3 pl-2 capitalize">{{ $cliente->rg ?? 'Não informado'}}</td>
+                                        <td class="py-3 pl-2 capitalize">{{ $cliente->data_nascimento ? $cliente->data_nascimento->format('d/m/Y') : 'Não informado' }}</td>
+                                        <td class="py-3 pl-2 capitalize">{{ $cliente->rg ?? 'Não informado' }}</td>
                                         <td class="py-3 pl-2 capitalize">{{ $cliente->orgao_exp ?? 'Não informado' }}</td>
                                         <td class="py-3 pl-2 capitalize">{{ $cliente->naturalidade ?? 'Não informado' }}</td>
                                         <td class="flex items-center space-x-1 py-3 pl-2">

@@ -50,8 +50,11 @@
                             </div>
                             <div class="form-group col-lg-6 mb-3">
                                 <label class="text-xs font-semibold" for="orgao">Órgão</label>
-                                <input type="text" name="orgao" id="orgao" value="{{ old('orgao') }}"
-                                    class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
+                                <select name="organizacao_id" id="orgao_id" class="form-select rounded-lg border-gray-300 text-xs">
+                                    @foreach ($orgaos as $orgao)
+                                        <option value="{{ $orgao->id }}">{{ $orgao->nome_organizacao }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="form-group col-lg-3 mb-3">

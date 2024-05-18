@@ -12,7 +12,18 @@ class Comissao extends Model
 
     protected $table = 'comissoes';
 
-    protected $fillable = ['proposta_id', 'tabela_id', 'data_repasse', 'referencia_calculo', 'percentual_loja', 'valor_loja', 'percentual_operador', 'valor_operador', 'is_pago'];
+    protected $fillable = [
+        'proposta_id',
+        'tabela_id',
+        'data_repasse',
+        'percentual_loja',
+        'percentual_agente',
+        'percentual_corretor',
+        'valor_loja',
+        'valor_agente',
+        'valor_corretor',
+        'is_pago'
+    ];
 
     protected $casts = [
         'data_repasse' => 'date'

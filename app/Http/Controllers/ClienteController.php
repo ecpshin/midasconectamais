@@ -10,6 +10,7 @@ use App\Models\InfoBancaria;
 use App\Models\InfoResidencial;
 use App\Models\Operacao;
 use App\Models\Organizacao;
+use App\Models\Produto;
 use App\Models\Situacao;
 use App\Models\Tabela;
 use App\Models\Vinculo;
@@ -32,8 +33,11 @@ class ClienteController extends Controller
 
     public function index()
     {
-        $clientes = Cliente::where('user_id', auth()->user()->id)->get();
-
+        if (auth()->user()->hasRole('super-admin')) {
+            $clientes = Cliente::all();
+        } else {
+            $clientes = Cliente::where('user_id', auth()->user()->id)->get();
+        }
         return view('admin.clientes.index', [
             'clientes' => $clientes,
             'area' => 'Clientes',
@@ -49,7 +53,7 @@ class ClienteController extends Controller
     {
         $correspondentes = Correspondente::all();
         $financeiras = Financeira::all();
-        $operacoes = Operacao::all();
+        $produtos = Produto::all();
         $situacoes = Situacao::all();
         $tabelas = Tabela::all();
 
@@ -60,7 +64,7 @@ class ClienteController extends Controller
             'correspondentes' => $correspondentes,
             'financeiras' => $financeiras,
             'orgaos' => Organizacao::all(),
-            'operacoes' => $operacoes,
+            'operacoes' => $produtos,
             'situacoes' => $situacoes,
             'tabelas' => $tabelas
         ]);

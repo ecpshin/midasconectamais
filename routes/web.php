@@ -10,12 +10,13 @@ use App\Http\Controllers\InfoBancariaController;
 use App\Http\Controllers\InfoResidencialController;
 use App\Http\Controllers\LigacaoController;
 use App\Http\Controllers\MailingController;
-use App\Http\Controllers\OperacaoController;
 use App\Http\Controllers\OrganizacaoController;
+use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropostaController;
 use App\Http\Controllers\SituacaoController;
 use App\Http\Controllers\TabelaController;
+use App\Http\Controllers\TesteController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VinculoController;
 use Illuminate\Support\Facades\Route;
@@ -90,15 +91,15 @@ Route::prefix('admin/organizacoes')->name('admin.organizacoes.')
         Route::delete('/{organizacao}/excluir-orgao', 'destroy')->name('destroy');
     });
 
-Route::prefix('admin/operacoes')->name('admin.operacoes.')
-    ->controller(OperacaoController::class)->group(function () {
+Route::prefix('admin/produtos')->name('admin.produtos.')
+    ->controller(ProdutoController::class)->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/cadastrar-operacao', 'create')->name('create');
-        Route::post('/cadastrar-operacao', 'store')->name('store');
-        Route::get('/{operacao}/exibir-operacao', 'show')->name('show');
-        Route::get('/{operacao}/editar-operacao', 'edit')->name('edit');
-        Route::patch('/{operacao}/atualiza-dados-operacao', 'update')->name('update');
-        Route::delete('/{operacao}/excluir-operacao', 'destroy')->name('destroy');
+        Route::get('/cadastrar-produto', 'create')->name('create');
+        Route::post('/cadastrar-produto', 'store')->name('store');
+        Route::get('/{produto}/exibir-produto', 'show')->name('show');
+        Route::get('/{produto}/editar-produto', 'edit')->name('edit');
+        Route::patch('/{produto}/atualiza-dados-produto', 'update')->name('update');
+        Route::delete('/{produto}/excluir-produto', 'destroy')->name('destroy');
     });
 
 Route::prefix('admin/situacoes')->name('admin.situacoes.')
@@ -127,30 +128,38 @@ Route::prefix('admin/propostas')->controller(PropostaController::class)->name('a
         Route::get('/', 'index')->name('index');
         Route::get('/nova-proposta', 'create')->name('create');
         Route::post('/salvar-proposta', 'store')->name('store');
+        Route::post('/propostas/cliente-call-center', 'special')->name('special');
         Route::get('/{proposta}/editar-proposta', 'edit')->name('edit');
         Route::patch('/{proposta}/atualizar-proposta', 'update')->name('update');
         Route::get('/{proposta}/exibir-proposta', 'show')->name('show');
         Route::delete('/{proposta}/excluir-proposta', 'destroy')->name('destroy');
 
-        Route::get('/filtrar-por-data', 'filtrarPorData')->name('filtrar-por-data');
-        Route::post('/aplicar-filtro-por-data', 'pordata')->name('aplicar_filtro_por_data');
-        Route::get('/filtrar-por-agente', 'pagePropostaPorAgente')->name('propostas-por-agente');
-        Route::post('/filtrar-por-agente', 'producaoPorAgente')->name('producao-por-agente');
+        //Filtros específicos
+        Route::post('/filtrar-propostas', 'filtrarPropostas')->name('filtrar');
+        Route::get('/page-agente', 'propostasPorAgente')->name('agentes');
+        Route::post('/propostas-agente', 'propostasAgente')->name('agente');
+        Route::get('/page-corretor', 'propostasCorretor')->name('corretor');
+        Route::post('/propostas-corretor', 'propostasCorretor')->name('corretores');
     })->middleware(['auth', 'verified']);
 
 Route::prefix('admin/comissoes')->controller(ComissaoController::class)
     ->name('admin.comissoes.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'index')->name('index');
-        Route::get('/create-comissoes', 'create')->name('create');
         Route::get('/{comissao}/editar-comissao', 'edit')->name('edit');
         Route::patch('/{comissao}/update-comissao', 'update')->name('update');
-        Route::delete('/{comissao}/excluir-comissao', 'destroy')->name('destroy');
-        Route::get('/{comissao}/exibir-comissao', 'show')->name('show');
+        Route::delete('/{comissao}/delete', 'destroy')->name('destroy');
+        Route::get('/{comissao}/show', 'show')->name('show');
 
-        Route::get('/ajuste-por-agente', 'porAgente')->name('ajustar');
+        Route::get('/ajuste-por-agente', 'porAgente')->name('agente');
         Route::post('/comissoes-por-agente', 'porAgente')->name('agente');
-    })->middleware(['role:super-admin', 'auth', 'verified']);
+
+        Route::get('/comissoes-agentes', 'comissoesAgente')->name('operadores');
+        Route::post('/comissoes-agente', 'comissoesAgente')->name('operador');
+        Route::get('/comissoes-corretores', 'comissoesCorretor')->name('corretores');
+        Route::post('/comissoes-corretor', 'comissoesCorretor')->name('corretor');
+    });
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -177,32 +186,37 @@ Route::prefix('admin/mailings/agentes')->controller(AgenteMailingController::cla
         Route::post('/agentes/attach-mailing', 'store')->name('store');
     });
 
-Route::prefix('admin/tabela-comissoes')->name('admin.tabela.')
+Route::prefix('admin/tabelas')->name('admin.tabelas.')
     ->controller(TabelaController::class)->group(function () {
-        Route::get('/', 'index')->name('comissoes.index');
-        Route::get('/registrar', 'create')->name('comissoes.create');
-        Route::post('/store', 'store')->name('comissoes.store');
-        Route::get('/{tabela}/show', 'show')->name('comissoes.show');
-        Route::get('/{tabela}/edit', 'edit')->name('comissoes.edit');
-        Route::patch('/{tabela}/update', 'update')->name('comissoes.update');
-        Route::delete('/{tabela}/delete', 'destroy')->name('comissoes.destroy');
+        Route::get('/', 'index')->name('index');
+        Route::get('/registrar', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/{tabela}/show', 'show')->name('show');
+        Route::get('/{tabela}/edit', 'edit')->name('edit');
+        Route::patch('/{tabela}/update', 'update')->name('update');
+        Route::delete('/{tabela}/delete', 'destroy')->name('destroy');
 
         Route::get('/tabela-correspondente/{id}', 'getcorrespontes')->name('correspondentes');
         Route::get('/tabela-correspondente-financeira/{id}', 'getfinanceiras')->name('financeiras');
     })->middleware(['auth', 'verified']);
 
-Route::prefix('admin/tabelas')->name('admin.tabelas.')
-    ->controller(TabelaController::class)->group(function () {
+Route::prefix('testes')->controller(TesteController::class)->name('testes.')
+    ->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/registrar-tabela', 'create')->name('create');
-        Route::post('/salvar-tabela', 'store')->name('create');
-        Route::get('/{tabela}/editar-tabela', 'edit')->name('edit');
-        Route::patch('/{tabela}/atualizar-tabela', 'update')->name('update');
-        Route::get('/{tabela}/exibir-tabela', 'show')->name('show');
-        Route::delete('/{tabela}/excluir-tabela', 'destroy')->name('destroy');
-
-        Route::get('/search/{id}', 'get_tabela')->name('search');
+        Route::get('/create', 'create')->name('create');
     });
+// Route::prefix('admin/tabelas')->name('admin.tabelas.')
+//     ->controller(TabelaController::class)->group(function () {
+//         Route::get('/', 'index')->name('index');
+//         Route::get('/registrar-tabela', 'create')->name('create');
+//         Route::post('/salvar-tabela', 'store')->name('create');
+//         Route::get('/{tabela}/editar-tabela', 'edit')->name('edit');
+//         Route::patch('/{tabela}/atualizar-tabela', 'update')->name('update');
+//         Route::get('/{tabela}/exibir-tabela', 'show')->name('show');
+//         Route::delete('/{tabela}/excluir-tabela', 'destroy')->name('destroy');
+
+//         Route::get('/search/{id}', 'get_tabela')->name('search');
+//     });
 
 Route::prefix('admin/call-center')->name('admin.calls.')
     ->controller(LigacaoController::class)->group(function () {

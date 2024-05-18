@@ -1,6 +1,8 @@
 <?php
 
 //use App\Http\Controllers\CallController;
+
+use App\Http\Controllers\ApiTabelaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\Ligacoes\LigacaoResource;
@@ -15,6 +17,11 @@ Route::get('/{id}/cliente', function (string $id) {
     return new LigacaoResource(Ligacao::findOrFail($id));
 })->name('api.cliente');
 
+Route::controller(ApiTabelaController::class)->group(function () {
+    Route::get('/testes', 'index')->name('api.index');
+    Route::get('/testes/{id}', 'tabelas')->name('api.tabelas');
+    Route::get('/tabela/{id}', 'tabela')->name('api.tabela');
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

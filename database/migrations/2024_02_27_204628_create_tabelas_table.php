@@ -13,11 +13,21 @@ return new class extends Migration
     {
         Schema::create('tabelas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('produto_id')->constrained('produtos', 'id')->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId('financeira_id')->constrained('financeiras', 'id')->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId('correspondente_id')->constrained('correspondentes', 'id')->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId('organizacao_id')->constrained('organizacoes', 'id')->cascadeOnUpdate()->restrictOnDelete();
             $table->string('descricao');
-            $table->unsignedDecimal('percentual', 8, 4);
-            $table->foreignId('correspondente_id')->constrained('correspondentes', 'id')->nullable()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('financeira_id')->constrained('financeiras', 'id')->nullable()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('codigo');
+            $table->decimal('percentual_loja', 20, 2);
+            $table->decimal('percentual_deferido', 20, 2);
+            $table->decimal('percentual_agente', 20, 2);
+            $table->decimal('percentual_corretor', 20, 2);
+            $table->integer('prazo')->nullable()->default(0);
+            $table->string('referencia')->nullable()->default('L');
+            $table->boolean('parcelado')->nullable()->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

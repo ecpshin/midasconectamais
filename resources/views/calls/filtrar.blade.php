@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-sm-12 col-lg-3">
                             <button type="submit" class="rounded-full bg-teal-500 px-5 py-1 text-white hover:bg-teal-700">
-                                <i class="bi bi-headset nav-icon"></i>
+                                <i class="bi bi-funnel nav-icon"></i>
                                 Filtrar
                             </button>
                         </div>

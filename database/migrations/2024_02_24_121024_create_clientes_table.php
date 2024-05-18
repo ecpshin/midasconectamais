@@ -24,6 +24,10 @@ return new class extends Migration
             $table->string('genitor', 100)->nullable()->default('Não informado');
             $table->string('sexo', 50)->nullable()->default('Masculino');
             $table->string('estado_civil', 50)->nullable()->default('Casado');
+            $table->string('phone1', 50)->nullable()->default('(84)9 9999-9999');
+            $table->string('phone2', 50)->nullable()->default('(84)9 9999-9999');
+            $table->string('phone3', 50)->nullable()->default('(84)9 9999-9999');
+            $table->string('phone4', 50)->nullable()->default('(84)9 9999-9999');
             $table->foreignId('user_id')->constrained('users', 'id');
             $table->timestamps();
         });

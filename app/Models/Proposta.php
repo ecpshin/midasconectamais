@@ -23,7 +23,7 @@ class Proposta extends Model
         'parcela_proposta',
         'liquido_proposta',
         'cliente_id',
-        'operacao_id',
+        'produto_id',
         'financeira_id',
         'correspondente_id',
         'situacao_id',
@@ -55,9 +55,9 @@ class Proposta extends Model
         return $this->belongsTo(Financeira::class, 'financeira_id', 'id');
     }
 
-    public function operacao(): BelongsTo
+    public function produto(): BelongsTo
     {
-        return $this->belongsTo(Operacao::class, 'operacao_id', 'id');
+        return $this->belongsTo(Produto::class, 'produto_id', 'id');
     }
 
     public function situacao(): BelongsTo

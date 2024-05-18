@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use Number;
+use Illuminate\Support\Number;
 
 class ConvertersService
 {
@@ -15,12 +15,17 @@ class ConvertersService
     }
 
     public function toCurrencyBRL($valor)
-    {
-        return $this->fmt->currency($valor, 'BRL', 'pt-BR');
+    {        
+        return Number::currency(doubleval($valor), 'BRL', 'pt_BR');
     }
 
     public function toDecimal($valor, $digits)
     {
-        return $this->fmt->format($valor, $digits, $digits, 'pt-BR');
+        return Number::format($valor, $digits, $digits, 'pt-BR');
+    }
+    
+    public function toPercentage($valor, $digits)
+    {
+        return Number::percentage(doubleval($valor), $digits, $digits, 'pt_BR');
     }
 }

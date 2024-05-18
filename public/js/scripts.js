@@ -25,7 +25,7 @@ $(document).ready(function () {
         reverse: true,
     });
 
-    $(".percentual").mask("999.999", {
+    $(".percentual").mask("999.99", {
         reverse: true,
     });
 
@@ -101,7 +101,7 @@ function loadCliente(cliente) {
     const data = JSON.parse(cliente);
     $("#cliente_id").val(data.id);
     $("#cpf").val(data.cpf);
-    $("#nome_cliente").val(data.nome);
+    $("#nome").val(data.nome);
 }
 
 function fn(valor) {
@@ -194,6 +194,26 @@ function calculaComissao() {
     $("#valop").val(calculo.toFixed(2));
 }
 
+function calcularComissoes() {
+    const total_proposta = $("#total_proposta").val();
+    const liquido_proposta = $("#liquido_proposta").val();
+    const perc_loja = $("#perc_loja").val();
+    const perc_agente = $("#perc_agente").val();
+    const perc_corretor = $("#perc_corretor").val();
+
+    const referencia = localStorage.getItem("referencia");
+
+    if (referencia === "BL") {
+        $("#val_loja").val(total_proposta * (perc_loja / 100));
+        $("#val_agente").val(liquido_proposta * perc_agente);
+        $("#val_corretor").val(liquido_proposta * (perc_corretor / 100));
+    } else {
+        $("#val_loja").val(liquido_proposta * (perc_loja / 100));
+        $("#val_agente").val(liquido_proposta * (perc_agente / 100));
+        $("#val_corretor").val(liquido_proposta * (perc_corretor / 100));
+    }
+}
+
 function formatDate(date) {
     var d = new Date(date),
         month = "" + (d.getMonth() + 1),
@@ -207,7 +227,6 @@ function formatDate(date) {
 
 $("#buscaCep").on("blur", async function () {
     const cep = $("#buscaCep").val();
-
     if (cep !== "") {
         let response = (
             await fetch(`https://viacep.com.br/ws/${cep}/json/`, {
@@ -257,15 +276,51 @@ $("#modal-obs").on("change", function () {
     alert(n);
 });
 
-$("#tabela_id").on("change", function () {
-    const valor = $("#tabela_id").val();
-    const url = $("#tabela_id").data("url").slice(0, -2);
-    const searchUrl = `${url}/${valor}`;
+function loadCliente(obj) {
+    const data = JSON.parse(obj);
+    $("#cliente_id").val(data.id);
+    $("#nome_cliente").val(data.nome);
+    $("#cpf_cliente").val(data.cpf);
+}
 
-    $.get(searchUrl, function (data) {
-        const rs = JSON.parse(data);
-        $("#correspondente_id").val(rs.correspondente_id);
-        $("#financeira_id").val(rs.financeira_id);
-        $("#percentual_loja").val(rs.percentual);
+$("#organizacao_id").on("change", function () {
+    let url = $("#organizacao_id").data("url");
+    const id = $("#organizacao_id").val();
+    url = `${url.slice(0, -2)}/${id}`;
+
+    $.get(url, function (res) {
+        const tabelas = res.data;
+        const selectTabela = document.querySelector("#tabela_id");
+
+        tabelas.map((tabela) => {
+            const option = document.createElement("option");
+            option.value = `${tabela.id}`;
+            option.innerText =
+                `${tabela.descricao} | ${tabela.codigo} | ${tabela.produto.descricao_produto} | ${tabela.financeira.nome_financeira} | ${tabela.correspondente.nome_correspondente}`.toLocaleUpperCase();
+            selectTabela.append(option);
+        });
     });
 });
+
+$("#tabela_id").on("change", function () {
+    const valor = $("#tabela_id").val();
+    let url = $("#tabela_id").data("url").slice(0, -1);
+    url += `${valor}`;
+
+    $.get(url, function (res) {
+        const rs = res.data;
+        $("#correspondente_id").val(rs.correspondente.id);
+        $("#financeira_id").val(rs.financeira.id);
+        $("#percentual_loja").val(rs.percentual_loja);
+        $("#produto_id").val(rs.produto.id);
+        $("#perc_loja").val(Number(rs.percentual_loja).toFixed(2));
+        $("#perc_agente").val(Number(rs.percentual_agente).toFixed(2));
+        $("#perc_corretor").val(Number(rs.percentual_corretor).toFixed(2));
+
+        localStorage.setItem("referencia", rs.referencia);
+    });
+});
+
+// $("#organizacao_id").on("blur", function () {
+//
+// });

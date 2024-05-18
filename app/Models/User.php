@@ -34,7 +34,8 @@ class User extends Authenticatable
         'codigo_op',
         'tipo_chave_pix',
         'chave_pix',
-        'path'
+        'path',
+        'tipo'
     ];
 
     /**
