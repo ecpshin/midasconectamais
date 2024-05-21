@@ -15,7 +15,7 @@ class ConvertersService
     }
 
     public function toCurrencyBRL($valor)
-    {        
+    {
         return Number::currency(doubleval($valor), 'BRL', 'pt_BR');
     }
 
@@ -23,9 +23,14 @@ class ConvertersService
     {
         return Number::format($valor, $digits, $digits, 'pt-BR');
     }
-    
+
     public function toPercentage($valor, $digits)
     {
         return Number::percentage(doubleval($valor), $digits, $digits, 'pt_BR');
+    }
+
+    public function toDate($data = null)
+    {
+        return (!is_null($data)) ? date('d/m/Y', strtotime($data)) : 'Não informado';
     }
 }

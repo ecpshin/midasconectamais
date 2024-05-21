@@ -54,35 +54,17 @@
                                                  '{{ $proposta->comissao }}')"
                                             class="px-2 py-1 text-blue-700 hover:rounded-full hover:bg-blue-700 hover:text-white">{{ $proposta->id }}</a>
                                     </td>
-                                    <td class="px-3 text-sm capitalize">
-                                        {{ $proposta->data_digitacao->format('d/m/y') }}
-                                    </td>
-                                    <td class="px-3 text-sm capitalize">
-                                        {{ $proposta->data_pagamento->format('d/m/y') }}
-                                    </td>
-                                    <td class="px-3 text-sm capitalize">
-                                        {{ $proposta->cliente->nome }}
-                                    </td>
-                                    <td class="px-3 text-sm capitalize">
-                                        {{ $proposta->produto->descricao_produto }}
-                                    </td>
-                                    <td class="px-3 text-right text-sm capitalize">
-                                        {{ $proposta->prazo_proposta }}</td>
-                                    <td class="px-3 text-right text-sm capitalize">
-                                        {{ $fmt->toCurrencyBRL($proposta->total_proposta) }}</td>
-                                    <td class="px-3 text-right text-sm capitalize">
-                                        {{ $fmt->toCurrencyBRL($proposta->parcela_proposta) }}</td>
-                                    <td class="px-3 text-right text-sm capitalize">
-                                        {{ $fmt->toCurrencyBRL($proposta->liquido_proposta) }}</td>
-                                    <td class="px-3 text-sm capitalize">
-                                        {{ $proposta->financeira->nome_financeira }}
-                                    </td>
-                                    <td class="px-3 text-sm capitalize">
-                                        {{ $proposta->correspondente->nome_correspondente }}
-                                    </td>
-                                    <td class="px-3 text-sm capitalize">
-                                        {{ $proposta->situacao->descricao_situacao }}
-                                    </td>
+                                    <td class="px-3 text-sm capitalize">{{ $fmt->toDate($proposta->data_digitacao) }}</td>
+                                    <td class="px-3 text-sm capitalize">{{ $fmt->toDate($proposta->data_pagamento) }}</td>
+                                    <td class="px-3 text-sm capitalize">{{ $proposta->cliente->nome }}</td>
+                                    <td class="px-3 text-sm capitalize">{{ $proposta->produto->descricao_produto }}</td>
+                                    <td class="px-3 text-right text-sm capitalize">{{ $proposta->prazo_proposta }}</td>
+                                    <td class="px-3 text-right text-sm capitalize">{{ $fmt->toCurrencyBRL($proposta->total_proposta) }}</td>
+                                    <td class="px-3 text-right text-sm capitalize">{{ $fmt->toCurrencyBRL($proposta->parcela_proposta) }}</td>
+                                    <td class="px-3 text-right text-sm capitalize">{{ $fmt->toCurrencyBRL($proposta->liquido_proposta) }}</td>
+                                    <td class="px-3 text-sm capitalize">{{ $proposta->financeira->nome_financeira }}</td>
+                                    <td class="px-3 text-sm capitalize">{{ $proposta->correspondente->nome_correspondente }}</td>
+                                    <td class="px-3 text-sm capitalize">{{ $proposta->situacao->descricao_situacao }}</td>
                                     <td class="truncate px-3 text-sm font-semibold capitalize">{{ $proposta->user->name }}</td>
                                     <td class="flex items-center space-x-1 px-3">
                                         <a href="{{ route('admin.propostas.show', $proposta) }}"
@@ -118,9 +100,9 @@
                 </div>
             </div>
         </div>
-        <div class="row mb-3 mt-3 flex flex-col items-center">            
-            <table class="w-50 text-sm py-2 rounded-lg">
-                <thead class="bg-gradient-to-b from-slate-900 to-slate-700 text-center py-2">
+        <div class="row mb-3 mt-3 flex flex-col items-center">
+            <table class="w-50 rounded-lg py-2 text-sm">
+                <thead class="bg-gradient-to-b from-slate-900 to-slate-700 py-2 text-center">
                     <tr class="py-2">
                         <th class="py-2">Total Propostas</th>
                         <th class="py-2">Líquido Propostas</th>
@@ -128,8 +110,8 @@
                 </thead>
                 <tbody class="text-center">
                     <tr class="odd:bg-slate-100">
-                        <td class="font-semibold py-2 text-slate-800">{{ $fmt->toCurrencyBRL($soma_totais) }}</td>
-                        <td class="font-semibold py-2 text-slate-800">{{ $fmt->toCurrencyBRL($soma_liquidos) }}</td>
+                        <td class="py-2 font-semibold text-slate-800">{{ $fmt->toCurrencyBRL($soma_totais) }}</td>
+                        <td class="py-2 font-semibold text-slate-800">{{ $fmt->toCurrencyBRL($soma_liquidos) }}</td>
                     </tr>
                 </tbody>
             </table>

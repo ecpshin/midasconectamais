@@ -5,7 +5,7 @@
 
     <div class="w-full">
         <div class="mx-auto w-full sm:px-4 lg:px-6">
-            <div class="mt-3 max-w-7xl overflow-x-scroll rounded-lg bg-white px-5 py-5 shadow-xl shadow-yellow-900">
+            <div class="mb-5 mt-3 max-w-7xl overflow-x-scroll rounded-lg bg-white px-5 py-3 shadow-md shadow-slate-900">
                 <h1 class="m-3 rounded-full py-2 text-center text-lg text-slate-700">Lista de Usuários</h1>
                 <table class="w-100" id="listas">
                     <thead class="bg-gradient-to-b from-gray-900 via-slate-500 to-slate-900">

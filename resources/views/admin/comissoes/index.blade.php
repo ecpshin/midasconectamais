@@ -49,8 +49,8 @@
                                     <tr class="odd:bg-fuchsia-100">
                                         <td class="text-xs font-semibold">{{ $com->id }}</td>
                                         <td class="text-xs font-semibold capitalize">{{ $com->proposta->numero_contrato }}</td>
-                                        <td class="text-xs font-semibold capitalize">{{ $com->proposta->data_digitacao->format('d/m/y') }}</td>
-                                        <td class="text-xs font-semibold capitalize">{{ $com->proposta->data_pagamento->format('d/m/y') }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $fmt->toDate($com->proposta->data_digitacao) }}</td>
+                                        <td class="text-xs font-semibold capitalize">{{ $com->toDate($com->proposta->data_pagamento) }}</td>
                                         <td class="text-xs font-semibold capitalize">{{ $com->proposta->cliente->nome }}</td>
                                         <td class="text-xs font-semibold capitalize">{{ $com->proposta->produto->descricao_produto }}</td>
                                         <td class="text-xs font-semibold capitalize">{{ $fmt->toCurrencyBRL($com->proposta->total_proposta) }}</td>

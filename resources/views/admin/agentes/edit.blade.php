@@ -5,7 +5,7 @@
 
     <div class="w-full">
         <div class="mx-auto w-full sm:px-4 lg:px-6">
-            <div class="mx-auto mt-5 max-w-7xl rounded-lg bg-white">
+            <div class="mx-auto mb-5 mt-5 max-w-7xl rounded-lg bg-white">
                 <h4 class="rounded-t-lg bg-gradient-to-br from-slate-900 to-slate-700 py-2 text-center text-white">Perfil do Agente</h4>
                 <form action="{{ route('admin.agentes.pessoais', $agente) }}" method="post" enctype="multipart/form-data" class="flex flex-col gap-3 p-4 text-indigo-900">
                     @csrf @method('PATCH')
@@ -95,6 +95,9 @@
                             <label for="chave_pix" class="form-label">Chave Pix</label>
                             <input type="text" name="chave_pix" id="chave_pix" value="{{ $agente->chave_pix }}" class="rounded-lg border-slate-400 text-xs">
                         </div>
+                    </div>
+                    <div class="flex flex-row justify-center">
+                        <button type="submit" class="rounded-full bg-green-950 px-10 py-2 text-white">Salvar Dados</button>
                     </div>
                 </form>
             </div>

@@ -35,7 +35,7 @@ class PropostaController extends Controller
         $scvPropostas = new PropostaService;
 
         $propostas = $svc->propostas();
-        
+
         return view('admin.propostas.index', [
             'area' => 'Propostas',
             'page' => 'Visão Geral',
@@ -48,7 +48,8 @@ class PropostaController extends Controller
             'situacoes' => $svc->situacoes(['id', 'descricao_situacao', 'motivo_situacao']),
             'soma_totais' => $propostas->sum('total_proposta'),
             'soma_liquidos' => $propostas->sum('liquido_proposta'),
-            "fmt" => $fmt
+            "fmt" => $fmt,
+            ''
         ]);
     }
 
