@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('tipo_chave_pix', 50)->nullable()->default('Não informado');
             $table->string('chave_pix', 255)->nullable()->default('Não informado');
             $table->string('path')->nullable()->default('img/users/user.png');
+            $table->string('tipo', 50)->nullable()->default('agente');
             $table->timestamps();
         });
     }
