@@ -164,8 +164,6 @@ class ComissaoController extends Controller
             return $proposta->comissao;
         });
 
-        $fmt = new Number;
-
         return view('admin.comissoes.filtrar', [
             'area' => 'Comissões',
             'page' => 'Ajustar Comissão',
@@ -175,7 +173,7 @@ class ComissaoController extends Controller
             'total_agente' => $this->toMoeda($all->sum('valor_operador') ?? 0),
             'total_propostas' => $this->toMoeda($propostas->sum('total_proposta') ?? 0),
             'total_liquido' => $this->toMoeda($propostas->sum('liquido_proposta') ?? 0),
-            'fmt' => $fmt,
+            'fmt' => $this->fmt,
             'months' => $this->getMonths(),
             'agentes' => $this->getAgentes(),
             'mesAtual' => $mesAtual

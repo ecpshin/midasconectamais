@@ -38,35 +38,17 @@
                                         <td class="px-3 text-sm">
                                             {{ $proposta->id }}
                                         </td>
-                                        <td class="px-3 text-sm capitalize">
-                                            {{ $proposta->data_digitacao->format('d/m/y') }}
-                                        </td>
-                                        <td class="px-3 text-sm capitalize">
-                                            {{ $proposta->data_pagamento->format('d/m/y') }}
-                                        </td>
-                                        <td class="px-3 text-sm capitalize">
-                                            {{ $proposta->cliente->nome }}
-                                        </td>
-                                        <td class="px-3 text-sm capitalize">
-                                            {{ $proposta->produto->descricao_produto }}
-                                        </td>
-                                        <td class="px-3 text-right text-sm capitalize">
-                                            {{ $proposta->prazo_proposta }}</td>
-                                        <td class="px-3 text-right text-sm capitalize">
-                                            {{ $fmt->toCurrencyBRL($proposta->total_proposta) }}</td>
-                                        <td class="px-3 text-right text-sm capitalize">
-                                            {{ $fmt->toCurrencyBRL($proposta->parcela_proposta) }}</td>
-                                        <td class="px-3 text-right text-sm capitalize">
-                                            {{ $fmt->toCurrencyBRL($proposta->liquido_proposta) }}</td>
-                                        <td class="px-3 text-sm capitalize">
-                                            {{ $proposta->financeira->nome_financeira }}
-                                        </td>
-                                        <td class="px-3 text-sm capitalize">
-                                            {{ $proposta->correspondente->nome_correspondente }}
-                                        </td>
-                                        <td class="px-3 text-sm capitalize">
-                                            {{ $proposta->situacao->descricao_situacao }}
-                                        </td>
+                                        <td class="px-3 text-sm">{{ $fmt->toDate($proposta->data_digitacao) }}</td>
+                                        <td class="px-3 text-sm">{{ $fmt->toDate($proposta->data_pagamento) }}</td>
+                                        <td class="px-3 text-sm capitalize">{{ $proposta->cliente->nome }}</td>
+                                        <td class="px-3 text-sm capitalize">{{ $proposta->produto->descricao_produto }}</td>
+                                        <td class="px-3 text-right text-sm">{{ $proposta->prazo_proposta }}</td>
+                                        <td class="px-3 text-right text-sm">{{ $fmt->toCurrencyBRL($proposta->total_proposta) }}</td>
+                                        <td class="px-3 text-right text-sm">{{ $fmt->toCurrencyBRL($proposta->parcela_proposta) }}</td>
+                                        <td class="px-3 text-right text-sm">{{ $fmt->toCurrencyBRL($proposta->liquido_proposta) }}</td>
+                                        <td class="px-3 text-sm capitalize">{{ $proposta->financeira->nome_financeira }}</td>
+                                        <td class="px-3 text-sm capitalize">{{ $proposta->correspondente->nome_correspondente }}</td>
+                                        <td class="px-3 text-sm capitalize">{{ $proposta->situacao->descricao_situacao }}</td>
                                         <td class="truncate px-3 text-sm font-semibold capitalize">{{ $proposta->user->name }}</td>
                                         <td class="flex items-center space-x-1 px-3">
                                             <a href="{{ route('admin.propostas.show', $proposta) }}"

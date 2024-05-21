@@ -49,7 +49,6 @@ class PropostaController extends Controller
             'soma_totais' => $propostas->sum('total_proposta'),
             'soma_liquidos' => $propostas->sum('liquido_proposta'),
             "fmt" => $fmt,
-            ''
         ]);
     }
 
