@@ -95,7 +95,6 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
     }
 
 
@@ -123,6 +122,7 @@ class UsersController extends Controller
             'codigo_op' => ['nullable', 'string', 'max:50'],
             'tipo_chave_pix' => ['nullable', 'string', 'max:50'],
             'chave_pix' => ['nullable', 'string', 'max:50'],
+            'tipo' => ['nullable', 'string', 'min:3', 'max:50'],
             'picture' => ['nullable', File::image()->max('10mb')]
         ]);
 
@@ -131,10 +131,10 @@ class UsersController extends Controller
             $filename = pathinfo($fileComExt, PATHINFO_FILENAME);
             $extension = $request->file('picture')->getClientOriginalExtension();
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-            dd($fileNameToStore);
-            $path = $request->file('picture')->storeAs('public/img_itens', $fileNameToStore);
+            $fileNameToStore;
+            $path = $request->file('picture')->storeAs('public/img/users', $fileNameToStore);
         }
-        alert()->success('Sucesso', 'Os dados de ' . $user->name . ' foram atualizados com sucesso!');
+        Alert::success('Sucesso', 'Os dados de ' . $user->name . ' foram atualizados com sucesso!');
         return redirect()->route('admin.agentes.index');
     }
 
