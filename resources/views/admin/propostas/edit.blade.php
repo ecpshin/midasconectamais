@@ -32,7 +32,7 @@
                             <div class="row flex flex-row justify-between text-xs">
                                 <div class="col-lg-3 form-group flex flex-col">
                                     <label for="uuid" class="form-label">Controle</label>
-                                    <input type="text" name="uuid" id="uuid" value="{{ old('uuid', $proposta->uuid) }}"
+                                    <input type="text" name="uuid" id="uuid" value="{{ $proposta->uuid }}"
                                         class="form-input rounded-lg border-gray-300 text-right text-xs" readonly="true">
                                 </div>
                                 <div class="col-lg-5 form-group flex flex-col">
@@ -120,28 +120,28 @@
                                 <div class="col-lg-2">
                                     <div class="form-group flex flex-col">
                                         <label for="prazo_proposta" class="form-label">Prazo</label>
-                                        <input type="number" name="prazo_proposta" id="prazo_proposta" value="{{ old('prazo_proposta', $proposta->prazo_proposta) }}"
+                                        <input type="number" name="prazo_proposta" id="prazo_proposta" value="{{ $proposta->prazo_proposta }}"
                                             min="0" max="999" step="1" class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group flex flex-col">
                                         <label for="total_proposta" class="form-label">Total</label>
-                                        <input type="number" name="total_proposta" id="total_proposta" value="{{ old('prazo_proposta', $proposta->total_proposta) }}"
+                                        <input type="number" name="total_proposta" id="total_proposta" value="{{ $proposta->total_proposta }}"
                                             min="0.00" max="1000000.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group flex flex-col">
                                         <label for="parcela_proposta" class="form-label">Parcela</label>
-                                        <input type="number" name="parcela_proposta" value="{{ old('parcela_proposta', $proposta->parcela_proposta) }}"id="parcela_proposta"
+                                        <input type="number" name="parcela_proposta" value="{{ $proposta->parcela_proposta }}"id="parcela_proposta"
                                             min="0.00" max="1000000.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group flex flex-col">
                                         <label for="liquido_proposta" class="form-label">Líquido</label>
-                                        <input type="number" name="liquido_proposta" value="{{ old('liquido_proposta', $proposta->liquido_proposta) }}id="liquido_proposta"
+                                        <input type="number" name="liquido_proposta" value="{{ $proposta->liquido_proposta }}id="liquido_proposta"
                                             min="0.00" max="1000000.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs"
                                             onblur="calcularComissoes()">
                                     </div>

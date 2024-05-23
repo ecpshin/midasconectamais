@@ -10,7 +10,7 @@
                 <form action="{{ route('admin.agentes.pessoais', $agente) }}" method="post" enctype="multipart/form-data" class="flex flex-col gap-3 p-4 text-indigo-900">
                     @csrf @method('PATCH')
                     <div class="row flex-column mb-3 flex items-center justify-center gap-3">
-                        <img src="{{ asset($agente->path) }}" class="w-48" alt="User Image" style="border-radius: 15px;">
+                        <img src="{{ asset('storage/' . $agente->path) }}" class="w-48" alt="User Image" style="border-radius: 15px;">
                     </div>
                     <div class="row space-between flex flex-row text-xs">
                         <div class="col-lg-3 mb-3 flex flex-col">

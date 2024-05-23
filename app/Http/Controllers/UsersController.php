@@ -123,7 +123,7 @@ class UsersController extends Controller
             'tipo_chave_pix' => ['nullable', 'string', 'max:50'],
             'chave_pix' => ['nullable', 'string', 'max:50'],
             'tipo' => ['nullable', 'string', 'min:3', 'max:50'],
-            'picture' => ['nullable', File::image()->max('10mb')]
+            'picture' => ['nullable']
         ]);
 
         if ($request->hasFile('picture')) {
@@ -131,8 +131,8 @@ class UsersController extends Controller
             $filename = pathinfo($fileComExt, PATHINFO_FILENAME);
             $extension = $request->file('picture')->getClientOriginalExtension();
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-            $path = $request->file('picture')->storeAs('public/img/users', $fileNameToStore);
-            $attributes['path'] = str_replace('public/', '', $path);
+            $url = $request->file('picture')->storeAs('public/img/users', $fileNameToStore);
+            $attributes['path'] = str_replace('public/', '', $url);
         }
         $user->update($attributes);
         Alert::success('Sucesso', 'Os dados de ' . $user->name . ' foram atualizados com sucesso!');
