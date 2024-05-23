@@ -108,7 +108,7 @@ class UsersController extends Controller
 
     public function pessoais(Request $request, User $user)
     {
-        $request->validate([
+        $attributes = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
             'cpf' => ['nullable', 'string', 'max:14'],
@@ -131,9 +131,10 @@ class UsersController extends Controller
             $filename = pathinfo($fileComExt, PATHINFO_FILENAME);
             $extension = $request->file('picture')->getClientOriginalExtension();
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-            $fileNameToStore;
             $path = $request->file('picture')->storeAs('public/img/users', $fileNameToStore);
+            $attributes['path'] = str_replace('public/', '', $path);
         }
+        $user->update($attributes);
         Alert::success('Sucesso', 'Os dados de ' . $user->name . ' foram atualizados com sucesso!');
         return redirect()->route('admin.agentes.index');
     }

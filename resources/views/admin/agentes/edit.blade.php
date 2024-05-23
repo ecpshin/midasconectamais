@@ -9,8 +9,8 @@
                 <h4 class="rounded-t-lg bg-gradient-to-br from-slate-900 to-slate-700 py-2 text-center text-white">Perfil do Agente</h4>
                 <form action="{{ route('admin.agentes.pessoais', $agente) }}" method="post" enctype="multipart/form-data" class="flex flex-col gap-3 p-4 text-indigo-900">
                     @csrf @method('PATCH')
-                    <div class="row mb-3 flex flex-row justify-center">
-                        <img src="{{ asset($agente->path) }}" class="w-48" alt="User Image">
+                    <div class="row flex-column mb-3 flex items-center justify-center gap-3">
+                        <img src="{{ asset($agente->path) }}" class="w-48" alt="User Image" style="border-radius: 15px;">
                     </div>
                     <div class="row space-between flex flex-row text-xs">
                         <div class="col-lg-3 mb-3 flex flex-col">
@@ -94,6 +94,22 @@
                         <div class="col-lg-3 mb-3 flex flex-col">
                             <label for="chave_pix" class="form-label">Chave Pix</label>
                             <input type="text" name="chave_pix" id="chave_pix" value="{{ $agente->chave_pix }}" class="rounded-lg border-slate-400 text-xs">
+                        </div>
+
+                        <div class="flex w-full items-center justify-center">
+                            <label for="dropzone-file"
+                                class="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                <div class="flex flex-col items-center justify-center pb-6 pt-5">
+                                    <svg class="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 20 16">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click para upload</span> ou arraste e drop</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG (MAX. 800x400px)</p>
+                                </div>
+                                <input id="dropzone-file" type="file" name="picture" class="hidden" />
+                            </label>
                         </div>
                     </div>
                     <div class="flex flex-row justify-center">
