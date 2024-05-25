@@ -63,6 +63,6 @@ class GeneralService
 
     public  function agentes($columns = null): Collection
     {
-        return is_null($columns) ? User::all() : User::whereNotIn('id', [1, 2, 9])->orderBy('name', 'asc')->orderBy('tipo', 'asc')->get($columns);
+        return is_null($columns) ? User::orderBy('name', 'asc')->get() : User::whereNotIn('id', [1, 2])->orderBy('name', 'asc')->orderBy('name', 'asc')->get($columns);
     }
 }

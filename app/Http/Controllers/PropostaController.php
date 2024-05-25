@@ -48,14 +48,24 @@ class PropostaController extends Controller
             'situacoes' => $svc->situacoes(['id', 'descricao_situacao', 'motivo_situacao']),
             'soma_totais' => $propostas->sum('total_proposta'),
             'soma_liquidos' => $propostas->sum('liquido_proposta'),
-            "fmt" => $fmt,
+            "fmt" => $fmt
         ]);
     }
 
     public function create()
     {
         $svc = new GeneralService;
-        $uuid = Uuid::uuid4();
+
+        $auxs = $svc->agentes();
+
+        $agentes = $auxs->filter(function ($aux) {
+            return $aux->tipo == 'agente';
+        });
+
+        $corretores = $auxs->filter(function ($aux) {
+            return $aux->tipo == 'corretores';
+        });
+
 
         return view('admin.propostas.create', [
             'area' => 'Propostas',
@@ -68,7 +78,9 @@ class PropostaController extends Controller
             'produtos' => $svc->produtos(['id', 'descricao_produto']),
             'tabelas' => $svc->tabelas(),
             'orgaos' => $svc->organizacoes(['id', 'nome_organizacao']),
-            'uuid' => substr($uuid, 0, 13)
+            'uuid' => substr((string) Uuid::uuid4(), 0, 13),
+            'agentes' => $agentes,
+            'corretores' => $corretores
         ]);
     }
 
@@ -89,12 +101,15 @@ class PropostaController extends Controller
     }
     public function store(StorePropostaRequest $request)
     {
+        //evita user_id nulo
+        $id = is_null($request->user_id) ? auth()->id() : $request->user_id;
+
         $attributes = $request->validated();
-        $attributes['user_id'] = auth()->id();
-        $request['user_id'] = auth()->id();
+        $attributes['user_id'] = $id;
         $cliente = Cliente::find($request->cliente_id);
         $proposta = $cliente->propostas()->create($attributes);
-        $proposta->comissao()->create($attributes);
+        $proposta->comissao()->create($request->all());
+
 
         if ($proposta instanceof Proposta) {
             alert()->success('Sucesso', 'Lançamento de proposta realizado com sucesso.');
