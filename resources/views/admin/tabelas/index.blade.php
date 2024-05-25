@@ -22,6 +22,7 @@
                                     <td class="pl-2">% Loja</td>
                                     <td class="pl-2">% Agente</td>
                                     <td class="pl-2">% Corretor</td>
+                                    <td class="pl-2">Prazo</td>
                                     <td class="pl-2">Gera Parcela</td>
                                     <td class="pl-2">Referência de Cálculo</td>
                                     <td class="pl-2">Ações</td>
@@ -39,6 +40,7 @@
                                         <td class="pl-2 capitalize">{{ $fmt->percentage($tabela->percentual_loja, 3, 2, 'pt-BR') }}</td>
                                         <td class="pl-2 capitalize">{{ $fmt->percentage($tabela->percentual_agente, 3, 2, 'pt-BR') }}</td>
                                         <td class="pl-2 capitalize">{{ $fmt->percentage($tabela->percentual_corretor, 3, 2, 'pt-BR') }}</td>
+                                        <td class="pl-2 capitalize">{{ $tabela->prazo }}</td>
                                         <td class="pl-2 capitalize">{{ $tabela->parcelado == 1 ? 'Sim' : 'Não' }}</td>
                                         <td class="pl-2 capitalize">{{ !is_null($tabela->referencia) ? $tabela->referencia : 'L' }}</td>
                                         <td class="flex items-center space-x-1 py-1 pl-2">
