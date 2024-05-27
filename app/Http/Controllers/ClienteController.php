@@ -96,7 +96,10 @@ class ClienteController extends Controller
 
         $request['user_id'] = $request->user()->id;
 
+        dd($request);
+
         $attributes = $request->validated();
+
         $cliente = $request->user()->clientes()->create($attributes);
         $cliente->vinculos()->create($request->all());
         $cliente->infoBancarias()->create($request->all());

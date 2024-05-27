@@ -13,7 +13,7 @@ class Vinculo extends Model
 
     protected $table = 'vinculos';
 
-    protected $fillable = ['cliente_id', 'organizacao_id', 'nome_organizacao', 'nrbeneficio', 'phone1', 'phone2', 'phone3', 'phone4', 'emails_senhas'];
+    protected $fillable = ['cliente_id', 'organizacao_id', 'nrbeneficio', 'email', 'senha'];
 
     public function cliente(): BelongsTo
     {
