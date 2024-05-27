@@ -4,31 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Clientes\ClienteStoreRequest;
 use App\Models\Cliente;
-use App\Models\Correspondente;
-use App\Models\Financeira;
-use App\Models\InfoBancaria;
-use App\Models\InfoResidencial;
-use App\Models\Operacao;
-use App\Models\Organizacao;
-use App\Models\Produto;
-use App\Models\Situacao;
-use App\Models\Tabela;
-use App\Models\Vinculo;
 use NumberFormatter;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Ramsey\Uuid\Uuid;
+use App\Services\GeneralService;
 
 class ClienteController extends Controller
 {
+    public $svc = null;
+
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
 
-        $this->middleware('can:create cliente', ['only' => ['create', 'store']]);
+        $this->middleware('can:create cliente', ['only' => ['create', 'proposta', 'special', 'store']]);
         $this->middleware('can:edit cliente', ['only' => ['edit', 'update']]);
         $this->middleware('can:list cliente', ['only' => ['index']]);
         $this->middleware('can:view cliente', ['only' => ['show', 'index']]);
         $this->middleware('can:update cliente', ['only' => ['update']]);
+
+        $this->svc = new GeneralService;
     }
 
     public function index()
@@ -51,22 +47,44 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        $correspondentes = Correspondente::all();
-        $financeiras = Financeira::all();
-        $produtos = Produto::all();
-        $situacoes = Situacao::all();
-        $tabelas = Tabela::all();
-
         return view('admin.clientes.create', [
             'area' => 'Clientes',
             'page' => 'Clientes Cadastrados',
             'rota' => 'admin.clientes.index',
-            'correspondentes' => $correspondentes,
-            'financeiras' => $financeiras,
-            'orgaos' => Organizacao::all(),
-            'operacoes' => $produtos,
-            'situacoes' => $situacoes,
-            'tabelas' => $tabelas
+            'correspondentes' => $this->svc->correspondentes(),
+            'financeiras' => $this->svc->financeiras(),
+            'orgaos' => $this->svc->organizacoes(),
+            'produtos' => $this->svc->produtos(),
+            'situacoes' => $this->svc->situacoes(['id', 'descricao_situacao']),
+            'tabelas' => $this->svc->tabelas()
+        ]);
+    }
+
+    public function proposta()
+    {
+        $auxs = $this->svc->agentes();
+
+        $agentes = $auxs->filter(function ($aux) {
+            return $aux->tipo == 'agente';
+        });
+
+        $corretores = $auxs->filter(function ($aux) {
+            return $aux->tipo == 'corretores';
+        });
+
+        return view('admin.clientes.proposta', [
+            'area' => 'Clientes',
+            'page' => 'Proposta Cliente',
+            'rota' => 'admin.clientes.index',
+            'correspondentes' => $this->svc->correspondentes(),
+            'financeiras' => $this->svc->financeiras(),
+            'orgaos' => $this->svc->organizacoes(),
+            'produtos' => $this->svc->produtos(),
+            'situacoes' => $this->svc->situacoes(['id', 'descricao_situacao']),
+            'tabelas' => $this->svc->tabelas(),
+            'agentes' => $agentes,
+            'corretores' => $corretores,
+            'uuid' => substr((string) Uuid::uuid4(), 0, 13)
         ]);
     }
 
@@ -75,6 +93,36 @@ class ClienteController extends Controller
      */
     public function store(ClienteStoreRequest $request)
     {
+
+        $request['user_id'] = $request->user()->id;
+
+        $attributes = $request->validated();
+        $cliente = $request->user()->clientes()->create($attributes);
+        $cliente->vinculos()->create($request->all());
+        $cliente->infoBancarias()->create($request->all());
+        $cliente->infoResidencial()->create($request->all());
+
+        if ($request->hasFile('files')) {
+            $files = $request->file('files');
+            $path = 'arquivos/clientes/' . str_ireplace('.', '', str_ireplace('-', '', $request->cpf)) . '/';
+
+            foreach ($files as $file) {
+                $fileName = $file->getClientOriginalName();
+                $savedPathName = $file->storeAs($path . $fileName);
+                $cliente->arquivosCliente()->create([
+                    'name' => $fileName,
+                    'path' => $savedPathName
+                ]);
+            }
+        }
+
+        Alert::success('Yeahh', 'Cadastro Realizado com sucesso');
+        return redirect()->route('admin.clientes.index');
+    }
+
+    public function special(ClienteStoreRequest $request)
+    {
+
         $request['user_id'] = $request->user()->id;
 
         $attributes = $request->validated();
@@ -84,6 +132,22 @@ class ClienteController extends Controller
         $cliente->vinculos()->create($request->all());
         $cliente->infoBancarias()->create($request->all());
         $cliente->infoResidencial()->create($request->all());
+
+        if ($request->hasFile('files')) {
+            $files = $request->file('files');
+            $path = 'arquivos/clientes/' . str_ireplace('.', '', str_ireplace('-', '', $request->cpf)) . '/';
+
+            foreach ($files as $file) {
+                $fileName = $file->getClientOriginalName();
+                $savedPathName = $file->storeAs($path . $fileName);
+                $cliente->arquivosCliente()->create([
+                    'name' => $fileName,
+                    'path' => $savedPathName
+                ]);
+            }
+        }
+
+
         Alert::success('Yeahh', 'Cadastro Realizado com sucesso');
         return redirect()->route('admin.clientes.index');
     }

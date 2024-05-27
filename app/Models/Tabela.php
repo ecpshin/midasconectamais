@@ -22,11 +22,11 @@ class Tabela extends Model
         'produto_id',
         'descricao',
         'codigo',
+        'prazo',
         'percentual_loja',
         'percentual_diferido',
         'percentual_agente',
         'percentual_corretor',
-        'prazo',
         'parcelado',
         'referencia'
     ];

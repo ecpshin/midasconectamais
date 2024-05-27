@@ -19,7 +19,7 @@ Route::get('/{id}/cliente', function (string $id) {
 
 Route::controller(ApiTabelaController::class)->group(function () {
     Route::get('/testes', 'index')->name('api.index');
-    Route::get('/testes/{id}', 'tabelas')->name('api.tabelas');
+    Route::get('/tabelas/{id}', 'tabelas')->name('api.tabelas');
     Route::get('/tabela/{id}', 'tabela')->name('api.tabela');
 });
 

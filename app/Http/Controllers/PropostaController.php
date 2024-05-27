@@ -21,7 +21,7 @@ class PropostaController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
-        $this->middleware('can:create proposta', ['only' => ['create']]);
+        $this->middleware('can:create proposta', ['only' => ['create', 'proposda', 'store', 'special']]);
         $this->middleware('can:edit proposta', ['only' => ['edit', 'update']]);
         $this->middleware('can:update proposta', ['only' => ['update']]);
         $this->middleware('can:list proposta', ['only' => ['index']]);
@@ -66,7 +66,6 @@ class PropostaController extends Controller
             return $aux->tipo == 'corretores';
         });
 
-
         return view('admin.propostas.create', [
             'area' => 'Propostas',
             'page' => 'Lançamento de Proposta',
@@ -99,6 +98,7 @@ class PropostaController extends Controller
             return redirect(route('admin.propostas.index'));
         }
     }
+
     public function store(StorePropostaRequest $request)
     {
         //evita user_id nulo

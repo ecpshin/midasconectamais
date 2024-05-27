@@ -30,6 +30,7 @@ class TabelasResource extends JsonResource
             'id' => $this->id,
             'descricao' => $this->descricao,
             'codigo' => $this->codigo,
+            'prazo' => $this->prazo,
             'produto' => ProdutosResource::make($produto),
             'financeira' => FinanceirasResource::make($financeira),
             'correspondente' => CorrespondentesResource::make($correspondente),

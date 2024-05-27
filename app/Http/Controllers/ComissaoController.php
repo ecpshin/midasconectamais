@@ -217,6 +217,7 @@ class ComissaoController extends Controller
         $soma_agente = 0;
         $propostas = [];
         $comissoes = [];
+        $aux = [];
 
         if (count($request->all()) > 0) {
             $user = $request->user_id;

@@ -35,6 +35,8 @@ class ClienteStoreRequest extends FormRequest
             'sexo' => 'nullable|string|min:3|max:50',
             'estado_civil' => 'nullable|string|min:3|max:50',
             'user_id' => 'nullable|integer',
+            'files' => 'nullable|array',
+            'files.*' => 'bail|mimes:jpeg,jpg,png,pdf|max:' . (1024 * 10)
         ];
     }
 

@@ -6,9 +6,6 @@ use App\Http\Resources\Comissoes\TabelasResource;
 use App\Http\Resources\Organizacoes\OrganizacoesResource;
 use App\Models\Organizacao;
 use App\Models\Tabela;
-use Barryvdh\Reflection\DocBlock\Type\Collection;
-use Illuminate\Http\Request;
-use Illuminate\Support\Collection as SupportCollection;
 
 class ApiTabelaController extends Controller
 {
@@ -30,7 +27,6 @@ class ApiTabelaController extends Controller
     public function tabelas(string $id)
     {
         $tabelas = Tabela::where('organizacao_id', $id)->get();
-
         return TabelasResource::collection($tabelas);
     }
 

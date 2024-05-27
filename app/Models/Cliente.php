@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
 class Cliente extends Model
 {
@@ -61,5 +60,10 @@ class Cliente extends Model
     public function propostas(): HasMany
     {
         return $this->hasMany(Proposta::class, 'cliente_id', 'id');
+    }
+
+    public function arquivosCliente(): HasMany
+    {
+        return $this->hasMany(ArquivoCliente::class, 'cliente_id', 'id');
     }
 }

@@ -51,11 +51,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($comissoes ?? [] as $tax)
+                        @forelse ($comissoes as $tax)
                             <tr class="odd:bg-stone-100">
                                 <td class="text-xs font-semibold">{{ $tax->id }}</td>
-                                <td class="text-xs font-semibold capitalize">{{ $tax->proposta->data_digitacao->format('d/m/y') }}</td>
-                                <td class="text-xs font-semibold capitalize">{{ $tax->proposta->data_pagamento->format('d/m/y') }} </td>
+                                <td class="text-xs font-semibold capitalize">{{ !is_null($tax->proposta) ? $tax->proposta->data_digitacao->format('d/m/y') : 'Não informado' }}</td>
+                                <td class="text-xs font-semibold capitalize">{{ is_null($tax->proposta) ? $tax->proposta->data_pagamento->format('d/m/y') : 'Não informado' }} </td>
                                 <td class="text-xs font-semibold capitalize">{{ $tax->proposta->cliente->nome }}</td>
                                 <td class="text-xs font-semibold capitalize">{{ $tax->proposta->produto->descricao_produto }}</td>
                                 <td class="text-xs font-semibold capitalize">
@@ -97,7 +97,8 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                        @endforelse
                     </tbody>
                 </table>
             </div>

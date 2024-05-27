@@ -52,6 +52,8 @@ Route::prefix('admin/clientes')->name('admin.clientes.')
         Route::get('/', 'index')->name('index');
         Route::get('/cadastrar-cliente', 'create')->name('create');
         Route::post('/save-cliente', 'store')->name('store');
+        Route::get('/cliente-proposta', 'proposta')->name('proposta');
+        Route::post('/cliente-proposta', 'special')->name('special');
         Route::get('/{cliente}/exibir-cliente', 'show')->name('show');
         Route::get('/{cliente}/editar-cliente', 'edit')->name('edit');
         Route::patch('/{cliente}/atualiza-dados-cliente', 'update')->name('update');
