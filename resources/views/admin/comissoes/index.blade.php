@@ -44,7 +44,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($comissoes as $com)
+                                @forelse ($comissoes as $com)
                                     <tr class="odd:bg-fuchsia-100">
                                         <td class="text-xs font-semibold capitalize">{{ $com->proposta->numero_contrato }}</td>
                                         <td class="text-xs font-semibold capitalize">{{ $fmt->toDate($com->proposta->data_digitacao) }}</td>
@@ -59,7 +59,8 @@
                                         <td class="text-xs font-semibold capitalize">{{ $com->proposta->user->name }}</td>
                                         <td></td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                @endforelse
                             </tbody>
                             <tfoot>
                                 <tr class="bg-slate-100 text-xs font-bold">

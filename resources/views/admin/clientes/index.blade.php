@@ -9,8 +9,10 @@
                 <div class="p-4 text-gray-900">
                     <!-- start::Advance Table Manage Icons -->
                     <div class="custom-scrollbar mb-12 overflow-x-scroll rounded-lg bg-white px-8 py-6">
-                        <a href="{{ route('admin.clientes.create') }}"
-                            class="rounded-full bg-emerald-500 px-3 py-2 text-white shadow-md shadow-emerald-950 hover:bg-emerald-600 hover:text-white">Adicionar</a>
+                        <div class="mb-3">
+                            <a href="{{ route('admin.clientes.create') }}"
+                                class="mb-3 rounded-full bg-emerald-500 px-3 py-2 text-white shadow-md shadow-emerald-950 hover:bg-emerald-600 hover:text-white">Adicionar</a>
+                        </div>
                         <table class="my-8 w-full whitespace-nowrap text-sm" id="tabela">
                             <thead class="bg-gradient-to-b from-slate-900 to-indigo-700 font-bold text-slate-100">
                                 <th class="py-2 pl-2">ID</th>

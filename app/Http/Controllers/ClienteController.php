@@ -131,7 +131,7 @@ class ClienteController extends Controller
         $attributes = $request->validated();
         $cliente = $request->user()->clientes()->create($attributes);
         $proposta = $cliente->propostas()->create($request->all());
-        $proposta->comissao()->create($request->all(['proposta_id', 'tabela_id', 'percentual_loja', 'valor_loja', 'percentual_operador', 'valor_operador']));
+        $proposta->comissao()->create($request->all());
         $cliente->vinculos()->create($request->all());
         $cliente->infoBancarias()->create($request->all());
         $cliente->infoResidencial()->create($request->all());
