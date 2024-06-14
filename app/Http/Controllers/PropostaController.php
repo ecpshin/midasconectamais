@@ -256,15 +256,17 @@ class PropostaController extends Controller
         $psvc = new PropostaService;
         $svc = new GeneralService;
         $fmt = new ConvertersService;
+        $soma_liquidos = 0;
+        $soma_totais = 0;
 
         if ($req->inicio && $req->fim) {
             $inicio = $req->inicio;
             $fim = $req->fim;
             $propostas = $psvc->propostasPorIntervalo($inicio, $fim);
+            $soma_totais = $psvc->somaTotais($propostas);
+            $soma_liquidos = $psvc->somaLiquidos($propostas);
         }
 
-        $soma_totais = $psvc->somaTotais($propostas);
-        $soma_liquidos = $psvc->somaTotais($propostas);
 
         return view('admin.propostas.index', [
             'area' => 'Propostas',
@@ -276,8 +278,8 @@ class PropostaController extends Controller
             'produtos' => $svc->produtos(),
             'situacoes' => $svc->statuses(),
             'orgaos' => $svc->organizacoes(),
-            'soma_totais' => $soma_totais ?? 0,
-            'soma_liquidos' => $soma_liquidos ?? 0,
+            'soma_totais' => $soma_totais,
+            'soma_liquidos' => $soma_liquidos,
             'fmt' => $fmt
         ]);
     }

@@ -14,12 +14,19 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
             integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-        <link href="https://cdn.datatables.net/v/bs5/dt-2.0.1/datatables.min.css" rel="stylesheet">
+
 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" />
+
+        <link rel="stylesheet" href="{{ asset('plugins/dataTable/dataTables.bootstrap4.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('plugins/dataTable/responsive.bootstrap4.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('plugins/dataTable/buttons.bootstrap4.min.css') }}">
+
         <link rel="stylesheet" href="{{ asset('build/assets/app-cb41d22e.css') }}">
         <link rel="stylesheet" href="{{ asset('build/assets/tailwindcss-b8d01326.css') }}">
 
@@ -71,6 +78,7 @@
                 color: #000000;
             }
 
+            @layer component {}
 
             @media (max-width: 600px) {
                 .media_hidden {
@@ -126,12 +134,27 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
             crossorigin="anonymous"></script>
         <!-- Bootstrap 4 -->
+        <script src="{{ asset('plugins/dataTable/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('plugins/dataTable/dataTables.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('plugins/dataTable/dataTables.responsive.min.js') }}"></script>
+        <script src="{{ asset('plugins/dataTable/dataTables.buttons.min.js') }}"></script>
+        <script src="{{ asset('plugins/dataTable/responsive.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('plugins/dataTable/jszip.min.js') }}"></script>
+        <script src="{{ asset('plugins/dataTable/buttons.html5.min.js') }}"></script>
+        <script src="{{ asset('plugins/dataTable/buttons.print.min.js') }}"></script>
+        <script src="{{ asset('plugins/dataTable/buttons.colVis.min.js') }}"></script>
+        <script src="{{ asset('plugins/dataTable/pdfmake.min.js') }}"></script>
+        <script src="{{ asset('plugins/dataTable/vfs_fonts.js') }}"></script>
+
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"
             integrity="sha512-Tn2m0TIpgVyTzzvmxLNuqbSJH3JP8jm+Cy3hvHrW7ndTDcJ1w5mBiksqDBb8GpE2ksktFvDB/ykZ0mDpsZj20w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        <script src="https://cdn.datatables.net/v/bs5/dt-2.0.1/datatables.min.js"></script>
+
+
         <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('js/jquery.mask.min.js') }}"></script>
+
         <!-- AdminLTE App -->
         <script src="{{ asset('adminlte/js/adminlte.min.js') }}"></script>
 

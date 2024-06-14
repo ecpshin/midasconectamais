@@ -8,6 +8,43 @@ $(document).ready(function () {
             url: "https://cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json",
         },
     });
+new DataTable('#table_export', {
+    "bFilter": false,
+    layout: {
+            topStart: 'buttons'
+        },
+    buttons: [
+        "excel",{
+                extend: "pdf",
+                text: "PDF",
+                orientation: "landscape",
+                pageSize: "A4",
+            },
+            {
+                extend: "print",
+                text: "Print",
+                orientation: "landscape",
+                pageSize: "A4"
+            },
+        ],
+    language: {
+            url: "https://cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json",
+        },
+});
+
+/*    $("#table_export").dataTable({
+        dom: "Blfrtip",
+        buttons: [
+            "excel",
+            {
+                extend: "pdf",
+                text: "PDF",
+                orientation: "landscape",
+                pageSize: "A4",
+            },
+        ],
+
+    });*/
 
     $("#listas").DataTable({
         pageLength: 5,
@@ -345,6 +382,7 @@ $("#tabela_id").on("change", function () {
     });
 });
 
-// $("#organizacao_id").on("blur", function () {
-//
-// });
+$("#orgao_id").on("change", function () {
+    const option = $("#orgao_id").val();
+    $("#organizacao_id").val(option);
+});

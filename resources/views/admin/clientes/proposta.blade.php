@@ -5,7 +5,7 @@
 
     <div class="w-full">
         <div class="mx-auto w-full sm:px-4 lg:px-6">
-            <form action="{{ route('admin.clientes.special') }}" method="post" id="proposta-cliente">
+            <form action="{{ route('admin.clientes.special') }}" method="post" enctype="multipart/form-data" id="proposta-cliente">
                 @csrf
                 <div class="mb-3 overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <h5 class="w-100 rounded-lg bg-gradient-to-br from-slate-800 to-indigo-800 py-2 text-center text-slate-50">Dados Pessoais</h5>

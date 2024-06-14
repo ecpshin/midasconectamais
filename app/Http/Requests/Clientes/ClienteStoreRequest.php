@@ -34,6 +34,10 @@ class ClienteStoreRequest extends FormRequest
             'genitor' => 'nullable|string|min:3|max:100',
             'sexo' => 'nullable|string|min:3|max:50',
             'estado_civil' => 'nullable|string|min:3|max:50',
+            'phone1' => 'nullable|string|min:3|max:50',
+            'phone2' => 'nullable|string|min:3|max:50',
+            'phone3' => 'nullable|string|min:3|max:50',
+            'phone4' => 'nullable|string|min:3|max:50',
             'user_id' => 'nullable|integer',
             'files' => 'nullable|array',
             'files.*' => 'bail|mimes:jpeg,jpg,png,pdf|max:' . (1024 * 10)

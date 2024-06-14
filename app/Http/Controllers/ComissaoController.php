@@ -48,6 +48,7 @@ class ComissaoController extends Controller
         $soma_corretor = 0;
         $propostas = [];
         $comissoes = [];
+        $aux = [];
 
         $service = new ComissoesService;
 
@@ -67,6 +68,7 @@ class ComissaoController extends Controller
             $soma_agente = $comissoes->sum('valor_agente');
             $soma_corretor = $comissoes->sum('valor_corretor');
         }
+
         $soma_total = $propostas->sum('total_proposta');
         $soma_liquido = $propostas->sum('liquido_proposta');
 
