@@ -138,7 +138,6 @@ Route::prefix('admin/propostas')->controller(PropostaController::class)->name('a
 
         //Filtros específicos
         Route::any('/filtrar-propostas', 'filtrarPropostas')->name('filtrar');
-        //Route::post('/filtrar-propostas', 'filtrarPropostas')->name('filtrar');
         Route::get('/page-agente', 'propostasPorAgente')->name('agentes');
         Route::post('/propostas-agente', 'propostasAgente')->name('agente');
         Route::get('/page-corretor', 'propostasCorretor')->name('corretor');
