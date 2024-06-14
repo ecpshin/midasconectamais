@@ -93,12 +93,8 @@ class ClienteController extends Controller
      */
     public function store(ClienteStoreRequest $request)
     {
-
-        $request['user_id'] = $request->user()->id;
-
-        dd($request);
-
         $attributes = $request->validated();
+        $request['user_id'] = $request->user()->id;
 
         $cliente = $request->user()->clientes()->create($attributes);
         $cliente->vinculos()->create($request->all());
@@ -119,7 +115,7 @@ class ClienteController extends Controller
             }
         }
 
-        Alert::success('Yeahh', 'Cadastro Realizado com sucesso');
+        Alert::success('Sucesso', 'Cadastro Realizado com sucesso');
         return redirect()->route('admin.clientes.index');
     }
 
