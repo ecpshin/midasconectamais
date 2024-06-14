@@ -120,30 +120,29 @@
                                 <div class="col-lg-2">
                                     <div class="form-group flex flex-col">
                                         <label for="prazo_proposta" class="form-label">Prazo</label>
-                                        <input type="number" name="prazo_proposta" id="prazo_proposta" value="{{ $proposta->prazo_proposta }}"
-                                            min="0" max="999" step="1" class="form-input rounded-lg border-gray-300 text-right text-xs">
+                                        <input type="number" name="prazo_proposta" id="prazo_proposta" value="{{ $proposta->prazo_proposta }}" min="0" max="999"
+                                            step="1" class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group flex flex-col">
                                         <label for="total_proposta" class="form-label">Total</label>
-                                        <input type="number" name="total_proposta" id="total_proposta" value="{{ $proposta->total_proposta }}"
-                                            min="0.00" max="1000000.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs">
+                                        <input type="number" name="total_proposta" id="total_proposta" value="{{ $proposta->total_proposta }}" min="0.00"
+                                            max="1000000.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group flex flex-col">
                                         <label for="parcela_proposta" class="form-label">Parcela</label>
-                                        <input type="number" name="parcela_proposta" value="{{ $proposta->parcela_proposta }}"id="parcela_proposta"
-                                            min="0.00" max="1000000.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs">
+                                        <input type="number" name="parcela_proposta" value="{{ $proposta->parcela_proposta }}"id="parcela_proposta" min="0.00"
+                                            max="1000000.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group flex flex-col">
                                         <label for="liquido_proposta" class="form-label">Líquido</label>
-                                        <input type="number" name="liquido_proposta" value="{{ $proposta->liquido_proposta }}id="liquido_proposta"
-                                            min="0.00" max="1000000.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs"
-                                            onblur="calcularComissoes()">
+                                        <input type="number" name="liquido_proposta" value="{{ $proposta->liquido_proposta }}id="liquido_proposta" min="0.00"
+                                            max="1000000.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs" onblur="calcularComissoes()">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
@@ -159,8 +158,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row flex flex-row justify-between text-xs">
-                                <div class="col-lg-4 mb-3 flex flex-row">
+                            <div class="row flex flex-row justify-start text-xs">
+                                <div class="{{ Auth::user()->hasRole('super-admin') ? 'col-lg-4 mb-3 flex flex-row' : 'hidden' }}">
                                     <div class="col-lg-5 flex flex-col text-xs">
                                         <label class="form-label">% Loja</label>
                                         <input type="number" name="percentual_loja" id="perc_loja"
@@ -173,7 +172,7 @@
                                             max="1000000.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
-                                <div class="col-lg-4 mb-3 flex flex-row">
+                                <div class="{{ Auth::user()->hasRole('super-admin') || Auth::user()->tipo != 'corretor' ? 'col-lg-4 mb-3 flex flex-row' : 'hidden' }}">
                                     <div class="col-lg-5 flex flex-col text-xs">
                                         <label class="form-label">% Agente</label>
                                         <input type="number" name="percentual_agente" id="perc_agente"
@@ -187,7 +186,7 @@
                                             class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
-                                <div class="col-lg-4 mb-3 flex flex-row">
+                                <div class="{{ Auth::user()->hasRole('super-admin') || Auth::user()->tipo != 'agente' ? 'col-lg-4 mb-3 flex flex-row' : 'hidden' }}">
                                     <div class="col-lg-5 flex flex-col text-xs">
                                         <label class="form-label">% Corretor</label>
                                         <input type="number" name="percentual_corretor"

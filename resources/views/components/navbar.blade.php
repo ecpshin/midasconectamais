@@ -61,7 +61,7 @@
                 </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">
-                    <a href="{{ route('admin.agentes.perfil') }}" class="btn btn-default btn-flat">Perfil</a>
+                    <a href="{{ route('admin.agentes.perfil', Auth::user()) }}" class="btn btn-default btn-flat">Perfil</a>
                     <a href="#" class="btn btn-default btn-flat float-right" onclick="document.getElementById('form-logout').submit()">Sair</a>
                     <form action="{{ route('logout') }}" method="post" id="form-logout">@csrf</form>
                 </li>

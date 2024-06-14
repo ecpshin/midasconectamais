@@ -66,7 +66,8 @@ class UsersController extends Controller
 
         $user = User::create($attributes);
         Alert::success('Ok', 'Agente cadastrado com sucesso.');
-        return (auth()->user()->hasRole('super-admin')) ? redirect()->route('admin.agentes.index') : redirect()->route('admin');
+        $rota = auth()->user()->hasRole('super-admin') ? 'admin.agentes.index' : 'admin';
+        return redirect()->route($rota);
     }
 
     /**
@@ -123,7 +124,8 @@ class UsersController extends Controller
         }
         $user->update($attributes);
         Alert::success('Sucesso', 'Os dados de ' . $user->name . ' foram atualizados com sucesso!');
-        return (auth()->user()->hasRole('super-admin')) ? redirect()->route('admin.agentes.index') : redirect()->route('admin');
+        $rota = auth()->user()->hasRole('super-admin') ? 'admin.agentes.index' : 'admin';
+        return redirect()->route($rota);
     }
 
 
@@ -166,7 +168,8 @@ class UsersController extends Controller
         }
         $user->update($attributes);
         Alert::success('Sucesso', 'Os dados de ' . $user->name . ' foram atualizados com sucesso!');
-        return (auth()->user()->hasRole('super-admin')) ? redirect()->route('admin.agentes.index') : redirect()->route('admin');
+        $rota = auth()->user()->hasRole('super-admin') ? 'admin.agentes.index' : 'admin';
+        return redirect()->route($rota);
     }
 
     public function senhaUpdate(Request $request, User $user)
@@ -176,7 +179,7 @@ class UsersController extends Controller
         $attributes = $request->validate($rules, $feedback);
         $attributes['password'] = Hash::make($attributes['password']);
         $user->update($attributes);
-        Alert::success('Atualização', $user->name . ' sua senha foi atualizada com sucesso.')
+        Alert::success('Atualização', $user->name . ' sua senha foi atualizada com sucesso.');
         return (auth()->user()->hasRole('super-admin')) ? redirect()->route('admin.agentes.index') : redirect()->route('admin');
     }
 }
