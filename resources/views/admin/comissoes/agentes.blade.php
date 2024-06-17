@@ -19,7 +19,7 @@
                         <select name="user_id" id="user_id" class="mt-2 rounded-lg border-gray-300 py-1 text-base focus:border-gray-300 focus:outline-none focus:ring-0">
                             <option value="*">Selecione agente</option>
                             @foreach ($users as $ag)
-                                @if ($ag->roles[0]->name != 'super-admin')
+                                @if (!$$ag->tipo)
                                     <option value="{{ $ag->id }}">{{ $ag->name }}</option>
                                 @endif
                             @endforeach
@@ -33,7 +33,7 @@
                     </span>
                 </div>
             </div>
-            <div class="flex flex-col justify-center overflow-x-scroll w-full">
+            <div class="flex w-full flex-col justify-center overflow-x-scroll">
                 <table id="table_export" class="table-responsive table-sm text-nowrap">
                     <thead>
                         <tr class="bg-gradient-to-b from-slate-800 via-slate-700 to-indigo-800 font-bold text-slate-100">
@@ -65,7 +65,7 @@
                         @endforelse
                     </tbody>
                     <tfoot>
-                        <tr class="bg-slate-100 font-bold font-italic text-xs">
+                        <tr class="font-italic bg-slate-100 text-xs font-bold">
                             <td colspan="4"></td>
                             <td>{{ $soma_total }}</td>
                             <td>{{ $soma_liquido }}</td>

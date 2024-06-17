@@ -8,13 +8,14 @@ $(document).ready(function () {
             url: "https://cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json",
         },
     });
-new DataTable('#table_export', {
-    "bFilter": false,
-    layout: {
-            topStart: 'buttons'
+    new DataTable("#table_export", {
+        bFilter: false,
+        layout: {
+            topStart: "buttons",
         },
-    buttons: [
-        "excel",{
+        buttons: [
+            "excel",
+            {
                 extend: "pdf",
                 text: "PDF",
                 orientation: "landscape",
@@ -24,15 +25,15 @@ new DataTable('#table_export', {
                 extend: "print",
                 text: "Print",
                 orientation: "landscape",
-                pageSize: "A4"
+                pageSize: "A4",
             },
         ],
-    language: {
+        language: {
             url: "https://cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json",
         },
-});
+    });
 
-/*    $("#table_export").dataTable({
+    /*    $("#table_export").dataTable({
         dom: "Blfrtip",
         buttons: [
             "excel",
@@ -275,6 +276,51 @@ function calcularComissoes() {
     }
 }
 
+function atualizarComissoes() {
+    alert("Chamei");
+    const total_proposta = $("#total_proposta").val();
+    const liquido_proposta = $("#liquido_proposta").val();
+    const perc_loja = $("#perc_loja").val();
+    const perc_agente = $("#perc_agente").val();
+    const perc_corretor = $("#perc_corretor").val();
+
+    const referencia = localStorage.getItem("referencia");
+
+    let valor_loja = 0;
+    let valor_agente = 0;
+    let valor_corretor = 0;
+
+    if (referencia === "B") {
+        valor_loja = Number(total_proposta) * (Number(perc_loja) / 100);
+        valor_agente = Number(total_proposta) * (Number(perc_agente) / 100);
+        valor_corretor = Number(total_proposta) * (Number(perc_corretor) / 100);
+
+        $("#val_loja").val(valor_loja.toFixed(2));
+        $("#val_agente").val(valor_agente.toFixed(2));
+        $("#val_corretor").val(valor_corretor.toFixed(2));
+    }
+
+    if (referencia === "BL") {
+        valor_loja = Number(total_proposta) * (Number(perc_loja) / 100);
+        valor_agente = Number(liquido_proposta) * (Number(perc_agente) / 100);
+        valor_corretor =
+            Number(liquido_proposta) * (Number(perc_corretor) / 100);
+        $("#val_loja").val(valor_loja.toFixed(2));
+        $("#val_agente").val(valor_agente.toFixed(2));
+        $("#val_corretor").val(valor_corretor.toFixed(2));
+    }
+
+    if (referencia == "L") {
+        valor_loja = Number(liquido_proposta) * (Number(perc_loja) / 100);
+        valor_agente = Number(liquido_proposta) * (Number(perc_agente) / 100);
+        valor_corretor =
+            Number(liquido_proposta) * (Number(perc_corretor) / 100);
+        $("#val_loja").val(valor_loja.toFixed(2));
+        $("#val_agente").val(valor_agente.toFixed(2));
+        $("#val_corretor").val(valor_corretor.toFixed(2));
+    }
+}
+
 function formatDate(date) {
     var d = new Date(date),
         month = "" + (d.getMonth() + 1),
@@ -352,9 +398,12 @@ $("#organizacao_id").on("change", function () {
     $.get(url, function (res) {
         const tabelas = res.data;
         const selectTabela = document.querySelector("#tabela_id");
+        selectTabela.innerHTML = null;
+
         tabelas.map((tabela) => {
             const option = document.createElement("option");
             option.value = `${tabela.id}`;
+            //option.innerText = `${tabela.descricao} | ${tabela.codigo} | ${tabela.prazo} | ${tabela.produto.descricao_produto} | ${tabela.financeira.nome_financeira} | ${tabela.correspondente.nome_correspondente}`.toLocaleUpperCase();
             option.innerText =
                 `${tabela.descricao} | ${tabela.codigo} | ${tabela.prazo} | ${tabela.produto.descricao_produto} | ${tabela.financeira.nome_financeira} | ${tabela.correspondente.nome_correspondente}`.toLocaleUpperCase();
             selectTabela.append(option);
