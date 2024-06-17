@@ -45,6 +45,7 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
+
         $attributes = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
@@ -65,6 +66,17 @@ class UsersController extends Controller
 
 
         $user = User::create($attributes);
+
+        if ($request->hasFile('picture')) {
+            $file = $request->file('picture');
+            $fileComExt = $file->getClientOriginalName();
+            $filename = pathinfo($fileComExt, PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            $path = $request->file('picture')->storeAs('img/users/' . str_ireplace(' ', '_', $user->name) . '/', $fileNameToStore);
+            $attributes['path'] = $path;
+        }
+
         Alert::success('Ok', 'Agente cadastrado com sucesso.');
         $rota = auth()->user()->hasRole('super-admin') ? 'admin.agentes.index' : 'admin';
         return redirect()->route($rota);

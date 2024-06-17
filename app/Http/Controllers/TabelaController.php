@@ -22,7 +22,7 @@ class TabelaController extends Controller
     {
         $this->middleware(['auth', 'verified']);
         $this->middleware('can:create tabela-comissao', ['only' => ['create', 'store']]);
-        $this->middleware('can:list tabela-comissao', ['only' => ['index', 'show']]);
+        $this->middleware('can:list tabela-comissao', ['only' => ['index']]);
         $this->middleware('can:view tabela-comissao', ['only' => ['show']]);
         $this->middleware('can:edit tabela-comissao', ['only' => ['edit', 'update']]);
         $this->middleware('can:delete tabela-comissao', ['only' => ['destroy']]);
@@ -35,7 +35,7 @@ class TabelaController extends Controller
     public function index()
     {
         return view('admin.tabelas.index', [
-            'area' => 'Restrita',
+            'area' => 'Tabelas',
             'page' => 'Tabelas de Comissões Registradas',
             'rota' => 'admin',
             'tabelas' => Tabela::all(),
@@ -52,8 +52,8 @@ class TabelaController extends Controller
         $geralSvc = new GeneralService;
 
         return view('admin.tabelas.create', [
-            'area' => 'Restrita',
-            'page' => 'Registrar Comissão',
+            'area' => 'Tabelas',
+            'page' => 'Registrar Tabela Comissão',
             'rota' => 'admin',
             'correspondentes' => $geralSvc->correspondentes(['id', 'nome_correspondente']),
             'financeiras' => $geralSvc->financeiras(['id', 'nome_financeira']),
@@ -104,8 +104,8 @@ class TabelaController extends Controller
         $geralSvc = new GeneralService;
 
         return view('admin.tabelas.edit', [
-            'area' => 'Restrita',
-            'page' => 'Exibindo Tabela de Comissão',
+            'area' => 'Tabelas',
+            'page' => 'Editar Tabela de Comissão',
             'rota' => 'admin.tabelas.index',
             'tabela' => $tabela,
             'correspondentes' => $geralSvc->correspondentes(['id', 'nome_correspondente']),

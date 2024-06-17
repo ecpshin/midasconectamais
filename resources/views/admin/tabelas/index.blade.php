@@ -7,9 +7,11 @@
         <div class="mx-auto w-full sm:px-4 lg:px-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-4 text-gray-900">
-                    <div class="overflow-x-auto rounded-lg bg-white px-8 py-6">
+                    <div class="mx-6">
                         <a href="{{ route('admin.tabelas.create') }}"
-                            class="rounded-md bg-emerald-900 px-3 py-2 text-white shadow-md shadow-emerald-950 hover:bg-emerald-600">Adicionar</a>
+                            class="rounded-full bg-emerald-900 px-3 py-2 text-xs text-white shadow-md shadow-emerald-950 hover:bg-emerald-600">Adicionar</a>
+                    </div>
+                    <div class="overflow-x-auto rounded-lg bg-white px-8 py-6">
                         <table class="my-8 w-full whitespace-nowrap text-xs" id="tabela">
                             <thead class="bg-gradient-to-b from-slate-950 via-slate-600 to-slate-800 font-bold text-slate-100">
                                 <tr>
