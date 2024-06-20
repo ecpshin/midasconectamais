@@ -403,9 +403,8 @@ $("#organizacao_id").on("change", function () {
         tabelas.map((tabela) => {
             const option = document.createElement("option");
             option.value = `${tabela.id}`;
-            //option.innerText = `${tabela.descricao} | ${tabela.codigo} | ${tabela.prazo} | ${tabela.produto.descricao_produto} | ${tabela.financeira.nome_financeira} | ${tabela.correspondente.nome_correspondente}`.toLocaleUpperCase();
             option.innerText =
-                `${tabela.descricao} | ${tabela.codigo} | ${tabela.prazo} | ${tabela.produto.descricao_produto} | ${tabela.financeira.nome_financeira} | ${tabela.correspondente.nome_correspondente}`.toLocaleUpperCase();
+                `${tabela.produto.descricao_produto} | ${tabela.descricao} | ${tabela.codigo} | ${tabela.prazo}  | ${tabela.financeira.nome_financeira} | ${tabela.correspondente.nome_correspondente}`.toLocaleUpperCase();
             selectTabela.append(option);
         });
     });

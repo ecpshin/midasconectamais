@@ -48,7 +48,7 @@ class Tabela extends Model
 
     public function organizacao(): BelongsTo
     {
-        return $this->belongsTo(Organizacao::class);
+        return $this->belongsTo(Organizacao::class, 'organizacao_id', 'id');
     }
 
     public function comissao(): HasOne

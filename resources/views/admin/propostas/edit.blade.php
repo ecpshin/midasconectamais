@@ -71,7 +71,9 @@
                                     <div class="form-group flex flex-col">
                                         <label class="form-label text-xs">Tabela</label>
                                         <select name="tabela_id" id="tabela_id" data-url="{{ route('api.tabela', 0) }}" class="form-select rounded-lg border text-xs">
-                                            <option value="0">Selecione a tabela</option>
+                                            <option value="{{ $proposta->comissao->tabela_id }}">
+                                                {{ $proposta->comissao->tabela->produto->descricao_produto . ' | ' . $proposta->comissao->tabela->descricao . ' | ' . $proposta->comissao->tabela->financeira->nome_financeira . ' | ' . $proposta->comissao->tabela->correspondente->nome_correspondente }}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -138,7 +140,7 @@
                                 <div class="col-lg-2">
                                     <div class="form-group flex flex-col">
                                         <label for="liquido_proposta" class="form-label">Líquido</label>
-                                        <input type="number" name="liquido_proposta" id="liquido_proposta" value="{{ $proposta->liquido_proposta }}  min="0.00"
+                                        <input type="number" name="liquido_proposta" id="liquido_proposta" value="{{ $proposta->liquido_proposta }}" min="0.00"
                                             max="1000000.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs" onblur="atualizarComissoes()">
                                     </div>
                                 </div>
@@ -159,37 +161,36 @@
                                 <div class="{{ Auth::user()->hasRole('super-admin') ? 'col-lg-4 mb-3 flex flex-row' : 'hidden' }}">
                                     <div class="col-lg-5 flex flex-col text-xs">
                                         <label class="form-label">% Loja</label>
-                                        <input type="number" name="percentual_loja" id="perc_loja" value="{{ $proposta->comissao->percentual_loja }} min="0.00"
+                                        <input type="number" name="percentual_loja" id="perc_loja" value="{{ $proposta->comissao->percentual_loja }}" min="0.00"
                                             max="100.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                     <div class="col-lg-7 flex flex-col text-xs">
                                         <label class="form-label">R$</label>
-                                        <input type="number" name="valor_loja" id="val_loja" value="{{ old('valor_loja', $proposta->comissao->valor_loja) }} min="0.00"
-                                            max="1000000.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs">
+                                        <input type="number" name="valor_loja" id="val_loja" value="{{ $proposta->comissao->valor_loja }}" min="0.00" max="1000000.00"
+                                            step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
                                 <div class="{{ Auth::user()->hasRole('super-admin') || Auth::user()->tipo != 'corretor' ? 'col-lg-4 mb-3 flex flex-row' : 'hidden' }}">
                                     <div class="col-lg-5 flex flex-col text-xs">
                                         <label class="form-label">% Agente</label>
-                                        <input type="number" name="percentual_agente" id="perc_agente" value="{{ $proposta->comissao->percentual_agente }} min="0.00"
+                                        <input type="number" name="percentual_agente" id="perc_agente" value="{{ $proposta->comissao->percentual_agente }}" min="0.00"
                                             max="100.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                     <div class="col-lg-7 flex flex-col text-xs">
                                         <label class="form-label">R$</label>
-                                        <input type="number" name="valor_agente" id="val_agente"
-                                            value="{{ old('valor_agente', $proposta->comissao->valor_agente) }} min="0.00" max="1000000.00" step="0.01"
-                                            class="form-input rounded-lg border-gray-300 text-right text-xs">
+                                        <input type="number" name="valor_agente" id="val_agente" value="{{ $proposta->comissao->valor_agente }}" min="0.00"
+                                            max="1000000.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
                                 <div class="{{ Auth::user()->hasRole('super-admin') || Auth::user()->tipo != 'agente' ? 'col-lg-4 mb-3 flex flex-row' : 'hidden' }}">
                                     <div class="col-lg-5 flex flex-col text-xs">
                                         <label class="form-label">% Corretor</label>
-                                        <input type="number" name="percentual_corretor" id="perc_corretor" value="{{ $proposta->comissao->percentual_corretor }}  min="0.00"
-                                            max="100.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs">
+                                        <input type="number" name="percentual_corretor" id="perc_corretor" value="{{ $proposta->comissao->percentual_corretor }}"
+                                            min="0.00" max="100.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                     <div class="col-lg-7 flex flex-col">
                                         <label class="form-label">R$</label>
-                                        <input type="number" name="valor_corretor" id="val_corretor" value="{{ $proposta->comissao->valor_corretor }} min="0.00"
+                                        <input type="number" name="valor_corretor" id="val_corretor" value="{{ $proposta->comissao->valor_corretor }}" min="0.00"
                                             max="1000000.00" step="0.01" class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
@@ -198,6 +199,7 @@
                     </fieldset>
                     <div>
                         <button type="submit" class="rounded-lg bg-green-700 px-10 py-2 text-stone-50">Atualizar</button>
+                        <a href="{{ route('admin.propostas.index') }}" role="button" class="rounded-lg bg-slate-700 px-10 py-2 text-stone-50">Voltar</a>
                     </div>
                 </div>
             </form>
