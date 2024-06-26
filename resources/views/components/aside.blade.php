@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-dark-midas elevation-4 min-h-screen">
     <!-- Brand Logo -->
     <a href="#" class="brand-link flex flex-row items-center justify-center">
-        <span class="brand-text font-sans text-yellow-600 antialiased">ConsigBr</span>
+        <span class="brand-text font-sans text-yellow-600 antialiased">{{ env('APP_NAME') }}</span>
         <img src="{{ asset('img/svg/node-plus.svg') }}" class="ml-2" alt="">
     </a>
 
