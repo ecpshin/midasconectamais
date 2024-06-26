@@ -14,23 +14,13 @@ use App\Http\Controllers\OrganizacaoController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropostaController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SituacaoController;
 use App\Http\Controllers\TabelaController;
 use App\Http\Controllers\TesteController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VinculoController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', [AdminController::class, 'admin'])->middleware(['auth', 'verified'])->name('admin');
 
@@ -115,7 +105,7 @@ Route::prefix('admin/situacoes')->name('admin.situacoes.')
         Route::delete('/{situacao}/excluir-situacao', 'destroy')->name('destroy');
     });
 
-Route::prefix('/admin/clientes')->name('admin.')
+Route::prefix('/admin/info/clientes')->name('admin.')
     ->group(function () {
         Route::get('/{infoResidencial}/dado-residencial', [InfoResidencialController::class, 'edit'])->name('dados-residenciais.edit');
         Route::patch('/{infoResidencial}/dado-residencial', [InfoResidencialController::class, 'update'])->name('dados-residenciais.update');
@@ -137,8 +127,7 @@ Route::prefix('admin/propostas')->controller(PropostaController::class)->name('a
         Route::delete('/{proposta}/excluir-proposta', 'destroy')->name('destroy');
 
         //Filtros específicos
-        Route::any('/filtrar-propostas', 'filtrarPropostas')->name('filtrar');
-        //Route::post('/filtrar-propostas', 'filtrarPropostas')->name('filtrar');
+        Route::post('/filtrar-propostas', 'filtrarPropostas')->name('filtrar');
         Route::get('/page-agente', 'propostasPorAgente')->name('agentes');
         Route::post('/propostas-agente', 'propostasAgente')->name('agente');
         Route::get('/page-corretor', 'propostasCorretor')->name('corretor');
@@ -164,11 +153,12 @@ Route::prefix('admin/comissoes')->controller(ComissaoController::class)
     });
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::middleware('auth')
+    ->group(function () {
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
 
 require __DIR__ . '/auth.php';
 
@@ -201,6 +191,11 @@ Route::prefix('admin/tabelas')->name('admin.tabelas.')
 
         Route::get('/tabela-correspondente/{id}', 'getcorrespontes')->name('correspondentes');
         Route::get('/tabela-correspondente-financeira/{id}', 'getfinanceiras')->name('financeiras');
+
+        Route::get('/tabelas/importacao', 'importacao')->name('importacao');
+        Route::post('/tabelas/importar', 'importar')->name('importar');
+
+        Route::get('/export', 'export')->name('export');
     })->middleware(['auth', 'verified']);
 
 Route::prefix('testes')->controller(TesteController::class)->name('testes.')
@@ -208,18 +203,6 @@ Route::prefix('testes')->controller(TesteController::class)->name('testes.')
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
     });
-// Route::prefix('admin/tabelas')->name('admin.tabelas.')
-//     ->controller(TabelaController::class)->group(function () {
-//         Route::get('/', 'index')->name('index');
-//         Route::get('/registrar-tabela', 'create')->name('create');
-//         Route::post('/salvar-tabela', 'store')->name('create');
-//         Route::get('/{tabela}/editar-tabela', 'edit')->name('edit');
-//         Route::patch('/{tabela}/atualizar-tabela', 'update')->name('update');
-//         Route::get('/{tabela}/exibir-tabela', 'show')->name('show');
-//         Route::delete('/{tabela}/excluir-tabela', 'destroy')->name('destroy');
-
-//         Route::get('/search/{id}', 'get_tabela')->name('search');
-//     });
 
 Route::prefix('admin/call-center')->name('admin.calls.')
     ->controller(LigacaoController::class)->group(function () {
@@ -241,6 +224,30 @@ Route::prefix('admin/call-center')->name('admin.calls.')
         Route::get('/{ligacao}/propostas-call-center', 'proposta')->name('propostas');
     });
 
+Route::prefix('chamados')->controller(App\Http\Controllers\ChamadoController::class)->name('chamados.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/abrir-chamado', 'create')->name('create');
+    Route::post('/salvar-chamado', 'store')->name('store');
+    Route::get('/editar-chamado/{chamado}', 'edit')->name('edit');
+    Route::get('/visualizar-chamado/{chamado}', 'show')->name('show');
+    Route::patch('/atualizar-chamado/{chamado}', 'update')->name('update');
+    Route::delete('/excluir-chamado/{chamado}', 'destroy')->name('destroy');
+})->middleware(['auth', 'verified']);
+
+Route::prefix('admin/exports')->controller(TesteController::class)->group(function () {
+    Route::get('/', 'index')->name('admin.exports');
+    Route::get('/file', 'export')->name('admin.file');
+});
+
+Route::prefix('admin/roles')->controller(RoleController::class)->name('admin.roles.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/novo', 'create')->name('create');
+    Route::post('/novo', 'store')->name('store');
+    Route::get('/{role}/edit', 'edit')->name('edit');
+    Route::get('/{role}/show', 'edit')->name('show');
+    Route::patch('/{role}/update', 'update')->name('update');
+    Route::delete('/{role}/destroy', 'destroy')->name('destroy');
+});
 
 /*Route::get('/dashboard', function () {
     return view('dashboard');

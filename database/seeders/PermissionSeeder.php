@@ -98,8 +98,14 @@ class PermissionSeeder extends Seeder
             ['name' => 'update proposta'],
             ['name' => 'delete proposta'],
             ['name' => 'view proposta'],
+            ['name' => 'create comissao'],
+            ['name' => 'edit comissao'],
+            ['name' => 'list comissao'],
+            ['name' => 'update comissao'],
+            ['name' => 'delete comissao'],
+            ['name' => 'view comissao'],
         ];
-        
+
         foreach ($permissions as $permission) {
             Permission::create($permission);
         }

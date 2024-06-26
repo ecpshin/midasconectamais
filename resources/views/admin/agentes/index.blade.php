@@ -6,7 +6,9 @@
     <div class="w-full">
         <div class="mx-auto w-full sm:px-4 lg:px-6">
             <div class="mb-5 mt-3 max-w-7xl overflow-x-scroll rounded-lg bg-white px-5 py-3 shadow-md shadow-slate-900">
-                <h1 class="m-3 rounded-full py-2 text-center text-lg text-slate-700">Lista de Usuários</h1>
+                <div class="mb-3 mt-3 w-full">
+                    <a href="{{ route('admin.agentes.create') }}" class="rounded-full bg-gradient-to-br from-green-800 to-green-700 px-4 py-1.5 text-sm text-slate-50">Novo</a>
+                </div>
                 <table class="w-100" id="listas">
                     <thead class="bg-gradient-to-b from-gray-900 via-slate-500 to-slate-900">
                         <tr>
@@ -22,29 +24,27 @@
                     </thead>
                     <tbody>
                         @forelse ($agentes as $agente)
-                            @if (!$agente->hasRole('super-admin'))
-                                <tr class="odd:bg-slate-200">
-                                    <td class="py-2 pl-2 text-xs">{{ $agente->id }}</td>
-                                    <td class="py-2 pl-2 text-xs">{{ $agente->name }}</td>
-                                    <td class="py-2 pl-2 text-xs">{{ $agente->email }}</td>
-                                    <td class="py-2 pl-2 text-xs">
-                                        @if (!is_null($agente->data_nascimento))
-                                            {{ $agente->data_nascimento->format('d/m/Y') }}
-                                        @else
-                                            Não informado
-                                        @endif
-                                    </td>
-                                    </td>
-                                    <td class="py-2 pl-2 text-xs">{{ $agente->phone }}</td>
-                                    <td class="py-2 pl-2 text-xs">{{ $agente->banco }}</td>
-                                    <td class="py-2 pl-2 text-xs">{{ $agente->chave_pix }}</td>
-                                    <td class="py-3 pl-2 text-xs">
-                                        <a href="{{ route('admin.agentes.perfil', $agente) }}"
-                                            class="text-nowrap rounded-full bg-blue-500 p-2 text-xs text-slate-50 hover:bg-blue-900">Acessar
-                                            Perfil</a>
-                                    </td>
-                                </tr>
-                            @endif
+                            <tr class="odd:bg-slate-200">
+                                <td class="py-2 pl-2 text-xs">{{ $agente->id }}</td>
+                                <td class="py-2 pl-2 text-xs">{{ $agente->name }}</td>
+                                <td class="py-2 pl-2 text-xs">{{ $agente->email }}</td>
+                                <td class="py-2 pl-2 text-xs">
+                                    @if (!is_null($agente->data_nascimento))
+                                        {{ $agente->data_nascimento->format('d/m/Y') }}
+                                    @else
+                                        Não informado
+                                    @endif
+                                </td>
+                                </td>
+                                <td class="py-2 pl-2 text-xs">{{ $agente->phone }}</td>
+                                <td class="py-2 pl-2 text-xs">{{ $agente->banco }}</td>
+                                <td class="py-2 pl-2 text-xs">{{ $agente->chave_pix }}</td>
+                                <td class="py-3 pl-2 text-xs">
+                                    <a href="{{ route('admin.agentes.perfil', $agente) }}"
+                                        class="text-nowrap rounded-full bg-blue-500 p-2 text-xs text-slate-50 hover:bg-blue-900">Acessar
+                                        Perfil</a>
+                                </td>
+                            </tr>
                         @empty
                         @endforelse
                     </tbody>

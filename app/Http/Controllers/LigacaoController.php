@@ -39,10 +39,11 @@ class LigacaoController extends Controller
         $calls = [];
 
         if (auth()->user()->hasRole('super-admin')) {
-            $calls = Ligacao::whereNotNull('user_id')->get();
+            $calls = $this->service->all();
         } else {
-            $calls = Ligacao::where('user_id', auth()->user()->id)->get();
+            $calls = $this->service->all(auth()->user()->id);
         }
+
         return view('calls.index', [
             'area' => 'Call Center',
             'page' => 'Lista de Ligações',

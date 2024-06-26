@@ -8,6 +8,7 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-4 text-gray-700">
                     <h4>Seja bem-vindo(a)! {{ Auth::user()->name }} </h4>
+
                 </div>
             </div>
         </div>

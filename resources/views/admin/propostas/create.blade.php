@@ -14,7 +14,7 @@
                             <div class="row flex flex-row text-xs">
                                 <div class="col-lg-2 mb-3 flex flex-col">
                                     <label class="form-label">
-                                        <button type="button" data-toggle="modal" data-target="#modal-lg">ID</button>
+                                        <button type="button" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-search"></i> ID</button>
                                     </label>
                                     <input type="text" name="cliente_id" id="cliente_id" class="form-input rounded-lg border-gray-300 text-xs">
                                 </div>
@@ -56,14 +56,15 @@
                                         <option value="">Selecione...</option>
                                         <optgroup label="Agentes">
                                             @forelse ($agentes as $agente)
-                                                <option value="{{ $agente->id }}">{{ $agente->name }}</option>
+                                                <option value="{{ $agente->id }}" @if (Auth::user()->id == $agente->id) selected @endif>{{ $agente->name }}</option>
                                             @empty
                                                 <option value="">Não há agentes</option>
                                             @endforelse
                                         </optgroup>
                                         <optgroup label="Corretores">
                                             @forelse ($corretores as $corretor)
-                                                <option value="{{ $corretor->id }}">{{ $corretor->name }}</option>
+                                                <option value="{{ $corretor->id }}" @if (Auth::user()->id == $corretor->id) selected @endif>
+                                                    {{ $corretor->name }}</option>
                                             @empty
                                                 <option value="">Não há Corretores</option>
                                             @endforelse
@@ -169,8 +170,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row flex flex-row justify-between text-xs">
-                                <div class="col-lg-4 mb-3 flex flex-row">
+                            <div class="row flex flex-row justify-start text-xs">
+                                <div class="{{ Auth::user()->hasRole('super-admin') ? 'col-lg-4 mb-3 flex flex-row' : 'hidden' }}">
                                     <div class="col-lg-5 flex flex-col text-xs">
                                         <label class="form-label">% Loja</label>
                                         <input type="number" name="percentual_loja" id="perc_loja" min="0.00" max="100.00" step="0.01"
@@ -182,7 +183,7 @@
                                             class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
-                                <div class="col-lg-4 mb-3 flex flex-row">
+                                <div class="{{ Auth::user()->hasRole('super-admin') || Auth::user()->tipo != 'corretor' ? 'col-lg-4 mb-3 flex flex-row' : 'hidden' }}">
                                     <div class="col-lg-5 flex flex-col text-xs">
                                         <label class="form-label">% Agente</label>
                                         <input type="number" name="percentual_agente" id="perc_agente" min="0.00" max="100.00" step="0.01"
@@ -194,7 +195,7 @@
                                             class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
-                                <div class="col-lg-4 mb-3 flex flex-row">
+                                <div class="{{ Auth::user()->hasRole('super-admin') || Auth::user()->tipo != 'agente' ? 'col-lg-4 mb-3 flex flex-row' : 'hidden' }}">
                                     <div class="col-lg-5 flex flex-col text-xs">
                                         <label class="form-label">% Corretor</label>
                                         <input type="number" name="percentual_corretor" id="perc_corretor" min="0.00" max="100.00" step="0.01"

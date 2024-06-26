@@ -101,8 +101,7 @@ class PropostaController extends Controller
 
     public function store(StorePropostaRequest $request)
     {
-        //evita user_id nulo
-        $id = is_null($request->user_id) ? auth()->id() : $request->user_id;
+        $id = is_null($request->user_id) ? auth()->user()->id : $request->user_id;
 
         $attributes = $request->validated();
         $attributes['user_id'] = $id;

@@ -5,7 +5,7 @@
     <div class="w-full">
         <div class="overflow-hidden rounded-lg bg-white p-3">
             <fieldset disabled class="mb-3 flex flex-col rounded-lg p-4 text-sm outline outline-1 outline-red-500">
-                <h3 class="rounded-lg bg-slate-700 py-2 text-center text-lg text-slate-50">Dados Pessoais</h3>
+                <h3 class="rounded-lg bg-gradient-to-br from-slate-900 via-slate-700 to-indigo-700 py-2 text-center text-lg text-slate-50">Dados Pessoais</h3>
                 <div class="mt-3 w-full rounded-lg border border-slate-300 px-5 py-4">
                     <div class="grid gap-3 lg:grid-cols-12">
                         <div class="my-3 flex flex-col sm:col-span-12 lg:col-span-8">
@@ -65,7 +65,7 @@
         <div class="mt-3 flex flex-row">
             {{-- Dados residenciais --}}
             <div class="col-lg-4 relative overflow-hidden rounded-lg border bg-white py-2">
-                <h1 class="rounded-lg bg-rose-900 px-3 py-2 text-center text-sm font-semibold text-slate-50">
+                <h1 class="rounded-lg bg-gradient-to-br from-slate-900 via-slate-700 to-indigo-700 px-3 py-2 text-center text-sm font-semibold text-slate-50">
                     Dados Residenciais
                 </h1>
                 @empty($cliente->infoResidencial)
@@ -104,7 +104,7 @@
             </div>
             {{-- Dados Bancários --}}
             <div class="col-lg-4 overflow-hidden rounded-lg border bg-white py-2">
-                <h1 class="rounded-lg bg-rose-900 px-3 py-2 text-center text-sm font-semibold text-slate-50">Dados Bancários</h1>
+                <h1 class="rounded-lg bg-gradient-to-br from-slate-900 via-slate-700 to-indigo-700 px-3 py-2 text-center text-sm font-semibold text-slate-50">Dados Bancários</h1>
                 <div class="relative flex w-full flex-col items-center justify-center">
                     @forelse($cliente->infoBancarias as $infob)
                         <div id="{{ $infob->id }}"
@@ -141,10 +141,10 @@
             </div>
             {{-- Dados funcionais --}}
             <div class="col-lg-4 overflow-hidden rounded-lg bg-white py-2">
-                <h1 class="rounded-lg bg-rose-900 px-3 py-2 text-center text-sm font-semibold text-slate-50">Dados Funcionais</h1>
+                <h1 class="rounded-lg bg-gradient-to-br from-slate-900 via-slate-700 to-indigo-700 px-3 py-2 text-center text-sm font-semibold text-slate-50">Dados Funcionais</h1>
                 <div class="mt-2 w-auto overflow-x-auto">
                     <table class="text-nowrap w-full">
-                        <thead class="bg-rose-900 text-slate-50">
+                        <thead class="bg-gradient-to-br from-slate-900 via-slate-700 to-indigo-700 text-slate-50">
                             <tr>
                                 <th>#</th>
                                 <th>Órgão</th>
@@ -199,7 +199,7 @@
                             <td class="text-ellipsis p-1 pl-2 pr-2 text-xs font-medium">{{ $proposta->created_at->format('d/m/y') }}</td>
                             <td class="text-ellipsis p-1 pl-2 pr-2 text-xs font-medium">{{ $proposta->numero_contrato ?? 'Não informado' }}
                             </td>
-                            <td class="text-nowrap text-ellipsis p-1 pl-2 pr-2 text-xs font-medium">{{ $proposta->operacao->descricao_operacao }}</td>
+                            <td class="text-nowrap text-ellipsis p-1 pl-2 pr-2 text-xs font-medium">{{ $proposta->produto->descricao_produto }}</td>
                             <td class="text-nowrap text-ellipsis p-1 pl-2 pr-2 text-xs font-medium">{{ $proposta->prazo_proposta }}</td>
                             <td class="text-nowrap text-ellipsis p-1 pl-2 pr-2 text-right text-xs font-medium">
                                 {{ $fmt->format($proposta->total_proposta) }}</td>

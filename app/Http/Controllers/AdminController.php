@@ -9,12 +9,17 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     public function admin()
     {
         return view('main', [
             'page' => 'Administração do Sistema',
             'area' => 'Administração',
-            'rota' => 'admin'
+            'rota' => 'admin',
         ]);
     }
 }

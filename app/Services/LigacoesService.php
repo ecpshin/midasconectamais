@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class LigacoesService
 {
+
     public function getListaGoverno($user = null): Collection
     {
         $collection = Ligacao::where(function ($query) {
@@ -46,5 +47,10 @@ class LigacoesService
                 $query->whereDate('data_ligacao', '>=', $inicio)
                     ->whereDate('data_ligacao', '<=', $fim);
             })->get();
+    }
+
+    public function all($id = null): Collection
+    {
+        return (is_null($id)) ? Ligacao::where('user_id', $id)->get() : Ligacao::whereNotNull('user_id')->get();
     }
 }

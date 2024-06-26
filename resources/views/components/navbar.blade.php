@@ -43,7 +43,7 @@
             <ul class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
                 <!-- User image -->
                 <li class="flex flex-col items-center bg-gradient-to-br from-slate-800 to-orange-700 px-5 py-3">
-                    <img src="{{ asset(Auth::user()->path) }}" class="h-16 w-16 rounded-full" alt="User Image">
+                    <img src="{{ asset('storage/' . Auth::user()->path) }}" class="h-16 w-16 rounded-full" alt="User Image">
                     <p class="mt-3 text-[18px] text-slate-50">{{ Auth::user()->name }}</p>
                     <p class="text-[12px] text-slate-50">Desde {{ date('m/Y', strtotime(Auth::user()->created_at)) }}</p>
                 </li>
@@ -61,7 +61,7 @@
                 </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">
-                    <a href="{{ route('profile.edit') }}" class="btn btn-default btn-flat">Perfil</a>
+                    <a href="{{ route('admin.agentes.perfil', Auth::user()) }}" class="btn btn-default btn-flat">Perfil</a>
                     <a href="#" class="btn btn-default btn-flat float-right" onclick="document.getElementById('form-logout').submit()">Sair</a>
                     <form action="{{ route('logout') }}" method="post" id="form-logout">@csrf</form>
                 </li>
