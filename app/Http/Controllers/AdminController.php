@@ -19,7 +19,7 @@ class AdminController extends Controller
         return view('main', [
             'page' => 'Administração do Sistema',
             'area' => 'Administração',
-            'rota' => 'admin'
+            'rota' => 'admin',
         ]);
     }
 }

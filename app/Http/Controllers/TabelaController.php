@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\Tabelas\TabelasExport;
 use App\Http\Requests\Tabelas\StoreTabelaRequest;
+use App\Imports\Tabelas\TabelasImport;
 use App\Models\Correspondente;
 use App\Models\Financeira;
 use App\Models\Produto;
@@ -10,6 +12,8 @@ use App\Models\Tabela;
 use App\Services\ConvertersService;
 use App\Services\GeneralService;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel as ExcelWriter;
+use Maatwebsite\Excel\Facades\Excel;
 use Number;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -26,6 +30,8 @@ class TabelaController extends Controller
         $this->middleware('can:view tabela-comissao', ['only' => ['show']]);
         $this->middleware('can:edit tabela-comissao', ['only' => ['edit', 'update']]);
         $this->middleware('can:delete tabela-comissao', ['only' => ['destroy']]);
+        $this->middleware('can:import tabela-comissao', ['only' => ['import']]);
+        $this->middleware('can:export tabela-comissao', ['only' => ['export']]);
         $this->fmt = new Number;
     }
 
@@ -131,16 +137,18 @@ class TabelaController extends Controller
      */
     public function destroy(Tabela $tabela)
     {
-        //
+        $tabela->delete();
+        Alert::warning('Exclusão', 'Exclusão da tabela de código ' . $tabela->codigo . 'realizada com sucesso!');
+        return redirect()->back();
     }
 
-    public function get_tabela($id)
+    public function import(Request $request)
     {
-        return Tabela::find($id)->toJson();
+        return Excel::import(new TabelasImport, $request->file('file'));
     }
 
-    public function getfinanceiras($id)
+    public function export($extension = 'xlsx')
     {
-        return Tabela::select('id', 'nome_financeira')->where('financeira_id', $id)->get();
+        return (new TabelasExport)->download('tabelas-comissoes-' . now() . '.' . $extension, ExcelWriter::XLSX);
     }
 }

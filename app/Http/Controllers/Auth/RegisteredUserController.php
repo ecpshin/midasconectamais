@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'cpf' => ['nullable', 'string', 'max:14', 'unique:users, cpf'],
+            'cpf' => ['nullable', 'string', 'max:14', 'unique:users,cpf'],
             'data_nascimento' => ['nullable', 'date'],
             'phone' => ['nullable', 'string', 'max:25'],
             'codigo' => ['nullable', 'string', 'max:25'],
@@ -45,12 +45,14 @@ class RegisteredUserController extends Controller
             'codigo_op' => ['nullable', 'string', 'max:50'],
             'tipo_chave_pix' => ['nullable', 'string', 'max:50'],
             'chave_pix' => ['nullable', 'string', 'max:50'],
-            'path' => ['nullable', 'file|mime:jpg,jpeg,png,bmp']
+            'path' => ['nullable', 'file|mime:jpg,jpeg,png,bmp'],
+            'tipo' => ['nullable', 'string', 'max:50'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'email_verified_at' => now(),
             'password' => Hash::make($request->password),
             'cpf' => $request->cpf,
             'data_nascimento' => $request->data_nascimento,
@@ -63,8 +65,11 @@ class RegisteredUserController extends Controller
             'codigo_op' => $request->codigo_op,
             'tipo_chave_pix' => $request->tipo_chave_pix,
             'chave_pix' => $request->chave_pix,
-            'path' => $request->picture
+            'path' => $request->picture,
+            'tipo' => $request->tipo
         ]);
+
+        $user->assignRole('none');
 
         event(new Registered($user));
 

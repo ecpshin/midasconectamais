@@ -24,29 +24,27 @@
                     </thead>
                     <tbody>
                         @forelse ($agentes as $agente)
-                            @if (!$agente->hasRole('super-admin'))
-                                <tr class="odd:bg-slate-200">
-                                    <td class="py-2 pl-2 text-xs">{{ $agente->id }}</td>
-                                    <td class="py-2 pl-2 text-xs">{{ $agente->name }}</td>
-                                    <td class="py-2 pl-2 text-xs">{{ $agente->email }}</td>
-                                    <td class="py-2 pl-2 text-xs">
-                                        @if (!is_null($agente->data_nascimento))
-                                            {{ $agente->data_nascimento->format('d/m/Y') }}
-                                        @else
-                                            Não informado
-                                        @endif
-                                    </td>
-                                    </td>
-                                    <td class="py-2 pl-2 text-xs">{{ $agente->phone }}</td>
-                                    <td class="py-2 pl-2 text-xs">{{ $agente->banco }}</td>
-                                    <td class="py-2 pl-2 text-xs">{{ $agente->chave_pix }}</td>
-                                    <td class="py-3 pl-2 text-xs">
-                                        <a href="{{ route('admin.agentes.perfil', $agente) }}"
-                                            class="text-nowrap rounded-full bg-blue-500 p-2 text-xs text-slate-50 hover:bg-blue-900">Acessar
-                                            Perfil</a>
-                                    </td>
-                                </tr>
-                            @endif
+                            <tr class="odd:bg-slate-200">
+                                <td class="py-2 pl-2 text-xs">{{ $agente->id }}</td>
+                                <td class="py-2 pl-2 text-xs">{{ $agente->name }}</td>
+                                <td class="py-2 pl-2 text-xs">{{ $agente->email }}</td>
+                                <td class="py-2 pl-2 text-xs">
+                                    @if (!is_null($agente->data_nascimento))
+                                        {{ $agente->data_nascimento->format('d/m/Y') }}
+                                    @else
+                                        Não informado
+                                    @endif
+                                </td>
+                                </td>
+                                <td class="py-2 pl-2 text-xs">{{ $agente->phone }}</td>
+                                <td class="py-2 pl-2 text-xs">{{ $agente->banco }}</td>
+                                <td class="py-2 pl-2 text-xs">{{ $agente->chave_pix }}</td>
+                                <td class="py-3 pl-2 text-xs">
+                                    <a href="{{ route('admin.agentes.perfil', $agente) }}"
+                                        class="text-nowrap rounded-full bg-blue-500 p-2 text-xs text-slate-50 hover:bg-blue-900">Acessar
+                                        Perfil</a>
+                                </td>
+                            </tr>
                         @empty
                         @endforelse
                     </tbody>

@@ -135,18 +135,25 @@
                     </div>
                 </form>
             </div>
-            <div class="mx-auto mb-3 mt-3 max-w-7xl rounded-xl bg-white px-5 py-5">
-                <h1 class="mb-2 text-center text-2xl font-bold">Nível de Acesso {{ ucfirst($role[0]) }}</h1>
-                <h1 class="mb-3 text-center text-xl font-semibold">Permissões do Agente</h1>
+            <div class="mx-auto mb-3 mt-3 max-w-7xl rounded-xl bg-white p-3">
+                <h1 class="mb-2 text-center text-2xl font-bold">Nível de Acesso {{ ucfirst($role) }}</h1>
+                <h1 class="mb-3 text-center text-xl font-semibold">Permissões</h1>
                 <div class="mx-auto flex flex-col gap-8">
                     <form action="" method="post">
                         @csrf @method('PATCH')
-                        <div class="flex flex-row flex-wrap justify-center gap-x-4 gap-y-2 rounded-xl border p-3">
-                            @forelse ($permissions as $permission)
-                                <input type="checkbox" id="permission_{{ $permission->id }}" value="{{ $permission->id }}" checked>
-                                <x-input-label :value="__($permission->name)" for="permission_{{ $permission->id }}" />
-                            @empty
-                            @endforelse
+                        <div class="flex flex-row flex-wrap justify-evenly rounded-xl border p-3">
+                            @foreach ($rolePermissions as $rp)
+                                <div class="col-lg-3 flex flex-row items-center">
+                                    <input type="checkbox" id="rp_{{ $rp->id }}" class="mr-2 rounded-full" value="{{ $rp->id }}" checked>
+                                    <x-input-label :value="__($rp->name)" for="rp_{{ $rp->id }}" />
+                                </div>
+                            @endforeach
+                            @foreach ($perms as $perm)
+                                <div class="col-lg-3 flex flex-row items-center space-x-2">
+                                    <input type="checkbox" id="perm_{{ $perm->id }}" class="mr-2 rounded-full" value="{{ $perm->id }}">
+                                    <x-input-label :value="__($perm->name)" for="perm_{{ $perm->id }}" />
+                                </div>
+                            @endforeach
                         </div>
                     </form>
                 </div>

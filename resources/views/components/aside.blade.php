@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-dark-midas elevation-4 min-h-screen">
     <!-- Brand Logo -->
     <a href="#" class="brand-link flex flex-row items-center justify-center">
-        <span class="brand-text font-sans text-yellow-600 antialiased">Midas Conecta</span>
+        <span class="brand-text font-sans text-yellow-600 antialiased">ConsigBr</span>
         <img src="{{ asset('img/svg/node-plus.svg') }}" class="ml-2" alt="">
     </a>
 
@@ -112,10 +112,9 @@
                             {{-- <li class="nav-item">
                                 <a href="{{ route('admin.comissoes.ajustar') }}" class="nav-link">
                                     <i class="bi bi-wrench-adjustable-circle nav-icon"></i>
-                                    <p class="font-semibold text-slate-5    0 hover:text-yellow-400">Ajuste</p>
+                                    <p class="text-slate-5 0 font-semibold hover:text-yellow-400">Ajuste</p>
                                 </a>
-                            </li>
-                            --}}
+                            </li> --}}
                             <li class="nav-item">
                                 <a href="{{ route('admin.tabelas.index') }}" class="nav-link">
                                     <i class="fas fa-file-invoice-dollar nav-icon text-slate-100"></i>
@@ -228,6 +227,54 @@
                             <a href="{{ route('admin.calls.agendados') }}" class="nav-link">
                                 <i class="fas fa-address-book nav-icon text-slate-100"></i>
                                 <p class="text-slate-5 0 font-semibold hover:text-yellow-400">Agendados</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-envelope nav-icon text-slate-100"></i>
+                        <p class="text-slate-5 0 font-semibold hover:text-yellow-400">
+                            Chamados
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @hasrole('super-admin')
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-headset nav-icon text-slate-100"></i>
+                                    <p class="text-slate-5 0 font-semibold hover:text-yellow-400">Gerenciar</p>
+                                </a>
+                            </li>
+                        @endhasrole
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-envelope-open-text text-slate-50"></i>
+                                <p class="text-slate-5 0 font-semibold hover:text-yellow-400">Abrir Chamado</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-search text-slate-100"></i>
+                                <p class="text-slate-5 0 font-semibold hover:text-yellow-400">Consultar</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-file-invoice nav-icon text-slate-100"></i>
+                        <p class="text-slate-5 0 font-semibold hover:text-yellow-400">
+                            Niveis e Permissões
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.roles.index') }}" class="nav-link">
+                                <i class="fas fa-clipboard-list nav-icon text-slate-100"></i>
+                                <p class="text-slate-5 0 font-semibold hover:text-yellow-400">Níveis de acesso</p>
                             </a>
                         </li>
                     </ul>
