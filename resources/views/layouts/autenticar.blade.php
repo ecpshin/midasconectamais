@@ -13,7 +13,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <link rel="stylesheet" href="{{ asset('build/assets/app-cb41d22e.css') }}">
-        <link rel="stylesheet" href="{{ asset('build/assets/tailwindcss-b8d01326.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/assets/tailwindcss-985f01f9.css') }}">
         <!-- Scripts -->
         @vite(['resources/sass/app.scss', 'resources/css/tailwindcss.css', 'resources/js/app.js'])
         <style>
@@ -25,8 +25,8 @@
         </style>
     </head>
 
-    <body class="bg-[#000000] font-sans antialiased">
-        <div class="flex min-h-screen w-full items-center justify-center bg-[#000000] py-10">
+    <body class="font-sans antialiased">
+        <div class="via flex min-h-screen w-full items-center justify-center bg-gradient-to-tr from-[#1e1e45] via-[#301e3b] to-[#6F3039] py-10">
             <div class="items-center space-x-10 lg:flex">
                 {{ $slot }}
             </div>

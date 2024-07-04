@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-midas elevation-4 min-h-screen">
+<aside class="main-sidebar sidebar-dark-midas elevation-4 h-screen">
     <!-- Brand Logo -->
     <a href="#" class="brand-link flex flex-row items-center justify-center">
         <span class="brand-text font-sans text-yellow-600 antialiased">{{ env('APP_NAME') }}</span>
@@ -109,12 +109,6 @@
                                     <p class="text-slate-5 0 font-semibold hover:text-yellow-400">Geral</p>
                                 </a>
                             </li>
-                            {{-- <li class="nav-item">
-                                <a href="{{ route('admin.comissoes.ajustar') }}" class="nav-link">
-                                    <i class="bi bi-wrench-adjustable-circle nav-icon"></i>
-                                    <p class="text-slate-5 0 font-semibold hover:text-yellow-400">Ajuste</p>
-                                </a>
-                            </li> --}}
                             <li class="nav-item">
                                 <a href="{{ route('admin.tabelas.index') }}" class="nav-link">
                                     <i class="fas fa-file-invoice-dollar nav-icon text-slate-100"></i>
@@ -231,7 +225,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fas fa-envelope nav-icon text-slate-100"></i>
                         <p class="text-slate-5 0 font-semibold hover:text-yellow-400">
@@ -261,7 +255,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fas fa-file-invoice nav-icon text-slate-100"></i>

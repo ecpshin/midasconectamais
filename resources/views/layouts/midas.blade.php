@@ -18,7 +18,6 @@
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-phh artisan 
 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" />
@@ -28,7 +27,7 @@ phh artisan
         <link rel="stylesheet" href="{{ asset('plugins/dataTable/buttons.bootstrap4.min.css') }}">
 
         <link rel="stylesheet" href="{{ asset('build/assets/app-cb41d22e.css') }}">
-        <link rel="stylesheet" href="{{ asset('build/assets/tailwindcss-b8d01326.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/assets/assets/tailwindcss-985f01f9.css') }}">
 
         @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/tailwindcss.css'])
 
@@ -37,11 +36,11 @@ phh artisan
 
         <style>
             .sidebar {
-                font-size: 12px;
+                font-size: 0.9rem;
             }
 
             .navbar-dark-midas {
-                background-color: #6d0505;
+                background-color: #000000;
             }
 
             .sidebar-dark-midas {
@@ -88,7 +87,7 @@ phh artisan
         </style>
     </head>
 
-    <body class="hold-transition sidebar-mini bg-black font-sans antialiased">
+    <body class="hold-transition sidebar-mini font-sans antialiased">
         <x-preloader />
 
         <!-- wrapper -->

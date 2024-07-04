@@ -12,7 +12,7 @@
                         <a href="{{ route('admin.roles.create') }}"
                             class="rounded-md bg-emerald-900 px-3 py-2 text-white shadow-md shadow-emerald-950 hover:bg-emerald-600">Adicionar</a>
                         <table class="my-8 w-full whitespace-nowrap">
-                            <thead class="bg-red-700 font-bold text-slate-100">
+                            <thead class="bg-gradient-to-br from-slate-800 to-indigo-800 font-bold text-slate-100">
                                 <td class="py-2 pl-2">ID</td>
                                 <td class="pl-2">Nível</td>
                                 <td class="pl-2">Guarda</td>
@@ -25,7 +25,7 @@
                                             {{ $role->id }}
                                         </td>
                                         <td class="pl-2 capitalize">{{ $role->name }}</td>
-                                        <td class="pl-2 capitalize">{{ $role->guard }}</td>
+                                        <td class="pl-2 capitalize">{{ $role->guard_name }}</td>
                                         <td class="flex items-center space-x-1 py-1 pl-2">
                                             <a href="{{ route('admin.roles.show', $role) }}" class="rounded-md bg-sky-800 px-2 py-2 shadow-md shadow-slate-500 hover:bg-sky-500">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-50 hover:text-slate-50" fill="none" viewBox="0 0 24 24"
