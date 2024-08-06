@@ -32,9 +32,9 @@ class PropostaController extends Controller
     {
         $svc = new GeneralService;
         $fmt = new ConvertersService;
-        $scvPropostas = new PropostaService;
+        $svcPropostas = new PropostaService;
 
-        $propostas = $svc->propostas();
+        $propostas = (auth()->user()->hasRole('super-admin')) ? $svcPropostas->propostas() : $svcPropostas->propostas(auth()->user()->id);
 
         return view('admin.propostas.index', [
             'area' => 'Propostas',
