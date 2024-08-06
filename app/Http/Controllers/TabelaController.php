@@ -40,11 +40,15 @@ class TabelaController extends Controller
      */
     public function index()
     {
+        $tables = Tabela::orderBy('financeira_id', 'asc')->get();
+
+        $fins = $tables->groupBy('financeira_id');
+
         return view('admin.tabelas.index', [
             'area' => 'Tabelas',
             'page' => 'Tabelas de Comissões Registradas',
             'rota' => 'admin',
-            'tabelas' => Tabela::all(),
+            'tabelas' => $tables,
             'fmt' => $this->fmt
         ]);
     }

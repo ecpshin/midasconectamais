@@ -30,12 +30,12 @@
                         </div>
                         <div class="flex flex-col gap-4 p-3 text-indigo-700">
                             <div class="row flex flex-row justify-between text-xs">
-                                <div class="col-lg-2 form-group flex flex-col">
+                                <div class="col-lg-2 flex flex-col">
                                     <label for="uuid" class="form-label">Controle</label>
                                     <input type="text" name="uuid" id="uuid" value="{{ old('uuid', $uuid) }}"
                                         class="form-input rounded-lg border-gray-300 text-right text-xs" readonly="true">
                                 </div>
-                                <div class="col-lg-2 form-group flex flex-col">
+                                <div class="col-lg-2 flex flex-col">
                                     <label for="numero_contrato" class="form-label">Nº Contrato</label>
                                     <input type="text" name="numero_contrato" id="numero_contrato" value="{{ old('numero_contrato') }}"
                                         class="form-input rounded-lg border-gray-300 text-right text-xs" placeholder="Não informado">
@@ -50,7 +50,7 @@
                                     <input type="date" name="data_pagamento" id="data_pagamento" value="{{ old('data_pagamento', null) }}"
                                         class="form-input rounded-lg border-gray-300 text-right text-xs">
                                 </div>
-                                <div class="col-lg-3 flex flex-col">
+                                <div class="col-lg-4 flex flex-col">
                                     <label class="form-label text-xs">Agente|Corretor</label>
                                     <select name="user_id" id="user_id" class="form-select rounded-lg border text-xs">
                                         <option value="">Selecione...</option>
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                             <div class="row flex flex-row justify-between text-xs">
-                                <div class="col-lg-3">
+                                <div class="col-lg-3">{{-- Orgao  --}}
                                     <div class="form-group flex flex-col">
                                         <label class="form-label text-xs">Órgão</label>
                                         <select name="organizacao_id" id="organizacao_id" data-url="{{ route('api.tabelas', 0) }}" class="form-select rounded-lg border text-xs">
@@ -87,39 +87,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group flex flex-col">
-                                        <label class="form-label text-xs">Tabela</label>
-                                        <select name="tabela_id" id="tabela_id" data-url="{{ route('api.tabela', 0) }}" class="form-select rounded-lg border text-xs">
-                                            <option value="0">Selecione a tabela</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group flex flex-col">
-                                        <label class="form-label text-xs">Financeira</label>
-                                        <select name="financeira_id" id="financeira_id" class="form-select rounded-lg border text-xs">
-                                            <option value="0">Selecione a tabela</option>
-                                            @foreach ($financeiras as $fin)
-                                                <option value="{{ $fin->id }}">{{ $fin->nome_financeira }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group flex flex-col">
-                                        <label class="form-label text-xs">Correspondente</label>
-                                        <select name="correspondente_id" id="correspondente_id" class="form-select rounded-lg border text-xs">
-                                            <option value="0">Selecione a tabela</option>
-                                            @foreach ($correspondentes as $corr)
-                                                <option value="{{ $corr->id }}">{{ $corr->nome_correspondente }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row flex flex-row justify-between text-xs">
-                                <div class="col-lg-2">
+                                <div class="col-lg-2">{{-- Produto --}}
                                     <div class="form-group flex flex-col">
                                         <label class="form-label text-xs">Produto</label>
                                         <select name="produto_id" id="produto_id" class="form-select rounded-lg border text-xs">
@@ -130,35 +98,67 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-lg-2">{{-- Financeira --}}
+                                    <div class="form-group flex flex-col">
+                                        <label class="form-label text-xs">Financeira</label>
+                                        <select name="financeira_id" id="financeira_id" class="form-select rounded-lg border text-xs">
+                                            <option value="0">Selecione a tabela</option>
+                                            @foreach ($financeiras as $fin)
+                                                <option value="{{ $fin->id }}">{{ $fin->nome_financeira }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">{{-- Correspondente --}}
+                                    <div class="form-group flex flex-col">
+                                        <label class="form-label text-xs">Correspondente</label>
+                                        <select name="correspondente_id" id="correspondente_id" class="form-select rounded-lg border text-xs">
+                                            <option value="0">Selecione a tabela</option>
+                                            @foreach ($correspondentes as $corr)
+                                                <option value="{{ $corr->id }}">{{ $corr->nome_correspondente }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">{{-- Tabela --}}
+                                    <div class="form-group flex flex-col">
+                                        <label class="form-label text-xs">Tabela</label>
+                                        <select name="tabela_id" id="tabela_id" data-url="{{ route('api.tabela', 0) }}" class="form-select rounded-lg border text-xs">
+                                            <option value="0">Selecione a tabela</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row flex flex-row justify-between text-xs">
+                                <div class="col-lg-2"><!-- Prazo -->
                                     <div class="form-group flex flex-col">
                                         <label for="prazo_proposta" class="form-label">Prazo</label>
                                         <input type="number" name="prazo_proposta" id="prazo_proposta" min="0" max="999" step="1"
                                             class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-lg-2"><!-- Total -->
                                     <div class="form-group flex flex-col">
                                         <label for="total_proposta" class="form-label">Total</label>
                                         <input type="number" name="total_proposta" id="total_proposta" min="0.00" max="1000000.00" step="0.01"
                                             class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-lg-2"><!-- Parcela -->
                                     <div class="form-group flex flex-col">
                                         <label for="parcela_proposta" class="form-label">Parcela</label>
                                         <input type="number" name="parcela_proposta" id="parcela_proposta" min="0.00" max="1000000.00" step="0.01"
                                             class="form-input rounded-lg border-gray-300 text-right text-xs">
                                     </div>
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-lg-2"><!-- Líquido -->
                                     <div class="form-group flex flex-col">
                                         <label for="liquido_proposta" class="form-label">Líquido</label>
                                         <input type="number" name="liquido_proposta" id="liquido_proposta" min="0.00" max="1000000.00" step="0.01"
                                             class="form-input rounded-lg border-gray-300 text-right text-xs" onblur="calcularComissoes()">
                                     </div>
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-lg-2"><!-- Situação -->
                                     <div class="form-group flex flex-col">
                                         <label class="form-label text-xs">Situação</label>
                                         <select name="situacao_id" id="situacao_id" class="form-select rounded-lg border text-xs">

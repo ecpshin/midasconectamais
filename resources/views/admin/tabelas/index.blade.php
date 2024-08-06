@@ -11,7 +11,7 @@
                         <a href="{{ route('admin.tabelas.create') }}"
                             class="rounded-full bg-emerald-900 px-3 py-2 text-xs text-white shadow-md shadow-emerald-950 hover:bg-emerald-600">Adicionar</a>
                         <a href="{{ route('admin.tabelas.export', 'xlsx') }}"
-                            class="rounded-full bg-slate-900 px-3 py-2 text-xs text-slate-900 shadow-md shadow-slate-950 hover:bg-slate-600" role="button">Exportar</a>
+                            class="rounded-full bg-slate-900 px-3 py-2 text-xs text-slate-50 shadow-md shadow-slate-950 hover:bg-slate-600" role="button">Exportar</a>
                     </div>
                     <div class="overflow-x-auto rounded-lg bg-white px-8 py-6">
                         <table class="my-8 w-full whitespace-nowrap text-xs" id="tabela">
