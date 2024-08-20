@@ -26,6 +26,7 @@ class TabelasResource extends JsonResource
         $financeira = Financeira::find($this->financeira_id);
         $correspondente = Correspondente::find($this->correspondente_id);
         $organizacao = Organizacao::find($this->organizacao_id);
+
         return [
             'id' => $this->id,
             'descricao' => $this->descricao,

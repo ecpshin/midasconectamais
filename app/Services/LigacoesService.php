@@ -26,18 +26,9 @@ class LigacoesService
 
     public function getListaAgendados($user = null, $data = null): Collection
     {
-        $collection = [];
-
-        if (!is_null($data)) {
-            $collection = Ligacao::where('user_id', $user)
-                ->where('data_agendamento', $data)
-                ->get();
-        } else {
-            $collection = Ligacao::where('user_id', $user)
-                ->whereNotNull('data_agendamento')
-                ->get();
-        }
-        return $collection;
+        return (!is_null($data)) ?  Ligacao::where(function ($query) use ($user, $data) {
+                $query->where('user_id', $user)->where('data_agendamento', $data);
+            })->get() : Ligacao::where('user_id', $user)->whereNotNull('data_agendamento')->get();
     }
 
     public function ligacoesAgente($inicio = null, $fim = null, $user = null): Collection
@@ -48,9 +39,12 @@ class LigacoesService
                     ->whereDate('data_ligacao', '<=', $fim);
             })->get();
     }
-
     public function all($id = null): Collection
     {
-        return (is_null($id)) ? Ligacao::where('user_id', $id)->get() : Ligacao::whereNotNull('user_id')->get();
+        return (is_null($id)) ?
+            Ligacao::whereNotNull('user_id')->get():
+            Ligacao::where(function($query) use ($id) {
+                $query->whereUserId($id);
+            })->get();
     }
 }

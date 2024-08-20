@@ -162,12 +162,23 @@ class UsersController extends Controller
 
     public function senhaUpdate(Request $request, User $user)
     {
-        $rules = ['password' => 'min:3|confirmed'];
-        $feedback = ['min' => 'A senha deve ter no mínimo :min caracteres', 'confirmed' => 'A senhas não conferem.'];
+        $rules = ['password' => 'min:3|max:16|confirmed'];
+        $feedback = [
+            'min' => 'A senha deve ter no mínimo :min caracteres',
+            'max' => 'A senha deve ter no mánimo :max caracteres',
+            'confirmed' => 'A senhas não conferem.'
+        ];
+
         $attributes = $request->validate($rules, $feedback);
-        $attributes['password'] = Hash::make($attributes['password']);
+
+        $password = $attributes['password'];
+
+        $attributes['password'] = Hash::make($password);
+
         $user->update($attributes);
+
         Alert::success('OK', 'A senha foi de ' . $user->name . ' atualizada com sucesso.');
+
         return redirect()->route('admin');
     }
 }

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePropostaRequest;
 use App\Models\Cliente;
 use App\Models\Proposta;
+use App\Models\Tabela;
 use App\Models\User;
 use App\Services\ConvertersService;
 use App\Services\GeneralService;

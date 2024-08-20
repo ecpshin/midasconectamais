@@ -397,15 +397,99 @@ $("#organizacao_id").on("change", function () {
 
     $.get(url, function (res) {
         const tabelas = res.data;
-        const selectTabela = document.querySelector("#tabela_id");
-        selectTabela.innerHTML = null;
+        const selectProduto = document.querySelector("#produto_id");
+        const opt = document.createElement("option");
+        selectProduto.innerHTML = null;
+        opt.value = 0;
+        opt.text = "Selecione...";
+        selectProduto.append(opt);
+
+        tabelas.map((tabela) => {
+            const option = document.createElement("option");
+            option.value = `${tabela.produto.id}`;
+            option.innerText = `${tabela.produto.descricao_produto}`;
+            selectProduto.append(option);
+        });
+    });
+});
+
+$("#produto_id").on("change", function () {
+    const produto = $("#produto_id").val();
+    const orgao = $("#organizacao_id").val();
+    let url = $("#produto_id").data("url").slice(0, -1);
+    url += `${orgao}/${produto}`;
+
+    $.get(url, function (res) {
+        const tabelas = res.data;
+        const selectFinanceira = document.querySelector("#financeira_id");
+        const opt = document.createElement("option");
+        opt.value = 0;
+        opt.text = "Selecione...";
+        selectFinanceira.innerHTML = null;
+        selectFinanceira.append(opt);
+
+        tabelas.map((tabela) => {
+            const option = document.createElement("option");
+            option.value = `${tabela.financeira.id}`;
+            option.innerText = `${tabela.financeira.nome_financeira}`;
+            selectFinanceira.append(option);
+        });
+    });
+});
+
+$("#financeira_id").on("change", function () {
+    const financeira = $("#financeira_id").val();
+    const produto = $("#produto_id").val();
+    const orgao = $("#organizacao_id").val();
+    let url = $("#financeira_id").data("url").slice(0, -1);
+    url += `${orgao}/${produto}/${financeira}`;
+
+    $.get(url, function (res) {
+        const tabelas = res.data;
+        const selectCorrespondente =
+            document.querySelector("#correspondente_id");
+        const opt = document.createElement("option");
+        opt.value = 0;
+        opt.text = "Selecione...";
+        selectCorrespondente.innerHTML = null;
+        selectCorrespondente.append(opt);
+
+        tabelas.map((tabela) => {
+            const option = document.createElement("option");
+            option.value = `${tabela.correspondente.id}`;
+            option.innerText = `${tabela.correspondente.nome_correspondente}`;
+            selectCorrespondente.append(option);
+        });
+    });
+});
+
+$("#correspondente_id").on("change", function () {
+    const correspondente = $("#correspondente_id").val();
+    const financeira = $("#financeira_id").val();
+    const produto = $("#produto_id").val();
+    const orgao = $("#organizacao_id").val();
+    let url = $("#correspondente_id").data("url").slice(0, -1);
+
+    url += `${orgao}/${produto}/${financeira}/${correspondente}`;
+
+    console.log(url);
+
+    $.get(url, function (res) {
+        const tabelas = res.data;
+        console.log(tabelas);
+
+        const selectTabelas = document.querySelector("#tabela_id");
+        const opt = document.createElement("option");
+        opt.value = 0;
+        opt.text = "Selecione...";
+        selectTabelas.innerHTML = null;
+        selectTabelas.append(opt);
 
         tabelas.map((tabela) => {
             const option = document.createElement("option");
             option.value = `${tabela.id}`;
-            option.innerText =
-                `${tabela.produto.descricao_produto} | ${tabela.descricao} | ${tabela.codigo} | ${tabela.prazo}  | ${tabela.financeira.nome_financeira} | ${tabela.correspondente.nome_correspondente}`.toLocaleUpperCase();
-            selectTabela.append(option);
+            option.innerText = `${tabela.descricao} -> ${tabela.codigo} -> ${tabela.prazo}`;
+            selectTabelas.append(option);
         });
     });
 });

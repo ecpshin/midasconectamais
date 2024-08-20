@@ -90,33 +90,24 @@
                                 <div class="col-lg-2">{{-- Produto --}}
                                     <div class="form-group flex flex-col">
                                         <label class="form-label text-xs">Produto</label>
-                                        <select name="produto_id" id="produto_id" class="form-select rounded-lg border text-xs">
-                                            <option value="0">Selecione a tabela</option>
-                                            @foreach ($produtos as $produto)
-                                                <option value="{{ $produto->id }}">{{ strtoupper($produto->descricao_produto) }}</option>
-                                            @endforeach
+                                        <select name="produto_id" id="produto_id" class="form-select rounded-lg border text-xs" data-url="{{ route('api.financeira', 0) }}">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2">{{-- Financeira --}}
                                     <div class="form-group flex flex-col">
                                         <label class="form-label text-xs">Financeira</label>
-                                        <select name="financeira_id" id="financeira_id" class="form-select rounded-lg border text-xs">
-                                            <option value="0">Selecione a tabela</option>
-                                            @foreach ($financeiras as $fin)
-                                                <option value="{{ $fin->id }}">{{ $fin->nome_financeira }}</option>
-                                            @endforeach
+                                        <select name="financeira_id" id="financeira_id" class="form-select rounded-lg border text-xs"
+                                            data-url={{ route('api.correspondentes', 0) }}>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2">{{-- Correspondente --}}
                                     <div class="form-group flex flex-col">
                                         <label class="form-label text-xs">Correspondente</label>
-                                        <select name="correspondente_id" id="correspondente_id" class="form-select rounded-lg border text-xs">
-                                            <option value="0">Selecione a tabela</option>
-                                            @foreach ($correspondentes as $corr)
-                                                <option value="{{ $corr->id }}">{{ $corr->nome_correspondente }}</option>
-                                            @endforeach
+                                        <select name="correspondente_id" id="correspondente_id" class="form-select rounded-lg border text-xs"
+                                            data-url={{ route('api.tabelas-comissoes', 0) }}>
+
                                         </select>
                                     </div>
                                 </div>
@@ -124,7 +115,6 @@
                                     <div class="form-group flex flex-col">
                                         <label class="form-label text-xs">Tabela</label>
                                         <select name="tabela_id" id="tabela_id" data-url="{{ route('api.tabela', 0) }}" class="form-select rounded-lg border text-xs">
-                                            <option value="0">Selecione a tabela</option>
                                         </select>
                                     </div>
                                 </div>

@@ -21,6 +21,9 @@ Route::controller(ApiTabelaController::class)->group(function () {
     Route::get('/testes', 'index')->name('api.index');
     Route::get('/tabelas/{id}', 'tabelas')->name('api.tabelas');
     Route::get('/tabela/{id}', 'tabela')->name('api.tabela');
+    Route::get('/financeiras/{orgao}/{produto?}', 'financeira')->name('api.financeira');
+    Route::get('/correspondentes/{orgao}/{produto?}/{financeira?}', 'correspondentes')->name('api.correspondentes');
+    Route::get('/tabelas-comissoes/{orgao}/{produto?}/{financeira?}/{correspondente?}', 'tabelas_comissao')->name('api.tabelas-comissoes');
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
