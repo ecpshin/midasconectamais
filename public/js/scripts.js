@@ -100,7 +100,7 @@ function modalLista(id) {
     const updateUrl = $(`#call_${id}`).data("update");
     $.get(callUrl, function (data) {
         const dados = data.data;
-        console.log(dados);
+        console.log(dados)
         const dataAtual = new Date()
             .toISOString()
             .slice(0, 10)
@@ -123,10 +123,14 @@ function modalLista(id) {
         $("#mmatricula").val(dados.matricula);
         $("#mmargem").val(dados.margem);
         $("#mtelefone").val(dados.telefone);
-        $("#morgao").val(dados.orgao);
-        $("#mproduto").val(dados.produto);
-        $("#mobservacoes").text(dados.observacoes);
+        $("#morgao").val(dados.organizacao_id);
+        $("#mproduto").val(dados.produto_id);
+        $("#mobservacoes").text(`${dados.observacoes}`);
         $("#gov-update").attr("action", updateUrl);
+
+        $("#orgao-helper-text").text((dados.orgao != null ? dados.orgao : 'Não selecionado'));
+        $("#produto-helper-text").text((dados.produto != null ? '' : 'Não selecionado'));
+        $("#status-helper-text").text((dados.status_id != null ? '' : 'Não selecionado'));
     });
 }
 

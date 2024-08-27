@@ -17,6 +17,9 @@ class ComissaoResource extends Resource
 {
     protected static ?string $model = Comissao::class;
 
+
+    protected static ?string $navigationParentItem = 'Propostas';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -31,7 +34,13 @@ class ComissaoResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('proposta.user.name')->label('Usuário'),
+                Tables\Columns\TextColumn::make('proposta.total_proposta')->label('Total'),
+                Tables\Columns\TextColumn::make('proposta.liquido_proposta')->label('Líquido'),
+                Tables\Columns\TextColumn::make('tabela.descricao'),
+                Tables\Columns\TextColumn::make('valor_agente')->label('Valor agente')->visible(auth()->user()->hasRole(config('filament-shield.midas_user.name'))),
+                Tables\Columns\TextColumn::make('valor_corretor')->label('Valor corretor'),
+                Tables\Columns\TextColumn::make('valor_loja')->visible(auth()->user()->hasRole(config('filament-shield.super_admin.name'))),
             ])
             ->filters([
                 //

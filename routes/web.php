@@ -22,6 +22,10 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VinculoController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function (){
+   return redirect()->route('filament.admin.auth.login');
+});
+/**
 Route::get('/', [AdminController::class, 'admin'])->middleware(['auth', 'verified'])->name('admin');
 
 Route::get('admin', [AdminController::class, 'admin'])->middleware(['auth', 'verified'])->name('admin');
@@ -247,7 +251,7 @@ Route::prefix('admin/roles')->controller(RoleController::class)->name('admin.rol
     Route::get('/{role}/show', 'edit')->name('show');
     Route::patch('/{role}/update', 'update')->name('update');
     Route::delete('/{role}/destroy', 'destroy')->name('destroy');
-});
+});*/
 
 /*Route::get('/dashboard', function () {
     return view('dashboard');

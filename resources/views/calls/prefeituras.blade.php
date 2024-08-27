@@ -77,7 +77,7 @@
                             <select name="status_id" id="mstatus_id" required
                                 class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                                 @foreach ($statuses as $status)
-                                    <option value="{{ $status->id }}">{{ $status->status_description }}</option>
+                                    <option value="{{ $status->id }}">{{ $status->status }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -102,8 +102,12 @@
                         </div>
                         <div class="form-group col-lg-6 mb-3">
                             <label class="text-xs font-semibold" for="morgao">Órgão</label>
-                            <input type="text" name="orgao" id="morgao"
-                                class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs capitalize outline-none active:border-none active:outline-green-100 active:ring-0">
+                            <select name="organizacao_id" id="morgao"
+                                class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
+                                @foreach($orgaos as $orgao)
+                                    <option value="{{ $orgao->id }}">{{ $orgao->nome_organizacao }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group col-lg-3 mb-3">
@@ -112,6 +116,7 @@
                                 class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-right text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="form-group col-lg-3 mb-3">
                             <label class="text-xs font-semibold" for="mtelefone">Telefone</label>
@@ -120,8 +125,12 @@
                         </div>
                         <div class="form-group col-lg-4 mb-3">
                             <label class="text-xs font-semibold" for="mproduto">Produto</label>
-                            <input type="text" name="produto" id="mproduto"
-                                class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs capitalize outline-none active:border-none active:outline-green-100 active:ring-0">
+                            <select name="produto_id" id="mproduto"
+                                class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
+                                @foreach($produtos as $produto)
+                                    <option value="{{ $produto->id }}">{{ $produto->descricao_produto }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 

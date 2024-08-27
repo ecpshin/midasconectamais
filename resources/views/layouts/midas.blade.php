@@ -26,8 +26,6 @@
         <link rel="stylesheet" href="{{ asset('plugins/dataTable/responsive.bootstrap4.min.css') }}">
         <link rel="stylesheet" href="{{ asset('plugins/dataTable/buttons.bootstrap4.min.css') }}">
 
-        <link rel="stylesheet" href="{{ asset('build/assets/app-cb41d22e.css') }}">
-        <link rel="stylesheet" href="{{ asset('build/assets/assets/tailwindcss-985f01f9.css') }}">
 
         @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/tailwindcss.css'])
 

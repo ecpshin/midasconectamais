@@ -17,6 +17,12 @@ class ComissaoResource extends Resource
 {
     protected static ?string $model = Comissao::class;
 
+    protected static ?string $slug = 'comissoes-agente';
+
+    protected static ?string $navigationParentItem = 'Propostas';
+
+    protected static ?string $navigationGroup = 'Principal';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -31,7 +37,8 @@ class ComissaoResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('proposta_id'),
+                Tables\Columns\TextColumn::make('data_repasse'),
             ])
             ->filters([
                 //
@@ -49,7 +56,7 @@ class ComissaoResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 

@@ -13,6 +13,7 @@ use App\Models\Situacao;
 use App\Models\Status;
 use App\Models\Tabela;
 use App\Models\User;
+use App\Services\GeneralService;
 use App\Services\LigacoesService;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -21,6 +22,7 @@ use Illuminate\Support\Str;
 class LigacaoController extends Controller
 {
     public $service;
+    public $geral;
 
     public function __construct()
     {
@@ -32,6 +34,8 @@ class LigacaoController extends Controller
         $this->middleware('can:show cliente', ['only' => ['show']]);
 
         $this->service = new LigacoesService;
+        $this->geral = new GeneralService;
+
     }
 
     public function index()
@@ -86,12 +90,14 @@ class LigacaoController extends Controller
 
     public function edit(Ligacao $ligacao)
     {
+        $status = Status::all();
         return view('calls.edit', [
             'call' => $ligacao,
             'area' => 'Call Center',
             'page' => 'Editar Ligação',
             'rota' => 'admin.calls.index',
-            'statuses' => Status::all()
+            'statuses' => $status,
+            'produtos' => $this->geral->produtos()
         ]);
     }
 
@@ -117,19 +123,26 @@ class LigacaoController extends Controller
             'page' => 'Lista de Prefeituras',
             'rota' => 'admin.calls.prefeituras',
             'listas' => $lista->random(100),
-            'statuses' => Status::all()
+            'statuses' => Status::all(),
+            'produtos' => $this->geral->produtos(),
+            'orgaos' => $this->geral->organizacoes(['id', 'nome_organizacao'])
         ]);
     }
 
     public function governos()
     {
         $lista = $this->service->getListaGoverno();
+        $orgaos = $this->geral->organizacoes();
+        $produtos = $this->geral->produtos();
+        $statuses = $this->geral->statuses();
         return view('calls.governos', [
             'area' => 'Call Center',
             'page' => 'Lista de Governo',
             'rota' => 'admin.calls.governos',
             'listas' => $lista,
-            'statuses' => Status::all()
+            'orgaos' => $orgaos,
+            'produtos' => $produtos,
+            'statuses' => $statuses
         ]);
     }
 

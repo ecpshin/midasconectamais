@@ -49,7 +49,7 @@ class Ligacao extends Model
 
     public function produto(): BelongsTo
     {
-        return $this->belongsTo(Produto::class, 'produto_id', 'id');
+        return $this->belongsTo(Produto::class);
     }
 
     protected $casts = [

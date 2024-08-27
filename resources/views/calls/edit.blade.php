@@ -23,11 +23,10 @@
                             </div>
                             <div class="col-lg-3 form-group mb-3">
                                 <label class="text-xs font-semibold" for="status_id">Status</label>
-                                <select name="status_id" id="status_id" required
-                                    class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
+                                <select id="status_id" name="status_id" class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                                     @foreach ($statuses as $status)
-                                        <option value="{{ $status->id }}" @if ($call->status->id == $status->id) selected @endif>
-                                            {{ $status->status_description }}
+                                        <option value="{{ $status->id }}" class="text-black" @if ($call->status->id == $status->id) selected @endif>
+                                            {{ $status->status }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -53,7 +52,7 @@
                             </div>
                             <div class="form-group col-lg-6 mb-3">
                                 <label class="text-xs font-semibold" for="orgao">Órgão</label>
-                                <input type="text" name="orgao" id="orgao" value="{{ $call->orgao }}"
+                                <input type="text" name="organizacao_id" id="orgao" value="{{ $call->organizacao->nome_organizacao }}"
                                     class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
                             </div>
 
@@ -93,5 +92,4 @@
             </div>
         </div>
     </div>
-    </form>
 </x-midas-layout>

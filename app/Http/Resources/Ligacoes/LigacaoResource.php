@@ -16,8 +16,9 @@ class LigacaoResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
             'status_id' => $this->status_id,
+            'produto_id' => $this->produto_id,
+            'organizacao_id' => $this->organizacao_id,
             'data_ligacao' => $this->data_ligacao,
             'data_agendamento' => $this->data_agendamento,
             'nome' => $this->nome,
@@ -27,6 +28,7 @@ class LigacaoResource extends JsonResource
             'margem' => $this->margem,
             'telefone' => $this->telefone,
             'produto' => $this->produto,
+            'user_id' => $this->user_id,
             'observacoes' => $this->observacoes,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
