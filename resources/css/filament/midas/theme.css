@@ -1,6 +1,7 @@
-@import "/vendor/filament/filament/resources/css/theme.css";
+@import '/vendor/filament/filament/resources/css/theme.css';
 
 @config 'tailwind.config.js';
+
 
 /*
 colors
@@ -9,11 +10,11 @@ colors
 */
 
 .fi-sidebar-header {
-    @apply bg-gradient-to-br from-black via-primary-700 to-primary-500 dark:bg-transparent !important;
+    @apply bg-primary-950 dark:bg-transparent text-white !important;
 }
 
 .fi-logo {
-    @apply text-white whitespace-nowrap text-sm text-ellipsis;
+    @apply text-white whitespace-nowrap text-sm text-ellipsis !important;
 }
 
 .fi-sidebar-item-icon {
@@ -57,5 +58,5 @@ colors
 }
 
 .fi-main-ctn {
-    @apply bg-primary-50 dark:bg-transparent;
+    @apply bg-primary-100 dark:bg-transparent;
 }

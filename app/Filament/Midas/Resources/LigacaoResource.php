@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Midas\Resources;
 
-use App\Filament\Resources\LigacaoResource\Pages;
-use App\Filament\Resources\LigacaoResource\RelationManagers;
+use App\Filament\Midas\Resources\LigacaoResource\Pages;
+use App\Filament\Midas\Resources\LigacaoResource\RelationManagers;
 use App\Models\Ligacao;
 use App\Models\User;
 use BezhanSalleh\FilamentShield\Support\Utils;
@@ -23,19 +23,21 @@ class LigacaoResource extends Resource
     protected static ?string $modelLabel = 'Ligação';
     protected static ?string $pluralModelLabel = 'Ligações';
     protected static ?string $navigationGroup = 'Call Center';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         $user = auth()->user()->hasRole(Utils::getSuperAdminName());
         $users = User::where(function ($query) use ($user) {
-          $user ? $query->whereNotIn('id', [1,2,9,10]) : $query->whereNotIn('id', [1,2,9,10])->where('id', auth()->id());
+            $user ? $query->whereNotIn('id', [1,2,9,10]) : $query->whereNotIn('id', [1,2,9,10])->where('id', auth()->id());
         })->get()->pluck('name', 'id');
 
         return $form
             ->schema([
                 Forms\Components\Section::make([
                     Forms\Components\Select::make('user_id')
+                        ->label('Agente')
                         ->options($users)
                         ->default($user ? null : auth()->id()),
                     Forms\Components\Select::make('status_id')
@@ -44,12 +46,14 @@ class LigacaoResource extends Resource
                     Forms\Components\Select::make('organizacao_id')
                         ->relationship('organizacao', 'nome_organizacao')                    ,
                     Forms\Components\Select::make('produto_id')
-                    ->relationship('produto', 'descricao_produto'),
+                        ->relationship('produto', 'descricao_produto'),
                 ])->columns(['xl' => 4]),
+
                 Forms\Components\Section::make([
                     Forms\Components\DatePicker::make('data_ligacao'),
                     Forms\Components\DatePicker::make('data_agendamento'),
                 ])->columns(['xl' => 2]),
+
                 Forms\Components\Section::make([
                     Forms\Components\TextInput::make('nome')
                         ->maxLength(255)
@@ -61,6 +65,7 @@ class LigacaoResource extends Resource
                         ->columnSpan(['xl' => 1])
                         ->default(null),
                 ])->columns(['xl' => 4]),
+
                 Forms\Components\Section::make([
                     Forms\Components\TextInput::make('matricula')
                         ->maxLength(50)
@@ -70,7 +75,7 @@ class LigacaoResource extends Resource
                         ->minValue(0.00)
                         ->maxValue(1000000.00)
                         ->step(0.00)
-                            ->default('0.00'),
+                        ->default('0.00'),
                     Forms\Components\TextInput::make('telefone')
                         ->tel()
                         ->mask('(99)9 9999-9999')

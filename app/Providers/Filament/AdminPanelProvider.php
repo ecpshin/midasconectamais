@@ -35,7 +35,7 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => '#510000',
                 'midas' => '#3f0a56',
             ])
-            ->viteTheme('resources/css/filament/admin/admin.css')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
