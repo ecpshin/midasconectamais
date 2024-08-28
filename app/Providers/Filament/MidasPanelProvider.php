@@ -40,7 +40,7 @@ class MidasPanelProvider extends PanelProvider
                         rules: 'mimes:jpeg,png|max:8192')
             ])
             ->colors([
-                'primary' => Color::hex('#68104e'),
+                'primary' => Color::hex('#510000'),
                 'midas' => Color::hex('#3f0a56'),
                 ])
             ->viteTheme('resources/css/filament/midas/midas.css')

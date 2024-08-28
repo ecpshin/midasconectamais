@@ -16,4 +16,9 @@ class EditCorrespondente extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function getRedirectUrl(): string
+    {
+        return route('filament.admin.resources.correspondentes.index');
+    }
 }

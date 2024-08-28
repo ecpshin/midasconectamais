@@ -13,7 +13,7 @@ colors
 }
 
 .fi-logo {
-    @apply text-white whitespace-nowrap text-lg text-ellipsis;
+    @apply text-white whitespace-nowrap text-sm text-ellipsis;
 }
 
 .fi-sidebar-item-icon {
@@ -25,7 +25,7 @@ colors
 }
 
 .fi-sidebar {
-    @apply bg-gradient-to-br from-gray-950 via-primary-800 to-primary-500 dark:bg-transparent !important;
+    @apply bg-gradient-to-br from-black via-primary-500 to-orange-500 dark:bg-transparent !important;
 }
 
 .fi-sidebar-group div span {

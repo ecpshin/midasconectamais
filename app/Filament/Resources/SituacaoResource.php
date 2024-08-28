@@ -10,8 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SituacaoResource extends Resource
 {
@@ -43,22 +41,12 @@ class SituacaoResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')->label('ID')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('descricao_situacao')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('motivo_situacao')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -83,7 +71,7 @@ class SituacaoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSituacaos::route('/'),
+            'index' => Pages\ListSituacoes::route('/'),
             'create' => Pages\CreateSituacao::route('/create'),
             'edit' => Pages\EditSituacao::route('/{record}/edit'),
         ];

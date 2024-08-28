@@ -19,6 +19,8 @@ class PropostaResource extends Resource
 {
     protected static ?string $model = Proposta::class;
 
+    protected static ?string $navigationGroup = "Principal";
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form

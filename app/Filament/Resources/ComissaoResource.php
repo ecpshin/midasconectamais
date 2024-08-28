@@ -17,8 +17,9 @@ class ComissaoResource extends Resource
 {
     protected static ?string $model = Comissao::class;
 
+    protected static ?string $modelLabel = 'Comissão';
+    protected static ?string $navigationLabel = 'Comissões';
     protected static ?string $slug = 'comissoes-agente';
-
     protected static ?string $navigationParentItem = 'Propostas';
 
     protected static ?string $navigationGroup = 'Principal';
@@ -29,7 +30,28 @@ class ComissaoResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('proposta_id')
+                    ->label('Proposta')
+                    ->relationship('proposta', 'uuid')
+                    ->disabledOn('edit'),
+                Forms\Components\Select::make('tabela_id')
+                    ->label('Tabela')
+                    ->relationship('tabela', 'descricao')
+                    ->disabledOn('edit'),
+                Forms\Components\TextInput::make('percentual_loja')
+                    ->numeric()
+                    ->step(0.01)
+                    ->minValue(0.00)
+                    ->maxValue(100.00),
+                Forms\Components\TextInput::make('valor_loja')
+                    ->numeric()
+                    ->step(0.01)
+                    ->minValue(0.00)
+                    ->maxValue(1000000.00),
+                Forms\Components\TextInput::make('percentual_agente'),
+                Forms\Components\TextInput::make('valor_agente'),
+                Forms\Components\TextInput::make('percentual_corretor'),
+                Forms\Components\TextInput::make('valor_corretor'),
             ]);
     }
 
@@ -37,8 +59,15 @@ class ComissaoResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('proposta_id'),
+                Tables\Columns\TextColumn::make('proposta.uuid')->label('Uuid'),
+                Tables\Columns\TextColumn::make('proposta.numero_contrato'),
+                Tables\Columns\TextColumn::make('proposta.cliente.nome'),
+                Tables\Columns\TextColumn::make('tabela.descricao'),
+                Tables\Columns\TextColumn::make('proposta.total_proposta'),
                 Tables\Columns\TextColumn::make('data_repasse'),
+                Tables\Columns\TextColumn::make('valor_agente'),
+                Tables\Columns\TextColumn::make('valor_corretor'),
+                Tables\Columns\TextColumn::make('valor_loja'),
             ])
             ->filters([
                 //

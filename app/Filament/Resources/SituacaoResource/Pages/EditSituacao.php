@@ -16,4 +16,9 @@ class EditSituacao extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function getRedirectUrl(): string
+    {
+        return route('filament.admin.resources.situacoes.index');
+    }
 }

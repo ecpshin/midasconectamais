@@ -48,13 +48,15 @@ class PropostaResource extends Resource
                     ->relationship('cliente', 'id')
                     ->required(),
                 Forms\Components\Select::make('produto_id')
-                    ->relationship('produto', 'id')
+                    ->relationship('produto', 'descricao_produto')
                     ->required(),
                 Forms\Components\Select::make('financeira_id')
-                    ->relationship('financeira', 'id')
+                    ->relationship('financeira', 'nome_financeira')
+                    ->searchable()
+                    ->preload()
                     ->required(),
                 Forms\Components\Select::make('correspondente_id')
-                    ->relationship('correspondente', 'id')
+                    ->relationship('correspondente', 'nome_correspondente')
                     ->required(),
                     Forms\Components\Select::make('situacao_id')
                     ->relationship('situacao', 'id')

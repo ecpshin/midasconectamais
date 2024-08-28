@@ -32,8 +32,8 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::hex('#68104e'),
-                'midas' => Color::hex('#3f0a56'),
+                'primary' => '#510000',
+                'midas' => '#3f0a56',
             ])
             ->viteTheme('resources/css/filament/admin/admin.css')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')

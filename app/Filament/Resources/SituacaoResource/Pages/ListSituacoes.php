@@ -5,8 +5,9 @@ namespace App\Filament\Resources\SituacaoResource\Pages;
 use App\Filament\Resources\SituacaoResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Builder;
 
-class ListSituacaos extends ListRecords
+class ListSituacoes extends ListRecords
 {
     protected static string $resource = SituacaoResource::class;
 
