@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class EstadoCivil extends Model
 {
     protected $table = 'estado_civis';
+
+    protected $fillable = ['estado_civil'];
 }

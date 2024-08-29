@@ -12,7 +12,7 @@ class InfoBancaria extends Model
 
     protected $table = 'info_bancarias';
 
-    protected $fillable = ['cliente_id', 'codigo', 'banco', 'agencia', 'tipo', 'operacao'];
+    //protected $fillable = ['cliente_id', 'codigo', 'banco', 'agencia', 'conta', 'tipo', 'operacao_conta'];
 
     public function cliente(): BelongsTo
     {

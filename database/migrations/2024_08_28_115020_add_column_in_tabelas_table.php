@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('estado_civis', function (Blueprint $table) {
-            $table->id();
-            $table->string('estado_civil');
-            $table->timestamps();
+        Schema::table('tabelas', function (Blueprint $table) {
+            $table->string('descricao_codigo')->virtualAs('CONCAT(descricao,\' - \', codigo)');
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('estado_civis');
+        Schema::table('tabelas', function (Blueprint $table) {
+            $table->dropColumn('descricao_codigo');
+        });
     }
 };

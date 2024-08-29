@@ -15,10 +15,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class OrganizacaoResource extends Resource
 {
+    protected static ?string $slug = 'orgaos';
+
     protected static ?string $model = Organizacao::class;
     protected static ?string $pluralModelLabel = 'Orgãos';
     protected static ?string $navigationGroup = 'Auxiliares';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
     public static function form(Form $form): Form
     {

@@ -10,6 +10,11 @@ class EditOrganizacao extends EditRecord
 {
     protected static string $resource = OrganizacaoResource::class;
 
+    protected function getRedirectUrl(): string
+    {
+        return route('filament.admin.resources.orgaos.index');
+    }
+
     protected function getHeaderActions(): array
     {
         return [

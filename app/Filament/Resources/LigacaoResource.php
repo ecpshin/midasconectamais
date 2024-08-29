@@ -23,7 +23,7 @@ class LigacaoResource extends Resource
     protected static ?string $modelLabel = 'Ligação';
     protected static ?string $pluralModelLabel = 'Ligações';
     protected static ?string $navigationGroup = 'Call Center';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-phone-arrow-up-right';
 
     public static function form(Form $form): Form
     {

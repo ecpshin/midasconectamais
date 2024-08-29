@@ -24,7 +24,7 @@ class ComissaoResource extends Resource
 
     protected static ?string $navigationGroup = 'Principal';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-document-currency-dollar';
 
     public static function form(Form $form): Form
     {
@@ -85,7 +85,7 @@ class ComissaoResource extends Resource
     public static function getRelations(): array
     {
         return [
-
+            RelationManagers\PropostaRelationManager::class,
         ];
     }
 

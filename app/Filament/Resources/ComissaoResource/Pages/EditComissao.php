@@ -10,6 +10,11 @@ class EditComissao extends EditRecord
 {
     protected static string $resource = ComissaoResource::class;
 
+    protected function getRedirectUrl(): ?string
+    {
+        return route('filament.admin.resources.comissoes-agente.index');
+    }
+
     protected function getHeaderActions(): array
     {
         return [

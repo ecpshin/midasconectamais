@@ -5,9 +5,12 @@ namespace App\Filament\Midas\Resources;
 use App\Filament\Midas\Resources\ComissaoResource\Pages;
 use App\Filament\Midas\Resources\ComissaoResource\RelationManagers;
 use App\Models\Comissao;
+use App\Models\Tabela;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,7 +20,10 @@ class ComissaoResource extends Resource
 {
     protected static ?string $model = Comissao::class;
 
+    protected static ?string $modelLabel = 'Comissão';
+    protected static ?string $pluralModelLabel = 'Comissões';
 
+    protected static ?string $navigationGroup = 'Principal';
     protected static ?string $navigationParentItem = 'Propostas';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -26,7 +32,67 @@ class ComissaoResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Section::make('Comissão')->schema([
+                    Forms\Components\Fieldset::make()->schema([
+
+                        Forms\Components\Select::make('tabela_id')
+                            ->relationship('tabela', 'descricao_codigo
+                            ')
+                            ->searchable()
+                            ->preload()
+                            ->label('Tabela')
+                            ->required()
+                            ->optionsLimit(5),
+
+                        Forms\Components\DatePicker::make('data_repasse')
+                            ->label('Data do respasse')
+                            ->date(),
+
+                    ]),
+                    Forms\Components\Fieldset::make('Valores')->schema([
+
+                        Forms\Components\Group::make([
+                            Forms\Components\TextInput::make('percentual_loja')
+                                ->numeric()
+                                ->step(0.01)
+                                ->minValue(0.0)
+                                ->maxValue(100.00),
+                            Forms\Components\TextInput::make('valor_loja')
+                                ->numeric()
+                                ->step(0.01)
+                                ->minValue(0.0)
+                                ->maxValue(1000000.00),
+                        ]),
+
+                        Forms\Components\Group::make([
+                            Forms\Components\TextInput::make('percentual_agente')
+                                ->numeric()
+                                ->step(0.01)
+                                ->minValue(0.0)
+                                ->maxValue(100.00),
+                            Forms\Components\TextInput::make('valor_agente')
+                                ->numeric()->step(0.01)
+                                ->minValue(0.0)
+                                ->maxValue(1000000.00),
+                        ]),
+
+                        Forms\Components\Group::make([
+                            Forms\Components\TextInput::make('percentual_corretor')
+                                ->numeric()
+                                ->step(0.01)
+                                ->minValue(0.0)
+                                ->maxValue(100.00),
+                            Forms\Components\TextInput::make('valor_corretor')
+                                ->numeric()
+                                ->step(0.01)
+                                ->minValue(0.0)
+                                ->maxValue(1000000.00),
+                        ]),
+                        Forms\Components\Toggle::make('is_pago')->label('Comissão Paga')
+                            ->onColor(Color::Green)
+                            ->offColor(Color::Red)
+                    ])->columns(['xl' => 3]),
+                ])
             ]);
     }
 
@@ -58,7 +124,7 @@ class ComissaoResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\PropostaRelationManager::class,
         ];
     }
 

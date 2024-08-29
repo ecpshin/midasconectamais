@@ -129,7 +129,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group flex flex-col">
                                         <label class="text-xs font-semibold" for="orgao">Órgão</label>
-                                        <select name="organizacao_id" id="orgao_id" class="form-control rounded-lg border-gray-300 text-black text-xs">
+                                        <select name="organizacao_id" id="orgao_id" class="form-select rounded-lg border-gray-300 text-black text-xs">
                                             @forelse ($orgaos as $orgao)
                                                 <option value="{{ $orgao->id }}" class="text-black">{{ $orgao->nome_organizacao }}</option>
                                             @empty
@@ -153,6 +153,7 @@
                                         class="telefone w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
                                 </div>
                                 <div class="form-group col-lg-4 mb-3">
+
                                     <label class="text-xs font-semibold" for="produto">Produto</label>
                                     <select name="produto_id" id="product_id" class="form-select rounded-lg border-gray-300 text-xs">
                                         @forelse ($produtos as $produto)

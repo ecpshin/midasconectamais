@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PropostaResource\Pages;
 use App\Filament\Resources\PropostaResource\RelationManagers;
 use App\Models\Proposta;
+use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -21,7 +22,7 @@ class PropostaResource extends Resource
 
     protected static ?string $navigationGroup = "Principal";
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-document-currency-dollar';
 
     public static function form(Form $form): Form
     {
@@ -125,7 +126,10 @@ class PropostaResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('situacao.descricao_situacao')
 
-            ])
+            ])->modifyQueryUsing(fn(BUilder $query)
+            => !auth()->user()->hasRole(Utils::getSuperAdminName())
+                ? $query->whereUserId(auth()->id())
+                : $query->whereNotNull('user_id'))
             ->filters([
                 //
             ])

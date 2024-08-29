@@ -5,6 +5,7 @@ namespace App\Filament\Midas\Resources;
 use App\Filament\Midas\Resources\PropostaResource\Pages;
 use App\Filament\Midas\Resources\PropostaResource\RelationManagers;
 use App\Models\Proposta;
+use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,12 +13,17 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Ramsey\Uuid\Uuid;
 
 class PropostaResource extends Resource
 {
     protected static ?string $model = Proposta::class;
 
+    protected static ?string $navigationLabel = 'Propostas';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $navigationGroup = 'Principal';
 
     public static function form(Form $form): Form
     {
@@ -26,7 +32,7 @@ class PropostaResource extends Resource
                 Forms\Components\TextInput::make('uuid')
                     ->label('UUID')
                     ->maxLength(50)
-                    ->default('1e85e666-6894-4c83-9d64-0570a61b0991'),
+                    ->default('midas-'.substr(Uuid::uuid4(), 0, 13)),
                 Forms\Components\TextInput::make('numero_contrato')
                     ->maxLength(50)
                     ->default('Não informado'),
@@ -114,7 +120,10 @@ class PropostaResource extends Resource
                     ->dateTime()
                     ->since()
                     ->sortable()
-            ])
+            ])->modifyQueryUsing(fn(BUilder $query)
+                => !auth()->user()->hasRole(Utils::getSuperAdminName())
+                ? $query->whereUserId(auth()->id())
+                : $query->whereNotNull('user_id'))
             ->filters([
                 //
             ])
@@ -131,7 +140,7 @@ class PropostaResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ComissaoResource\RelationManagers\PropostaRelationManager::class
         ];
     }
 

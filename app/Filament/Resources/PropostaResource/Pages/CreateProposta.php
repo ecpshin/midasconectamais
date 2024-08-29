@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateProposta extends CreateRecord
 {
     protected static string $resource = PropostaResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return route('filament.admin.resources.propostas.index');
+    }
 }

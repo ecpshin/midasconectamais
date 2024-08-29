@@ -11,7 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('clientes', function (Blueprint $table) {
+            $table->json('bancarias')->nullable();
+            $table->json('funcionais')->nullable();
+            $table->json('residenciais')->nullable();
+        });
     }
 
     /**
@@ -19,6 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('clientes', function (Blueprint $table) {
+           $table->dropColumn('residenciais');
+           $table->dropColumn('funcionais');
+           $table->dropColumn('bancarias');
+        });
     }
 };
