@@ -77,7 +77,7 @@ class AdminPanelProvider extends PanelProvider
                         rules: 'mimes:jpeg,png|max:8192'
                     ),
             ])
-            ->sidebarWidth('250px')
+            ->maxContentWidth('full')
             ->sidebarFullyCollapsibleOnDesktop();
     }
 }

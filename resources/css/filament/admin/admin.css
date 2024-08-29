@@ -7,6 +7,9 @@ colors
 #0d659d
 #7b2cbf
 */
+.fi-body {
+    @apply bg-primary-100 !important;
+}
 
 .fi-sidebar-header {
     @apply bg-primary-950 dark:bg-transparent text-white !important;
@@ -58,4 +61,9 @@ colors
 
 .fi-main-ctn {
     @apply bg-primary-100 dark:bg-transparent;
+}
+
+.fi-fieldset
+{
+    @apply bg-slate-100;
 }

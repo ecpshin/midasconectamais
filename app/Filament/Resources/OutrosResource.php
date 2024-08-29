@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\LigacaoResource\Pages;
-use App\Filament\Resources\LigacaoResource\RelationManagers;
-use App\Models\Ligacao;
+use App\Filament\Resources\OutrosResource\Pages;
+use App\Filament\Resources\OutrosResource\RelationManagers;
+use App\Models\Outros;
 use App\Models\User;
 use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Forms;
@@ -15,21 +15,20 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class LigacaoResource extends Resource
+class OutrosResource extends Resource
 {
-    protected static ?string $model = Ligacao::class;
-    protected static ?string $slug = 'ligacoes';
-    protected static ?string $modelLabel = 'Ligação';
-    protected static ?string $pluralModelLabel = 'Ligações';
+    protected static ?string $model = Outros::class;
+    protected static ?string $navigationLabel = 'Outros Órgãos';
+
     protected static ?string $navigationGroup = 'Call Center';
-    protected static ?string $navigationLabel = 'Ligações Realizadas';
+
     protected static ?string $navigationIcon = 'heroicon-s-phone-arrow-up-right';
 
     public static function form(Form $form): Form
     {
         $user = auth()->user()->hasRole(Utils::getSuperAdminName());
         $users = User::where(function ($query) use ($user) {
-          $user ? $query->whereNotIn('id', [1,2,9,10]) : $query->whereNotIn('id', [1,2,9,10])->where('id', auth()->id());
+            $user ? $query->whereNotIn('id', [1,2,9,10]) : $query->whereNotIn('id', [1,2,9,10])->where('id', auth()->id());
         })->get()->pluck('name', 'id');
 
         return $form
@@ -44,7 +43,7 @@ class LigacaoResource extends Resource
                     Forms\Components\Select::make('organizacao_id')
                         ->relationship('organizacao', 'nome_organizacao')                    ,
                     Forms\Components\Select::make('produto_id')
-                    ->relationship('produto', 'descricao_produto'),
+                        ->relationship('produto', 'descricao_produto'),
                 ])->columns(['xl' => 4]),
                 Forms\Components\Section::make([
                     Forms\Components\DatePicker::make('data_ligacao'),
@@ -70,7 +69,7 @@ class LigacaoResource extends Resource
                         ->minValue(0.00)
                         ->maxValue(1000000.00)
                         ->step(0.00)
-                            ->default('0.00'),
+                        ->default('0.00'),
                     Forms\Components\TextInput::make('telefone')
                         ->tel()
                         ->mask('(99)9 9999-9999')
@@ -97,63 +96,57 @@ class LigacaoResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Agente')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status.status')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('organizacao.nome_organizacao')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('produto.descricao_produto')
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('data_ligacao')
                     ->date('d/m/Y')
-                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('data_agendamento')
                     ->date('d/m/Y')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('status.status')
+                    ->label('Status')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('nome')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cpf')
+                    ->label('CPF')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('matricula')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('margem')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('telefone')
+                    ->label('Telefone')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('orgao')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('produto')
+                    ->label('Órgão')
                     ->searchable(),
             ])
-            ->modifyQueryUsing(
-                function(Builder $query): Builder
-                {
-                    if(auth()->user()->hasRole(Utils::getSuperAdminName()))
-                    {
-                        return $query->whereNotNull('user_id');
-                    } else {
-                        return $query->where('user_id', auth()->user()->id);
-                    }
-                })
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])->modifyQueryUsing(function (Builder $query): Builder  {
+                return $query->where('user_id', '=', null)
+                    ->whereNot('orgao', 'like', 'pref%', 'and')
+                    ->whereNot('orgao', 'like', 'gov%', 'and');
+            });
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageLigacaos::route('/'),
+            'index' => Pages\ListOutros::route('/'),
+            'create' => Pages\CreateOutros::route('/create'),
+            'edit' => Pages\EditOutros::route('/{record}/edit'),
         ];
     }
 }
