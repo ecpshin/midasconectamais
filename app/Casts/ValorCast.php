@@ -5,7 +5,7 @@ namespace App\Casts;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 
-class PercentualCast implements CastsAttributes
+class ValorCast implements CastsAttributes
 {
     /**
      * Cast the given value.
@@ -14,7 +14,7 @@ class PercentualCast implements CastsAttributes
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return round(doubleval($value * 100), precision: 2);
+        return round(floatval($value) / 100, precision: 2);
     }
 
     /**
@@ -24,6 +24,6 @@ class PercentualCast implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return round(doubleval($value / 100), precision: 4);
+        return round(floatval($value) * 100);
     }
 }
