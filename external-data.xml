@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <object-set>
+    <table path="midasc25_softbase.comissoes">
+      <column name="valor_loja" expr="if(tabelas.referencia = &apos;L&apos;, (percentual_loja * propostas.liquido_proposta)/100, (percentual_loja * propostas.total_proposta)/100 * )"/>
+    </table>
+  </object-set>
+</data>
