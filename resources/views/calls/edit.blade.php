@@ -50,12 +50,21 @@
                                 <input type="text" name="matricula" id="matricula" value="{{ $call->matricula }}"
                                     class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
                             </div>
-                            <div class="form-group col-lg-6 mb-3">
-                                <label class="text-xs font-semibold" for="orgao">Órgão</label>
-                                <input type="text" name="organizacao_id" id="orgao" value="{{ $call->organizacao->nome_organizacao }}"
+                            <div class="form-group col-lg-3 mb-3">
+                                <label class="text-xs font-semibold" for="orgao">Órgão Call Center</label>
+                                <input type="text" name="orgao" id="orgao" value="{{ $call->orgao }}"
                                     class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
                             </div>
-
+                            <div class="form-group col-lg-3 mb-3">
+                                <label class="text-xs font-semibold" for="orgao">Órgão</label>
+                                <select name="organizacao_id" id="organizacao"
+                                        class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:ring-0">
+                                    @foreach($orgaos as $org)
+                                        <option value="{{ $org->id }}">{{ $org->nome_organizacao }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="text-sm text-red-800">Selecione o campo para atualizar a sua ligação</span>
+                            </div>
                             <div class="form-group col-lg-3 mb-3">
                                 <label class="text-xs font-semibold" for="margem">Margem</label>
                                 <input type="number" name="margem" id="margem" value="{{ $call->margem }}" min="0" max="1000000" step="0.01"
@@ -63,15 +72,24 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-lg-3 mb-3">
+                            <div class="form-group col-lg-2 mb-3">
                                 <label class="text-xs font-semibold" for="telefone">Telefone</label>
                                 <input type="text" name="telefone" id="telefone" value="{{ $call->telefone }}"
                                     class="telefone w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
                             </div>
-                            <div class="form-group col-lg-4 mb-3">
+                            <div class="form-group col-lg-5 mb-3">
                                 <label class="text-xs font-semibold" for="produto">Produto</label>
                                 <input type="text" name="produto" id="produto" value="{{ $call->produto }}"
                                     class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
+                            </div>
+                            <div class="form-group col-lg-5 mb-3">
+                                <label class="text-xs font-semibold" for="produto">Produto</label>
+                                <select name="produto_id" id="produto_id"
+                                    class="w-100 mt-1 flex-1 rounded-lg border-gray-300 text-xs outline-none active:border-none active:outline-green-100 active:ring-0">
+                                    @foreach($produtos as $produto)
+                                        <option value="{{ $produto->id }}">{{ $produto->descricao_produto }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 

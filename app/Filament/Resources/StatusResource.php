@@ -21,14 +21,14 @@ class StatusResource extends Resource
     protected static ?string $navigationLabel = 'Status';
     protected static ?string $navigationGroup = 'Auxiliares';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-flag';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Section::make([
-                    Forms\Components\TextInput::make('status_description')
+                    Forms\Components\TextInput::make('status')
                     ->required()
                     ->maxLength(50)
                     ->default('Sem definição'),

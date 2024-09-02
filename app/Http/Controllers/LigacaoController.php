@@ -90,13 +90,14 @@ class LigacaoController extends Controller
 
     public function edit(Ligacao $ligacao)
     {
-        $status = Status::all();
+
         return view('calls.edit', [
             'call' => $ligacao,
             'area' => 'Call Center',
             'page' => 'Editar Ligação',
             'rota' => 'admin.calls.index',
-            'statuses' => $status,
+            'statuses' => $this->geral->statuses(),
+            'orgaos' => $this->geral->organizacoes(['id', 'nome_organizacao']),
             'produtos' => $this->geral->produtos()
         ]);
     }

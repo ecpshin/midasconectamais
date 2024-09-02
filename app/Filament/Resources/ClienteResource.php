@@ -5,9 +5,12 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ClienteResource\Pages;
 use App\Filament\Resources\ClienteResource\RelationManagers;
 use App\Models\Cliente;
+use App\Models\EstadoCivil;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,7 +21,8 @@ class ClienteResource extends Resource
     protected static ?string $model = Cliente::class;
 
     protected static ?string $navigationGroup = 'Principal';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $navigationIcon = 'heroicon-s-users';
 
     public static function form(Form $form): Form
     {
@@ -58,34 +62,56 @@ class ClienteResource extends Resource
                         Forms\Components\TextInput::make('sexo')
                             ->maxLength(50)
                             ->default('Masculino'),
-                        Forms\Components\TextInput::make('estado_civil')
-                            ->maxLength(50)
-                            ->default('Casado'),
+                        Forms\Components\Select::make('estado_civil')
+                            ->options(EstadoCivil::all()->pluck('estado_civil', 'estado_civil')->toArray())
+                            ->createOptionForm([
+                                Forms\Components\TextInput::make('estado_civil')
+                            ])->createOptionUsing(function (array $data): string {
+                               $estado = EstadoCivil::create($data);
+                               return $estado->get('estado_civil');
+                            }),
                     ])->columnSpan(['xl' => 'full'])->columns(['xl' => 4]),
 
                     Forms\Components\Group::make([
                         Forms\Components\TextInput::make('phone1')
                             ->tel()
                             ->maxLength(50)
-                            ->default('(84)9 9999-9999'),
+                            ->mask('(84)9 9999-9999')
+                            ->default('99999999999'),
                         Forms\Components\TextInput::make('phone2')
                             ->tel()
+                            ->mask('(84)9 9999-9999')
                             ->maxLength(50)
-                            ->default('(84)9 9999-9999'),
+                            ->default('99999999999'),
                         Forms\Components\TextInput::make('phone3')
                             ->tel()
+                            ->mask('(84)9 9999-9999')
                             ->maxLength(50)
-                            ->default('(84)9 9999-9999'),
+                            ->default('99999999999'),
                         Forms\Components\TextInput::make('phone4')
                             ->tel()
+                            ->mask('(84)9 9999-9999')
                             ->maxLength(50)
-                            ->default('(84)9 9999-9999'),
+                            ->default('99999999999'),
                         Forms\Components\Select::make('user_id')
                             ->relationship('user', 'name')
                             ->required(),
+                        Forms\Components\Textarea::make('observacoes')
+                            ->label('Observações')->default(null)
+                            ->columnSpanFull(),
                     ])->columnSpan(['xl' => 'full'])->columns(['xl' => 5]),
 
                 ])->columns(['xl' => 2]),
+                Forms\Components\Section::make('Dados Residenciais')->schema([
+                    Forms\Components\Repeater::make('residenciais')->schema([
+                      Forms\Components\TextInput::make('cep'),
+                      Forms\Components\TextInput::make('logradouro'),
+                      Forms\Components\TextInput::make('complemento'),
+                      Forms\Components\TextInput::make('bairro'),
+                      Forms\Components\TextInput::make('localidade'),
+                      Forms\Components\TextInput::make('uf'),
+                    ])->columns(['xl' => 3]),
+                ])
             ]);
     }
 
@@ -93,53 +119,30 @@ class ClienteResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id'),
                 Tables\Columns\TextColumn::make('nome')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cpf')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('data_nascimento')
-                    ->date()
+                    ->date('d/m/Y')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('rg')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('orgao_exp')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('data_exp')
-                    ->date()
+                    ->date('d/m/Y')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('naturalidade')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('genitora')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('genitor')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('sexo')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('estado_civil')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('phone1')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('phone2')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('phone3')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('phone4')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
-            ])
+                Tables\Filters\SelectFilter::make('Agente')
+                    ->relationship('user', 'name')
+            ], Tables\Enums\FiltersLayout::AboveContentCollapsible)
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -147,13 +150,17 @@ class ClienteResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->modifyQueryUsing(fn(Builder $query) => $query->orderByDesc('id'))
+            ;
     }
 
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\InfoResidencialRelationManager::class,
+            RelationManagers\InfoBancariasRelationManager::class,
+            RelationManagers\VinculosRelationManager::class,
         ];
     }
 
