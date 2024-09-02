@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\TotalCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,6 +34,9 @@ class Proposta extends Model
     protected $casts = [
         'data_digitacao' => 'date',
         'data_pagamento' => 'date',
+        'total_proposta' => TotalCast::class,
+        'liquido_proposta' => TotalCast::class,
+        'parcela_proposta' => TotalCast::class,
     ];
 
     public function comissao(): HasOne

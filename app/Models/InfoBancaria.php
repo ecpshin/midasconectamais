@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TipoContaEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,8 +13,9 @@ class InfoBancaria extends Model
 
     protected $table = 'info_bancarias';
 
-    //protected $fillable = ['cliente_id', 'codigo', 'banco', 'agencia', 'conta', 'tipo', 'operacao_conta'];
-
+    protected $casts = [
+        'tipo' => TipoContaEnum::class
+    ];
     public function cliente(): BelongsTo
     {
         return $this->belongsTo(Cliente::class, 'cliente_id', 'id');

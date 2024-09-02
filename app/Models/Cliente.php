@@ -25,6 +25,7 @@ class Cliente extends Model
         'bancarias' => 'array',
         'funcionais' => 'array',
         'residenciais' => 'array',
+        'arquivos' => 'array',
     ];
 
     public function infoBancarias(): HasMany
@@ -47,8 +48,4 @@ class Cliente extends Model
         return $this->hasMany(Proposta::class, 'cliente_id', 'id');
     }
 
-    public function arquivosCliente(): HasMany
-    {
-        return $this->hasMany(ArquivoCliente::class, 'cliente_id', 'id');
-    }
 }

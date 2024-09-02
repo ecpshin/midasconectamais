@@ -4,7 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PropostaResource\Pages;
 use App\Filament\Resources\PropostaResource\RelationManagers;
+use App\Models\Organizacao;
+use App\Models\Produto;
 use App\Models\Proposta;
+use App\Models\Tabela;
 use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -14,7 +17,7 @@ use Filament\Tables\Columns\Summarizers\Average;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Collection;
 
 class PropostaResource extends Resource
 {
@@ -27,47 +30,204 @@ class PropostaResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+            ->live()
             ->schema([
-                Forms\Components\TextInput::make('uuid')
-                    ->label('UUID')
-                    ->maxLength(50)
-                    ->default('1e85e666-6894-4c83-9d64-0570a61b0991'),
-                Forms\Components\TextInput::make('numero_contrato')
-                    ->maxLength(50)
-                    ->default('Não informado'),
-                Forms\Components\DatePicker::make('data_digitacao'),
-                Forms\Components\DatePicker::make('data_pagamento'),
-                Forms\Components\TextInput::make('total_proposta')
-                    ->numeric()
-                    ->default(null),
-                Forms\Components\TextInput::make('prazo_proposta')
-                    ->numeric()
-                    ->default(0),
-                Forms\Components\TextInput::make('parcela_proposta')
-                    ->numeric()
-                    ->default(null),
-                Forms\Components\TextInput::make('liquido_proposta')
-                    ->numeric()
-                    ->default(null),
-                Forms\Components\Select::make('cliente_id')
-                    ->relationship('cliente', 'id')
-                    ->required(),
-                Forms\Components\Select::make('produto_id')
-                    ->relationship('produto', 'id')
-                    ->required(),
-                Forms\Components\Select::make('financeira_id')
-                    ->relationship('financeira', 'id')
-                    ->required(),
-                Forms\Components\Select::make('correspondente_id')
-                    ->relationship('correspondente', 'id')
-                    ->required(),
-                Forms\Components\Select::make('situacao_id')
-                    ->relationship('situacao', 'id')
-                    ->required(),
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
-            ]);
+                Forms\Components\Section::make()->schema([
+
+                    Forms\Components\Select::make('cliente_id')
+                        ->relationship('cliente', 'nome')
+                        ->searchable()
+                        ->preload()
+                        ->required(),
+
+                    Forms\Components\Group::make([
+                        Forms\Components\TextInput::make('uuid')
+                            ->label('UUID')
+                            ->maxLength(50)
+                            ->default('1e85e666-6894-4c83-9d64-0570a61b0991'),
+                        Forms\Components\TextInput::make('numero_contrato')
+                            ->maxLength(50)
+                            ->default('Não informado'),
+                        Forms\Components\DatePicker::make('data_digitacao')
+                            ->maxDate(now()->addYears(5)),
+                        Forms\Components\DatePicker::make('data_pagamento')
+                            ->maxDate(now()->addYears(5)),
+                    ])->columns(['lg' => '4'])->columnSpan(['lg' => 'full']),
+
+                    Forms\Components\Group::make([
+                        Forms\Components\TextInput::make('prazo_proposta')
+                            ->numeric()
+                            ->step(1)
+                            ->minValue(0)
+                            ->maxValue(300)
+                            ->default('0'),
+                        Forms\Components\TextInput::make('total_proposta')
+                            ->numeric()
+                            ->step(0.01)
+                            ->minValue(0.00)
+                            ->maxValue(10000000.00)
+                            ->default('0,00'),
+                        Forms\Components\TextInput::make('parcela_proposta')
+                            ->numeric()
+                            ->step(0.01)
+                            ->minValue(0.00)
+                            ->maxValue(10000000.00)
+                            ->default('0,00'),
+                        Forms\Components\TextInput::make('liquido_proposta')
+                            ->numeric()
+                            ->step(0.01)
+                            ->minValue(0.00)
+                            ->maxValue(10000000.00)
+                            ->default('0,00'),
+                        Forms\Components\Select::make('situacao_id')
+                            ->relationship('situacao', 'descricao_situacao')
+                            ->required(),
+                    ])->columns(['xl' => '5'])->columnSpan(['lg' => 'full']),
+
+                ]),
+                Forms\Components\Section::make()->schema([
+
+                    Forms\Components\Group::make([
+
+                        Forms\Components\Select::make('organizacao_id')
+                            ->options(Organizacao::pluck('nome_organizacao', 'id'))
+                            ->live()
+                            ->required(),
+
+                        Forms\Components\Select::make('produto_id')
+                            ->options(Produto::pluck('descricao_produto', 'id'))
+                            ->live()
+                            ->required(),
+
+                        Forms\Components\Select::make('financeira_id')
+                            ->options(
+                                fn(Forms\Get $get): Collection => Tabela::with('financeira')->where('produto_id', $get('produto_id'))->get()->pluck('financeira.nome_financeira', 'financeira.id'))
+                            ->live()
+                            ->required(),
+
+                        Forms\Components\Select::make('correspondente_id')
+                            ->options(fn(Forms\Get $get): Collection => Tabela::with('correspondente')->where('financeira_id', $get('financeira_id'))->get()->pluck('correspondente.nome_correspondente', 'correspondente.id'))
+                            ->live(debounce: 200)
+                            ->required(),
+
+                    ])->columns(['xl' => '4'])->columnSpan(['lg' => 'full']),
+
+                    Forms\Components\Select::make('user_id')
+                        ->label('Digitado por')
+                        ->relationship('user', 'name')
+                        ->required(),
+                ]),
+
+                Forms\Components\Section::make('Comissão')
+                    ->relationship('comissao')->schema([
+
+                        Forms\Components\Group::make([
+
+                            Forms\Components\Select::make('organizacao_id')
+                                ->options(Organizacao::pluck('nome_organizacao', 'id'))
+                                ->live()
+                                ->dehydrated(false)
+                                ->afterStateUpdated(function ($state, Forms\Set $set): void {
+                                    if(is_null($state)){
+                                        $set('produto_id', null);
+                                        $set('financeira_id', null);
+                                        $set('correspondente_id', null);
+                                    }
+                                })
+                                ->required(),
+
+                            Forms\Components\Select::make('produto_id')
+                                ->options(fn(Forms\Get $get): Collection => Tabela::with('produto')->where('organizacao_id', $get('organizacao_id'))
+                                    ->get()->pluck('produto.descricao_produto', 'produto.id'))
+                                ->dehydrated(false)
+                                ->live()
+                                ->required(),
+
+                            Forms\Components\Select::make('financeira_id')
+                                ->options(
+                                    fn(Forms\Get $get): Collection => Tabela::with('financeira')->where('produto_id', $get('produto_id'))->get()->pluck('financeira.nome_financeira', 'financeira.id'))
+                                ->dehydrated(false)
+                                ->live()
+                                ->required(),
+
+                            Forms\Components\Select::make('correspondente_id')
+                                ->options(fn(Forms\Get $get): Collection => Tabela::with('correspondente')->where('financeira_id', $get('financeira_id'))->get()->pluck('correspondente.nome_correspondente', 'correspondente.id'))
+                                ->dehydrated(false)
+                                ->live(debounce: 200)
+                                ->required(),
+
+                        ])->columns(['lg' => 4])->columnSpanFull()->visibleOn('create'),
+
+                        Forms\Components\Group::make([
+                            Forms\Components\Select::make('tabela_id')
+                                ->label('Tabela')
+                                ->options(function ($state, Forms\Get $get) {
+                                        if(empty($get('organizacao_id')) || empty($get('produto_id')) || empty($get('financeira_id'))
+                                            || empty($get('correspondente_id'))) {
+                                            return Tabela::all()->pluck('descricao_codigo', 'id');
+                                        } else {
+                                            return Tabela::where('produto_id', $get('produto_id'))
+                                                ->where('financeira_id', $get('financeira_id'))
+                                                ->where('correspondente_id', $get('correspondente_id'))
+                                                ->pluck('descricao_codigo', 'id');
+
+                                        }
+                                    } // end function
+                                )// end options
+                            //->relationship('tabela', 'descricao_codigo'),
+
+                        ])->columnSpanFull(),
+
+                        Forms\Components\Group::make([
+                            Forms\Components\TextInput::make('percentual_loja')
+                                ->numeric()
+                                ->step(0.01)
+                                ->minValue(0.00)
+                                ->maxValue(100.00)
+                                ->default('0,00'),
+                            Forms\Components\TextInput::make('valor_loja')
+                                ->numeric()
+                                ->step(0.01)
+                                ->minValue(0.00)
+                                ->maxValue(10000000.00)
+                                ->default('0,00'),
+                        ]),
+
+                        Forms\Components\Group::make([
+                            Forms\Components\TextInput::make('percentual_agente')
+                                ->numeric()
+                                ->step(0.01)
+                                ->minValue(0.00)
+                                ->maxValue(100.00)
+                                ->default('0,00')
+                            ,
+                            Forms\Components\TextInput::make('valor_agente')
+                                ->numeric()
+                                ->step(0.01)
+                                ->minValue(0.00)
+                                ->maxValue(10000000.00)
+                                ->default('0,00'),
+                        ]),
+
+                        Forms\Components\Group::make([
+
+                            Forms\Components\TextInput::make('percentual_corretor')
+                                ->numeric()
+                                ->step(0.01)
+                                ->minValue(0.00)
+                                ->maxValue(100.00)
+                                ->default('0,00'),
+
+                            Forms\Components\TextInput::make('valor_corretor')
+                                ->numeric()
+                                ->step(0.01)
+                                ->minValue(0.00)
+                                ->maxValue(10000000.00)
+                                ->default('0,00'),
+                        ]),
+
+                    ])->collapsible()->columns(['lg' => 3]),
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -126,8 +286,7 @@ class PropostaResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('situacao.descricao_situacao')
 
-            ])->modifyQueryUsing(fn(BUilder $query)
-            => !auth()->user()->hasRole(Utils::getSuperAdminName())
+            ])->modifyQueryUsing(fn(BUilder $query) => !auth()->user()->hasRole(Utils::getSuperAdminName())
                 ? $query->whereUserId(auth()->id())
                 : $query->whereNotNull('user_id'))
             ->filters([

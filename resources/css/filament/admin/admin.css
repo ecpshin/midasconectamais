@@ -8,7 +8,7 @@ colors
 #7b2cbf
 */
 .fi-body {
-    @apply bg-primary-100 !important;
+    @apply bg-primary-100 dark:bg-transparent !important;
 }
 
 .fi-sidebar-header {

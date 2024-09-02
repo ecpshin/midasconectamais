@@ -25,6 +25,7 @@ class MidasPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->default()
             ->id('midas')
             ->path('midas')
             ->login()

@@ -14,4 +14,9 @@ class CreateCliente extends CreateRecord
     {
         return route('filament.admin.resources.clientes.index');
     }
+
+    public static function canAccess(array $parameters = []): bool
+    {
+        return auth()->user()->can('create cliente');
+    }
 }

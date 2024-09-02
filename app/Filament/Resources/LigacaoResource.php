@@ -4,16 +4,20 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LigacaoResource\Pages;
 use App\Filament\Resources\LigacaoResource\RelationManagers;
+use App\Models\Cliente;
 use App\Models\Ligacao;
 use App\Models\User;
 use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
+use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LigacaoResource extends Resource
 {
@@ -107,23 +111,13 @@ class LigacaoResource extends Resource
                     ->date('d/m/Y')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('data_agendamento')
-                    ->date('d/m/Y')
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('nome')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cpf')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('matricula')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('margem')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('telefone')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('orgao')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('produto')
                     ->searchable(),
             ])
             ->modifyQueryUsing(
@@ -140,6 +134,31 @@ class LigacaoResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('Transferir')
+                    ->color(Color::Blue)
+                    ->icon('heroicon-o-arrows-right-left')
+                    ->action(function (Ligacao $record)
+                    {
+                        $data = $record->toArray();
+
+                        $obs = ' orgão: '. $data['organizacao']['nome_organizacao'] .', margem: R$   '. $data['margem'] . ', matrícula: ' . $data['matricula'];
+
+                        $cliente = [
+                            "nome" => $data['nome'],
+                            "cpf" => $data['cpf'],
+                            "phone1" => $data['telefone'],
+                            "observacoes" => is_null($data['observacoes']) ? $obs : $data['observacoes']. "\r\n". $obs,
+                            "user_id" => $data['user_id']
+                        ];
+
+                        Cliente::create($cliente);
+
+                        return Notification::make()
+                            ->title('Transferência realizada com sucesso!' )
+                            ->send()->icon('heroicon-o-exclamation-circle')
+                            ->iconColor(Color::Green);
+
+                    }),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
