@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 use Number;
 
 class Tabela extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes, Notifiable;
 
     protected $table = 'tabelas';
 

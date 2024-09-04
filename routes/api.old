@@ -1,6 +1,6 @@
 <?php
 
-//use App\Http\Controllers\CallController;
+use App\Http\Controllers\CallController;
 
 use App\Http\Controllers\ApiTabelaController;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ use App\Models\Ligacao;
 //     Route::get('/{id}/cliente', 'cliente')->name('api.cliente');
 //     Route::patch('/{id}/cliente', 'clienteupdate')->name('api.call-center.update');
 // });
-/*
+
 Route::get('/{id}/cliente', function (string $id) {
     return new LigacaoResource(Ligacao::findOrFail($id));
 })->name('api.cliente');
@@ -25,6 +25,6 @@ Route::controller(ApiTabelaController::class)->group(function () {
     Route::get('/correspondentes/{orgao}/{produto?}/{financeira?}', 'correspondentes')->name('api.correspondentes');
     Route::get('/tabelas-comissoes/{orgao}/{produto?}/{financeira?}/{correspondente?}', 'tabelas_comissao')->name('api.tabelas-comissoes');
 });
-*/
+
 
 

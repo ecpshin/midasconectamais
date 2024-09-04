@@ -19,10 +19,10 @@ class ComissaoResource extends Resource
 
     protected static ?string $modelLabel = 'Comissão';
     protected static ?string $navigationLabel = 'Comissões';
-    protected static ?string $slug = 'comissoes-agente';
-    protected static ?string $navigationParentItem = 'Propostas';
 
-    protected static ?string $navigationGroup = 'Principal';
+    protected static ?string $slug = 'comissoes-agente';
+
+    protected static ?string $navigationGroup = 'Midas';
 
     protected static ?string $navigationIcon = 'heroicon-s-document-currency-dollar';
 

@@ -102,6 +102,7 @@ class ClienteResource extends Resource
                     ])->columnSpan(['xl' => 'full'])->columns(['xl' => 5]),
 
                 ])->columns(['xl' => 2]),
+
                 Forms\Components\Section::make('Dados Residenciais')->schema([
                     Forms\Components\Repeater::make('residenciais')->schema([
                       Forms\Components\TextInput::make('cep'),
@@ -111,7 +112,7 @@ class ClienteResource extends Resource
                       Forms\Components\TextInput::make('localidade'),
                       Forms\Components\TextInput::make('uf'),
                     ])->columns(['xl' => 3]),
-                ])
+                ])->collapsible()
             ]);
     }
 
@@ -158,9 +159,10 @@ class ClienteResource extends Resource
     public static function getRelations(): array
     {
         return [
+            RelationManagers\PropostaRelationManager::class,
             RelationManagers\InfoResidencialRelationManager::class,
             RelationManagers\InfoBancariasRelationManager::class,
-            RelationManagers\VinculosRelationManager::class,
+            RelationManagers\VinculosRelationManager::class
         ];
     }
 
