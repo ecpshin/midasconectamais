@@ -2,14 +2,16 @@
 
 namespace App\Filament\Resources\ClienteResource\RelationManagers;
 
-use App\Enums\TipoContaEnum;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Enums\TipoContaEnum;
+use Filament\Actions\Action;
+use App\Services\BuscasApiService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class InfoBancariasRelationManager extends RelationManager
 {
@@ -21,7 +23,26 @@ class InfoBancariasRelationManager extends RelationManager
             ->schema([
                 Forms\Components\TextInput::make('codigo')
                     ->required()
-                    ->maxLength(50),
+                    ->maxLength(50)
+                    ->suffixAction(fn($state, Set $set) => Action::make('search-action')
+                ->icon('heroicon-o-magnify-glass')
+                ->action(function () use ($state, $set) {
+                    if(blank($state))
+                    {
+                        Notification::make()
+                            ->title('Digite um CEP para buscar o endereço')
+                            ->danger()
+                            ->send();
+                        return;
+                    }
+
+                    $dataCep = BuscasApiService::buscaCep($state);
+
+                    $set('logradouro', $dataCep['street']);
+                    $set('bairro', $dataCep['neighborhood']);
+                    $set('localidade', $dataCep['city']);
+                    $set('uf', $dataCep['state']);
+                })),
                 Forms\Components\TextInput::make('banco')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('agencia'),
