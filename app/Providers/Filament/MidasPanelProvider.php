@@ -41,16 +41,16 @@ class MidasPanelProvider extends PanelProvider
                         rules: 'mimes:jpeg,png|max:8192')
             ])
             ->colors([
-                'primary' => Color::hex('#510000'),
-                'midas' => Color::hex('#3f0a56'),
+                'primary' => '#510000',
+                'midas' => '#3f0a56',
                 ])
             ->viteTheme('resources/css/filament/midas/midas.css')
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->discoverResources(in: app_path('Filament/Midas/Resources'), for: 'App\\Filament\\Midas\\Resources')
+            ->discoverPages(in: app_path('Filament/Midas/Pages'), for: 'App\\Filament\\Midas\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Midas/Widgets'), for: 'App\\Filament\\Midas\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
