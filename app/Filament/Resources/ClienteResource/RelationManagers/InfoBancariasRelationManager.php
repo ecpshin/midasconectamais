@@ -9,6 +9,7 @@ use Filament\Tables\Table;
 use App\Enums\TipoContaEnum;
 use Filament\Actions\Action;
 use App\Services\BuscasApiService;
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -24,25 +25,32 @@ class InfoBancariasRelationManager extends RelationManager
                 Forms\Components\TextInput::make('codigo')
                     ->required()
                     ->maxLength(50)
-                    ->suffixAction(fn($state, Set $set) => Action::make('search-action')
-                ->icon('heroicon-o-magnify-glass')
-                ->action(function () use ($state, $set) {
-                    if(blank($state))
-                    {
-                        Notification::make()
-                            ->title('Digite um CEP para buscar o endereço')
-                            ->danger()
-                            ->send();
-                        return;
-                    }
+                    ->suffixAction(
+                        fn($state, $set) => Forms\Components\Actions\Action::make('search-action')
+                            ->icon('heroicon-o-magnifying-glass')
+                            ->action(
+                                function () use ($state, $set) {
+                                    if(blank($state)){
+                                        Notification::make()
+                                            ->title('Digite o código para buscar o banco')
+                                            ->danger()
+                                            ->send();
+                                        return;
+                                    }
 
-                    $dataCep = BuscasApiService::buscaCep($state);
+                                    $dataBank = BuscasApiService::buscaBanco($state);
 
-                    $set('logradouro', $dataCep['street']);
-                    $set('bairro', $dataCep['neighborhood']);
-                    $set('localidade', $dataCep['city']);
-                    $set('uf', $dataCep['state']);
-                })),
+                                    if(key_exists('message', $dataBank))
+                                    {
+                                        Notification::make()->title($dataBank['message'])
+                                            ->danger()
+                                            ->send();
+                                    } else {
+                                        $set('banco', strtoupper($dataBank['fullName']));
+                                    }
+                                }
+                            )
+                    ),
                 Forms\Components\TextInput::make('banco')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('agencia'),

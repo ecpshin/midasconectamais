@@ -3,12 +3,14 @@
 namespace App\Filament\Resources\ClienteResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Services\BuscasApiService;
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class InfoResidencialRelationManager extends RelationManager
 {
@@ -21,7 +23,26 @@ class InfoResidencialRelationManager extends RelationManager
                 Forms\Components\TextInput::make('cep')
                     ->mask('99999-999')
                     ->required()
-                    ->maxLength(9),
+                    ->maxLength(9)
+                    ->suffixAction(fn($state, $set) => Forms\Components\Actions\Action::make('search-action')
+                    ->icon('heroicon-o-magnifying-glass')
+                    ->action(function () use ($state, $set) {
+                        if(blank($state))
+                        {
+                            Notification::make()
+                                ->title('Digite um CEP para buscar o endereço')
+                                ->danger()
+                                ->send();
+                            return;
+                        }
+
+                        $dataCep = BuscasApiService::buscaCep($state);
+
+                        $set('logradouro', $dataCep['street']);
+                        $set('bairro', $dataCep['neighborhood']);
+                        $set('localidade', $dataCep['city']);
+                        $set('uf', $dataCep['state']);
+                    })),
                 Forms\Components\TextInput::make('logradouro')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('complemento')
