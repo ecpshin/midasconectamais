@@ -8,6 +8,9 @@ export default {
         "./storage/framework/views/*.php",
         "./resources/**/*.js",
         "./resources/views/**/*.blade.php",
+        './app/Filament/**/*.php',
+        './resources/views/filament/**/*.blade.php',
+        './vendor/filament/**/*.blade.php',
     ],
 
     theme: {

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\Tabelas\TabelasExport;
 use App\Http\Requests\Tabelas\StoreTabelaRequest;
-use App\Imports\Tabelas\TabelasImport;
+use App\Imports\TabelasImport;
 use App\Models\Correspondente;
 use App\Models\Financeira;
 use App\Models\Produto;
