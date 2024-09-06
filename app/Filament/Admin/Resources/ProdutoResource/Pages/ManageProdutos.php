@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\ProdutoResource\Pages;
+namespace App\Filament\Admin\Resources\ProdutoResource\Pages;
 
-use App\Filament\Resources\ProdutoResource;
+use App\Filament\Admin\Resources\ProdutoResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 

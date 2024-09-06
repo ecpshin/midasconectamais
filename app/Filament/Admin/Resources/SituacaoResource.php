@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
 use App\Filament\Resources\SituacaoResource\Pages;
 use App\Filament\Resources\SituacaoResource\RelationManagers;
@@ -71,9 +71,9 @@ class SituacaoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSituacoes::route('/'),
-            'create' => Pages\CreateSituacao::route('/create'),
-            'edit' => Pages\EditSituacao::route('/{record}/edit'),
+            'index' => \App\Filament\Admin\Resources\SituacaoResource\Pages\ListSituacoes::route('/'),
+            'create' => \App\Filament\Admin\Resources\SituacaoResource\Pages\CreateSituacao::route('/create'),
+            'edit' => \App\Filament\Admin\Resources\SituacaoResource\Pages\EditSituacao::route('/{record}/edit'),
         ];
     }
 }

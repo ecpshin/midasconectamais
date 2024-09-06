@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\LigacaoResource\Pages;
+namespace App\Filament\Admin\Resources\LigacaoResource\Pages;
 
-use App\Filament\Resources\LigacaoResource;
+use App\Filament\Admin\Resources\LigacaoResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 

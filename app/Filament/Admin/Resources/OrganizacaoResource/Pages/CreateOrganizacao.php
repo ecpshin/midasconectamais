@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\OrganizacaoResource\Pages;
+namespace App\Filament\Admin\Resources\OrganizacaoResource\Pages;
 
-use App\Filament\Resources\OrganizacaoResource;
-use Filament\Actions;
+use App\Filament\Admin\Resources\OrganizacaoResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateOrganizacao extends CreateRecord

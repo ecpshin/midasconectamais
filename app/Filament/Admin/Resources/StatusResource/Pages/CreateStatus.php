@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\StatusResource\Pages;
+namespace App\Filament\Admin\Resources\StatusResource\Pages;
 
-use App\Filament\Resources\StatusResource;
-use Filament\Actions;
+use App\Filament\Admin\Resources\StatusResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateStatus extends CreateRecord

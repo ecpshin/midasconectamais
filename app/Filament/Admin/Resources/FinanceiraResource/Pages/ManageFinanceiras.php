@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\FinanceiraResource\Pages;
+namespace App\Filament\Admin\Resources\FinanceiraResource\Pages;
 
-use App\Filament\Resources\FinanceiraResource;
+use App\Filament\Admin\Resources\FinanceiraResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
 use App\Filament\Resources\PrefeituraResource\Pages;
 use App\Filament\Resources\PrefeituraResource\RelationManagers;
@@ -13,7 +13,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PrefeituraResource extends Resource
 {
@@ -137,9 +136,9 @@ class PrefeituraResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPrefeituras::route('/'),
-            'create' => Pages\CreatePrefeitura::route('/create'),
-            'edit' => Pages\EditPrefeitura::route('/{record}/edit'),
+            'index' => \App\Filament\Admin\Resources\PrefeituraResource\Pages\ListPrefeituras::route('/'),
+            'create' => \App\Filament\Admin\Resources\PrefeituraResource\Pages\CreatePrefeitura::route('/create'),
+            'edit' => \App\Filament\Admin\Resources\PrefeituraResource\Pages\EditPrefeitura::route('/{record}/edit'),
         ];
     }
 }

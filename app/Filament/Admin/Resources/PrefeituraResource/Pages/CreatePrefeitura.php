@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\PrefeituraResource\Pages;
+namespace App\Filament\Admin\Resources\PrefeituraResource\Pages;
 
-use App\Filament\Resources\PrefeituraResource;
-use Filament\Actions;
+use App\Filament\Admin\Resources\PrefeituraResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreatePrefeitura extends CreateRecord

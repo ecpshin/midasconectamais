@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
 use App\Filament\Resources\ProdutoResource\Pages;
 use App\Filament\Resources\ProdutoResource\RelationManagers;
@@ -10,8 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProdutoResource extends Resource
 {
@@ -67,7 +65,7 @@ class ProdutoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageProdutos::route('/'),
+            'index' => \App\Filament\Admin\Resources\ProdutoResource\Pages\ManageProdutos::route('/'),
         ];
     }
 }

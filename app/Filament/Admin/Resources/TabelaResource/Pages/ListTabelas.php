@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\TabelaResource\Pages;
+namespace App\Filament\Admin\Resources\TabelaResource\Pages;
 
-use App\Filament\Resources\TabelaResource;
+use App\Filament\Admin\Resources\TabelaResource;
 use App\Imports\TabelasImport;
 use Filament\Actions;
 use Filament\Forms\Components\FileUpload;

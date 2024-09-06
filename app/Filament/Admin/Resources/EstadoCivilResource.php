@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
 use App\Filament\Resources\EstadoCivilResource\Pages;
 use App\Filament\Resources\EstadoCivilResource\RelationManagers;
@@ -11,8 +11,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class EstadoCivilResource extends Resource
 {
@@ -52,7 +50,7 @@ class EstadoCivilResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageEstadoCivils::route('/'),
+            'index' => \App\Filament\Admin\Resources\EstadoCivilResource\Pages\ManageEstadoCivils::route('/'),
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
 use App\Filament\Resources\ComissaoResource\Pages;
 use App\Filament\Resources\ComissaoResource\RelationManagers;
@@ -10,8 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ComissaoResource extends Resource
 {
@@ -119,16 +117,16 @@ class ComissaoResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\PropostaRelationManager::class,
+            \App\Filament\Admin\Resources\ComissaoResource\RelationManagers\PropostaRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListComissaos::route('/'),
-            'create' => Pages\CreateComissao::route('/create'),
-            'edit' => Pages\EditComissao::route('/{record}/edit'),
+            'index' => \App\Filament\Admin\Resources\ComissaoResource\Pages\ListComissaos::route('/'),
+            'create' => \App\Filament\Admin\Resources\ComissaoResource\Pages\CreateComissao::route('/create'),
+            'edit' => \App\Filament\Admin\Resources\ComissaoResource\Pages\EditComissao::route('/{record}/edit'),
         ];
     }
 }

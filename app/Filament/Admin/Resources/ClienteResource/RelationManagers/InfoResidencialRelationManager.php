@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\ClienteResource\RelationManagers;
+namespace App\Filament\Admin\Resources\ClienteResource\RelationManagers;
 
-use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
 use App\Services\BuscasApiService;
+use Filament\Forms;
+use Filament\Forms\Form;
 use Filament\Notifications\Notification;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Tables;
+use Filament\Tables\Table;
 
 class InfoResidencialRelationManager extends RelationManager
 {

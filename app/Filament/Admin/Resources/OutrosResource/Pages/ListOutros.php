@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\OutrosResource\Pages;
+namespace App\Filament\Admin\Resources\OutrosResource\Pages;
 
-use App\Filament\Resources\OutrosResource;
-use Filament\Actions;
+use App\Filament\Admin\Resources\OutrosResource;
 use Filament\Resources\Pages\ListRecords;
 
 class ListOutros extends ListRecords

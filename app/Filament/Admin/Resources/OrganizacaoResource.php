@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
 use App\Filament\Resources\OrganizacaoResource\Pages;
 use App\Filament\Resources\OrganizacaoResource\RelationManagers;
@@ -10,8 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class OrganizacaoResource extends Resource
 {
@@ -70,9 +68,9 @@ class OrganizacaoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListOrganizacaos::route('/'),
-            'create' => Pages\CreateOrganizacao::route('/create'),
-            'edit' => Pages\EditOrganizacao::route('/{record}/edit'),
+            'index' => \App\Filament\Admin\Resources\OrganizacaoResource\Pages\ListOrganizacaos::route('/'),
+            'create' => \App\Filament\Admin\Resources\OrganizacaoResource\Pages\CreateOrganizacao::route('/create'),
+            'edit' => \App\Filament\Admin\Resources\OrganizacaoResource\Pages\EditOrganizacao::route('/{record}/edit'),
         ];
     }
 }

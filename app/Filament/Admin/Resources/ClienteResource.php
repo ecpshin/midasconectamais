@@ -1,20 +1,17 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
 use App\Filament\Resources\ClienteResource\Pages;
 use App\Filament\Resources\ClienteResource\RelationManagers;
 use App\Models\Cliente;
 use App\Models\EstadoCivil;
 use Filament\Forms;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ClienteResource extends Resource
 {
@@ -159,19 +156,19 @@ class ClienteResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\PropostaRelationManager::class,
-            RelationManagers\InfoResidencialRelationManager::class,
-            RelationManagers\InfoBancariasRelationManager::class,
-            RelationManagers\VinculosRelationManager::class
+            \App\Filament\Admin\Resources\ClienteResource\RelationManagers\PropostaRelationManager::class,
+            \App\Filament\Admin\Resources\ClienteResource\RelationManagers\InfoResidencialRelationManager::class,
+            \App\Filament\Admin\Resources\ClienteResource\RelationManagers\InfoBancariasRelationManager::class,
+            \App\Filament\Admin\Resources\ClienteResource\RelationManagers\VinculosRelationManager::class
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListClientes::route('/'),
-            'create' => Pages\CreateCliente::route('/create'),
-            'edit' => Pages\EditCliente::route('/{record}/edit'),
+            'index' => \App\Filament\Admin\Resources\ClienteResource\Pages\ListClientes::route('/'),
+            'create' => \App\Filament\Admin\Resources\ClienteResource\Pages\CreateCliente::route('/create'),
+            'edit' => \App\Filament\Admin\Resources\ClienteResource\Pages\EditCliente::route('/{record}/edit'),
         ];
     }
 }

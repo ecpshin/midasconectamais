@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
 use App\Filament\Resources\StatusResource\Pages;
 use App\Filament\Resources\StatusResource\RelationManagers;
@@ -10,8 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class StatusResource extends Resource
 {
@@ -78,9 +76,9 @@ class StatusResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListStatuses::route('/'),
-            'create' => Pages\CreateStatus::route('/create'),
-            'edit' => Pages\EditStatus::route('/{record}/edit'),
+            'index' => \App\Filament\Admin\Resources\StatusResource\Pages\ListStatuses::route('/'),
+            'create' => \App\Filament\Admin\Resources\StatusResource\Pages\CreateStatus::route('/create'),
+            'edit' => \App\Filament\Admin\Resources\StatusResource\Pages\EditStatus::route('/{record}/edit'),
         ];
     }
 }

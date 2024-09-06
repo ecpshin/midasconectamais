@@ -17,7 +17,6 @@ use App\Services\GeneralService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Number;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Sum;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ComissaoController extends Controller

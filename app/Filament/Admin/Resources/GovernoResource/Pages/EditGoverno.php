@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\GovernoResource\Pages;
+namespace App\Filament\Admin\Resources\GovernoResource\Pages;
 
-use App\Filament\Resources\GovernoResource;
+use App\Filament\Admin\Resources\GovernoResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 

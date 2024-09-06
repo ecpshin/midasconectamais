@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
 use App\Filament\Resources\OutrosResource\Pages;
 use App\Filament\Resources\OutrosResource\RelationManagers;
@@ -13,7 +13,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class OutrosResource extends Resource
 {
@@ -144,9 +143,9 @@ class OutrosResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListOutros::route('/'),
-            'create' => Pages\CreateOutros::route('/create'),
-            'edit' => Pages\EditOutros::route('/{record}/edit'),
+            'index' => \App\Filament\Admin\Resources\OutrosResource\Pages\ListOutros::route('/'),
+            'create' => \App\Filament\Admin\Resources\OutrosResource\Pages\CreateOutros::route('/create'),
+            'edit' => \App\Filament\Admin\Resources\OutrosResource\Pages\EditOutros::route('/{record}/edit'),
         ];
     }
 }

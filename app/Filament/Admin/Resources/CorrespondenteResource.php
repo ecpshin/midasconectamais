@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
 use App\Filament\Resources\CorrespondenteResource\Pages;
 use App\Filament\Resources\CorrespondenteResource\RelationManagers;
@@ -10,8 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CorrespondenteResource extends Resource
 {
@@ -90,9 +88,9 @@ class CorrespondenteResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCorrespondentes::route('/'),
-            'create' => Pages\CreateCorrespondente::route('/create'),
-            'edit' => Pages\EditCorrespondente::route('/{record}/edit'),
+            'index' => \App\Filament\Admin\Resources\CorrespondenteResource\Pages\ListCorrespondentes::route('/'),
+            'create' => \App\Filament\Admin\Resources\CorrespondenteResource\Pages\CreateCorrespondente::route('/create'),
+            'edit' => \App\Filament\Admin\Resources\CorrespondenteResource\Pages\EditCorrespondente::route('/{record}/edit'),
         ];
     }
 

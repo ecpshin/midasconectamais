@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\TabelaResource\Pages;
+namespace App\Filament\Admin\Resources\TabelaResource\Pages;
 
-use App\Filament\Resources\TabelaResource;
-use Filament\Actions;
+use App\Filament\Admin\Resources\TabelaResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateTabela extends CreateRecord
