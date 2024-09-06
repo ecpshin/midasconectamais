@@ -1,5 +1,3 @@
-<?php
-
 //use App\Http\Controllers\AdminController;
 // use App\Http\Controllers\AgenteMailingController;
 // use App\Http\Controllers\ClienteController;
@@ -22,9 +20,6 @@
 // use App\Http\Controllers\VinculoController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function (){
-    return redirect()->route('admin.auth.login');
-});
 
 // Route::get('/', [AdminController::class, 'admin'])->middleware(['auth', 'verified'])->name('admin');
 
