@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -16,21 +17,6 @@ class Tabela extends Model
 
     protected $table = 'tabelas';
 
-    protected $fillable = [
-        'financeira_id',
-        'correspondente_id',
-        'organizacao_id',
-        'produto_id',
-        'descricao',
-        'codigo',
-        'prazo',
-        'percentual_loja',
-        'percentual_diferido',
-        'percentual_agente',
-        'percentual_corretor',
-        'parcelado',
-        'referencia'
-    ];
 
     public function correspondente(): BelongsTo
     {
@@ -52,8 +38,14 @@ class Tabela extends Model
         return $this->belongsTo(Organizacao::class, 'organizacao_id', 'id');
     }
 
+    public function propostas(): HasMany
+    {
+        return $this->hasMany(Proposta::class);
+    }
+
     public function comissao(): HasOne
     {
         return $this->hasOne(Comissao::class, 'tabela_id', 'id');
     }
+
 }
