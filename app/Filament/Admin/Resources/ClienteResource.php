@@ -159,10 +159,6 @@ class ClienteResource extends Resource
     public static function getRelations(): array
     {
         return [
-            \App\Filament\Admin\Resources\ClienteResource\RelationManagers\PropostaRelationManager::class,
-            \App\Filament\Admin\Resources\ClienteResource\RelationManagers\InfoResidencialRelationManager::class,
-            \App\Filament\Admin\Resources\ClienteResource\RelationManagers\InfoBancariasRelationManager::class,
-            \App\Filament\Admin\Resources\ClienteResource\RelationManagers\VinculosRelationManager::class
             RelationManagers\PropostaRelationManager::class,
             RelationManagers\InfoResidencialRelationManager::class,
             RelationManagers\InfoBancariasRelationManager::class,
@@ -173,9 +169,6 @@ class ClienteResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => \App\Filament\Admin\Resources\ClienteResource\Pages\ListClientes::route('/'),
-            'create' => \App\Filament\Admin\Resources\ClienteResource\Pages\CreateCliente::route('/create'),
-            'edit' => \App\Filament\Admin\Resources\ClienteResource\Pages\EditCliente::route('/{record}/edit'),
             'index' => Pages\ListClientes::route('/'),
             'create' => Pages\CreateCliente::route('/create'),
             'edit' => Pages\EditCliente::route('/{record}/edit'),
