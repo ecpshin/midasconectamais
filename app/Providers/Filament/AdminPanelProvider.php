@@ -72,7 +72,7 @@ class AdminPanelProvider extends PanelProvider
                     ->setSort(-1)
                     ->shouldShowAvatarForm(
                         value: true,
-                        directory: 'users/avatars',
+                        directory: 'avatars',
                         rules: 'mimes:jpeg,png|max:8192'
                     ),
             ])
