@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('propostas', function (Blueprint $table) {
-            $table->foreignId('tabela_id')->nullable()->constrained('tabelas')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->bigInteger('percentual_loja')->nullable()->default(0);
-            $table->bigInteger('percentual_agente')->nullable()->default(0);
-            $table->bigInteger('percentual_corretor')->nullable()->default(0);
-            $table->bigInteger('valor_loja')->nullable()->default(0);
-            $table->bigInteger('valor_agente')->nullable()->default(0);
-            $table->bigInteger('valor_corretor')->nullable()->default(0);
+            $table->foreignId('tabela_id')->after('liquido_proposta')->nullable()->constrained('tabelas')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->bigInteger('percentual_loja')->after('tabela_id')->nullable()->default(0);
+            $table->bigInteger('percentual_agente')->after('percentual_loja')->nullable()->default(0);
+            $table->bigInteger('percentual_corretor')->after('percentual_agente')->nullable()->default(0);
+            $table->bigInteger('valor_loja')->after('percentual_corretor')->nullable()->default(0);
+            $table->bigInteger('valor_agente')->after('valor_loja')->nullable()->default(0);
+            $table->bigInteger('valor_corretor')->after('valor_agente')->nullable()->default(0);
         });
     }
 
