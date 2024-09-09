@@ -1,6 +1,6 @@
 <?php
 
-//use App\Http\Controllers\AdminController;
+// use App\Http\Controllers\AdminController;
 // use App\Http\Controllers\AgenteMailingController;
 // use App\Http\Controllers\ClienteController;
 // use App\Http\Controllers\ComissaoController;
@@ -23,10 +23,12 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (){
-    return redirect()->route('admin.auth.login');
+    return redirect()->route('filament.admin.auth.login');
 });
 
 // Route::get('/', [AdminController::class, 'admin'])->middleware(['auth', 'verified'])->name('admin');
+
+// Route::get('admin', [AdminController::class, 'admin'])->middleware(['auth', 'verified'])->name('admin');
 
 // Route::prefix('admin/agentes')->name('admin.agentes.')
 //     ->controller(UsersController::class)
@@ -162,7 +164,7 @@ Route::get('/', function (){
 //         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 //     });
 
-require __DIR__ . '/auth.php';
+// require __DIR__ . '/auth.php';
 
 // Route::prefix('admin/mailings')->name('admin.mailings.')->controller(MailingController::class)
 //     ->group(function () {
@@ -251,6 +253,6 @@ require __DIR__ . '/auth.php';
 //     Route::delete('/{role}/destroy', 'destroy')->name('destroy');
 // });
 
-// Route::get('/dashboard', function () {
+// /*Route::get('/dashboard', function () {
 //     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');*/
