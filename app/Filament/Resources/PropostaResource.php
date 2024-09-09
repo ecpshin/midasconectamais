@@ -18,11 +18,6 @@ use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Table;
 use Hamcrest\Core\Set;
 use Illuminate\Database\Eloquent\Builder;
-<<<<<<< HEAD
-use Illuminate\Database\Eloquent\Collection;
-=======
-use Illuminate\Support\Collection;
->>>>>>> parent of eab16aa (Realocando AdminResources)
 
 class PropostaResource extends Resource
 {
