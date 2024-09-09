@@ -24,6 +24,8 @@ class MidasPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        $name = is_null(auth()->id())? '' : auth()->id();
+
         return $panel
             ->default()
             ->id('midas')
@@ -37,7 +39,7 @@ class MidasPanelProvider extends PanelProvider
                     ->setTitle("Meu Perfil")
                     ->shouldShowAvatarForm(
                         value: true,
-                        directory: 'avatars',
+                        directory: 'users/avatars',
                         rules: 'mimes:jpeg,png|max:8192')
             ])
             ->colors([
