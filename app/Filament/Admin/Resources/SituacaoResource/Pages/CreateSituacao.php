@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Admin\Resources\SituacaoResource\Pages;
+namespace App\Filament\Resources\SituacaoResource\Pages;
 
-use App\Filament\Admin\Resources\SituacaoResource;
+use App\Filament\Resources\SituacaoResource;
+use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateSituacao extends CreateRecord

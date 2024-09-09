@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Admin\Resources\ComissaoResource\Pages;
+namespace App\Filament\Resources\ComissaoResource\Pages;
 
-use App\Filament\Admin\Resources\ComissaoResource;
+use App\Filament\Resources\ComissaoResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 

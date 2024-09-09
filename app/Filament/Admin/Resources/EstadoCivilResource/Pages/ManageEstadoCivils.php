@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Admin\Resources\EstadoCivilResource\Pages;
+namespace App\Filament\Resources\EstadoCivilResource\Pages;
 
-use App\Filament\Admin\Resources\EstadoCivilResource;
+use App\Filament\Resources\EstadoCivilResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 

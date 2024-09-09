@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Admin\Resources\StatusResource\Pages;
+namespace App\Filament\Resources\StatusResource\Pages;
 
-use App\Filament\Admin\Resources\StatusResource;
+use App\Filament\Resources\StatusResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 

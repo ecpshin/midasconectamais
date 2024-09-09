@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Filament\Admin\Resources;
+namespace App\Filament\Resources;
 
 use App\Filament\Resources\PropostaResource\Pages;
 use App\Filament\Resources\PropostaResource\RelationManagers;
+use App\Models\Organizacao;
+use App\Models\Produto;
 use App\Models\Proposta;
 use App\Models\Tabela;
 use BezhanSalleh\FilamentShield\Support\Utils;
@@ -14,8 +16,13 @@ use Filament\Tables;
 use Filament\Tables\Columns\Summarizers\Average;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Table;
+use Hamcrest\Core\Set;
 use Illuminate\Database\Eloquent\Builder;
+<<<<<<< HEAD
 use Illuminate\Database\Eloquent\Collection;
+=======
+use Illuminate\Support\Collection;
+>>>>>>> parent of eab16aa (Realocando AdminResources)
 
 class PropostaResource extends Resource
 {
@@ -342,9 +349,9 @@ class PropostaResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => \App\Filament\Admin\Resources\PropostaResource\Pages\ListPropostas::route('/'),
-            'create' => \App\Filament\Admin\Resources\PropostaResource\Pages\CreateProposta::route('/create'),
-            'edit' => \App\Filament\Admin\Resources\PropostaResource\Pages\EditProposta::route('/{record}/edit'),
+            'index' => Pages\ListPropostas::route('/'),
+            'create' => Pages\CreateProposta::route('/create'),
+            'edit' => Pages\EditProposta::route('/{record}/edit'),
         ];
     }
 }

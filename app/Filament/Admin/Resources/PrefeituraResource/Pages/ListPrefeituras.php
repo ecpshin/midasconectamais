@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Admin\Resources\PrefeituraResource\Pages;
+namespace App\Filament\Resources\PrefeituraResource\Pages;
 
-use App\Filament\Admin\Resources\PrefeituraResource;
+use App\Filament\Resources\PrefeituraResource;
+use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListPrefeituras extends ListRecords

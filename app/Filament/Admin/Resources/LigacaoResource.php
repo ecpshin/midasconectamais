@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Admin\Resources;
+namespace App\Filament\Resources;
 
 use App\Filament\Resources\LigacaoResource\Pages;
 use App\Filament\Resources\LigacaoResource\RelationManagers;
@@ -16,6 +16,8 @@ use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LigacaoResource extends Resource
 {
@@ -170,7 +172,7 @@ class LigacaoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => \App\Filament\Admin\Resources\LigacaoResource\Pages\ManageLigacaos::route('/'),
+            'index' => Pages\ManageLigacaos::route('/'),
         ];
     }
 }

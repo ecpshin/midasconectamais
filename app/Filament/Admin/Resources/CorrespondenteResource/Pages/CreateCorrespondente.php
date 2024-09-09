@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Admin\Resources\CorrespondenteResource\Pages;
+namespace App\Filament\Resources\CorrespondenteResource\Pages;
 
-use App\Filament\Admin\Resources\CorrespondenteResource;
+use App\Filament\Resources\CorrespondenteResource;
+use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateCorrespondente extends CreateRecord

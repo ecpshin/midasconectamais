@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Admin\Resources;
+namespace App\Filament\Resources;
 
 use App\Filament\Resources\FinanceiraResource\Pages;
 use App\Filament\Resources\FinanceiraResource\RelationManagers;
@@ -10,6 +10,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class FinanceiraResource extends Resource
 {
@@ -63,7 +65,7 @@ class FinanceiraResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => \App\Filament\Admin\Resources\FinanceiraResource\Pages\ManageFinanceiras::route('/'),
+            'index' => Pages\ManageFinanceiras::route('/'),
         ];
     }
 }

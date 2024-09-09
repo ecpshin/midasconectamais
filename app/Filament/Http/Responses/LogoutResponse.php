@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Http\Responses;
+namespace App\Filament\Responses;
 
 use Filament\Http\Responses\Auth\Contracts\LogoutResponse as Responsable;
 use Illuminate\Http\RedirectResponse;
@@ -9,6 +9,6 @@ class LogoutResponse implements Responsable
 {
     public function toResponse($request):RedirectResponse
     {
-        return redirect()->route('home');
+        return redirect()->route('')
     }
 }

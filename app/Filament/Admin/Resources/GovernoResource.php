@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Admin\Resources;
+namespace App\Filament\Resources;
 
 use App\Filament\Resources\GovernoResource\Pages;
 use App\Filament\Resources\GovernoResource\RelationManagers;
@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class GovernoResource extends Resource
 {
@@ -136,9 +137,9 @@ class GovernoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => \App\Filament\Admin\Resources\GovernoResource\Pages\ListGovernos::route('/'),
-            'create' => \App\Filament\Admin\Resources\GovernoResource\Pages\CreateGoverno::route('/create'),
-            'edit' => \App\Filament\Admin\Resources\GovernoResource\Pages\EditGoverno::route('/{record}/edit'),
+            'index' => Pages\ListGovernos::route('/'),
+            'create' => Pages\CreateGoverno::route('/create'),
+            'edit' => Pages\EditGoverno::route('/{record}/edit'),
         ];
     }
 }

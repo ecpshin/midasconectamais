@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Filament\Admin\Resources\SituacaoResource\Pages;
+namespace App\Filament\Resources\SituacaoResource\Pages;
 
-use App\Filament\Admin\Resources\SituacaoResource;
+use App\Filament\Resources\SituacaoResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListSituacoes extends ListRecords
 {

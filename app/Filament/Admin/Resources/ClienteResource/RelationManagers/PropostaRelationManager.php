@@ -1,13 +1,16 @@
 <?php
 
-namespace App\Filament\Admin\Resources\ClienteResource\RelationManagers;
+namespace App\Filament\Resources\ClienteResource\RelationManagers;
 
 use App\Models\Tabela;
+use App\Models\User;
+use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Collection;
 use Ramsey\Uuid\Uuid;
 
 class PropostaRelationManager extends RelationManager

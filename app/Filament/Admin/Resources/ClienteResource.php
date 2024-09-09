@@ -1,17 +1,20 @@
 <?php
 
-namespace App\Filament\Admin\Resources;
+namespace App\Filament\Resources;
 
 use App\Filament\Resources\ClienteResource\Pages;
 use App\Filament\Resources\ClienteResource\RelationManagers;
 use App\Models\Cliente;
 use App\Models\EstadoCivil;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ClienteResource extends Resource
 {
@@ -160,6 +163,10 @@ class ClienteResource extends Resource
             \App\Filament\Admin\Resources\ClienteResource\RelationManagers\InfoResidencialRelationManager::class,
             \App\Filament\Admin\Resources\ClienteResource\RelationManagers\InfoBancariasRelationManager::class,
             \App\Filament\Admin\Resources\ClienteResource\RelationManagers\VinculosRelationManager::class
+            RelationManagers\PropostaRelationManager::class,
+            RelationManagers\InfoResidencialRelationManager::class,
+            RelationManagers\InfoBancariasRelationManager::class,
+            RelationManagers\VinculosRelationManager::class
         ];
     }
 
@@ -169,6 +176,9 @@ class ClienteResource extends Resource
             'index' => \App\Filament\Admin\Resources\ClienteResource\Pages\ListClientes::route('/'),
             'create' => \App\Filament\Admin\Resources\ClienteResource\Pages\CreateCliente::route('/create'),
             'edit' => \App\Filament\Admin\Resources\ClienteResource\Pages\EditCliente::route('/{record}/edit'),
+            'index' => Pages\ListClientes::route('/'),
+            'create' => Pages\CreateCliente::route('/create'),
+            'edit' => Pages\EditCliente::route('/{record}/edit'),
         ];
     }
 }

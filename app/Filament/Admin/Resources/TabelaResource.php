@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Admin\Resources;
+namespace App\Filament\Resources;
 
 use App\Filament\Resources\TabelaResource\Pages;
 use App\Filament\Resources\TabelaResource\RelationManagers;
@@ -227,9 +227,9 @@ class TabelaResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => \App\Filament\Admin\Resources\TabelaResource\Pages\ListTabelas::route('/'),
-            'create' => \App\Filament\Admin\Resources\TabelaResource\Pages\CreateTabela::route('/create'),
-            'edit' => \App\Filament\Admin\Resources\TabelaResource\Pages\EditTabela::route('/{record}/edit'),
+            'index' => Pages\ListTabelas::route('/'),
+            'create' => Pages\CreateTabela::route('/create'),
+            'edit' => Pages\EditTabela::route('/{record}/edit'),
         ];
     }
 }

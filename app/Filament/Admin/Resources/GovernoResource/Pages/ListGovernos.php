@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Admin\Resources\GovernoResource\Pages;
+namespace App\Filament\Resources\GovernoResource\Pages;
 
-use App\Filament\Admin\Resources\GovernoResource;
+use App\Filament\Resources\GovernoResource;
+use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListGovernos extends ListRecords
