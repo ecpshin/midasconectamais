@@ -15,17 +15,22 @@ use Filament\Tables\Columns\Summarizers\Average;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 
 class PropostaResource extends Resource
 {
     protected static ?string $model = Proposta::class;
+
     protected static ?string $navigationGroup = "Principal";
+
     protected static ?string $navigationIcon = 'heroicon-s-document-currency-dollar';
 
 
     public static function form(Form $form): Form
     {
+        $total_proposta = 0;
+        $liquido_proposta = 0;
+        $prazo = 0;
+
         return $form
             ->live()
             ->schema([
@@ -262,8 +267,6 @@ class PropostaResource extends Resource
 
     public static function table(Table $table): Table
     {
-        $is_super = auth()->user()->hasRole(Utils::getSuperAdminName());
-
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
@@ -318,7 +321,9 @@ class PropostaResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('situacao.descricao_situacao')
 
-            ])->modifyQueryUsing(fn(Builder $query): Builder => ($is_super) ? $query->whereNotNull('user_id', 'and') : $query->whereUserId(auth()->id()))
+            ])->modifyQueryUsing(fn(BUilder $query) => !auth()->user()->hasRole(Utils::getSuperAdminName())
+                ? $query->whereUserId(auth()->id())
+                : $query->whereNotNull('user_id'))
             ->filters([
                 //
             ])
