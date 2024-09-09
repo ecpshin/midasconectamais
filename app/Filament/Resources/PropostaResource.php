@@ -28,8 +28,8 @@ class PropostaResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $is_super = auth()->user()->hasRole(Utils::getSuperAdminName());
         return $form
-            ->live()
             ->schema([
                 Forms\Components\Section::make([
 
@@ -43,7 +43,7 @@ class PropostaResource extends Resource
 
                         Forms\Components\Select::make('user_id')
                             ->label('Digitado por')
-                            ->relationship('user', 'name')
+                            ->relationship('user', 'name', modifyQueryUsing: fn(Builder $query): Builder => $is_super ? $query->where('id') : $query->where('id', auth()->id()) )
                             ->required(),
 
                         Forms\Components\Group::make([
