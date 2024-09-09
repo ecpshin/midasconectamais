@@ -19,9 +19,8 @@ class LigacaoResource extends Resource
 {
     protected static ?string $model = Ligacao::class;
 
-    protected static ?int $navigationSort = -9;
+    protected static ?int $navigationSort = 0;
 
-    protected static ?string $modelLabel = 'Ligação';
     protected static ?string $navigationLabel = 'Geral';
 
     protected static ?string $breadcrumb = 'Geral';
@@ -29,8 +28,6 @@ class LigacaoResource extends Resource
     protected static ?string $slug = 'call-center-ligacoes';
 
     protected static ?string $navigationGroup = 'Call Center';
-
-
 
     protected static ?string $navigationIcon = 'icon-headset';
 
