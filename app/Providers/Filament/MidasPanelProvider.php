@@ -6,6 +6,7 @@ use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -19,6 +20,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
+use Joaopaulolndev\FilamentEditProfile\Pages\EditProfilePage;
 
 class MidasPanelProvider extends PanelProvider
 {
@@ -30,6 +32,13 @@ class MidasPanelProvider extends PanelProvider
             ->path('midas')
             ->login()
             ->registration()
+            ->userMenuItems([
+                'profile' => MenuItem::make()
+                    ->label(fn() => auth()->user()->name)
+                    ->url(fn (): string => EditProfilePage::getUrl())
+                    ->icon('heroicon-m-user-circle')
+
+            ])
             ->plugins([
                 FilamentShieldPlugin::make(),
                 FilamentEditProfilePlugin::make()
@@ -37,7 +46,7 @@ class MidasPanelProvider extends PanelProvider
                     ->setTitle("Meu Perfil")
                     ->shouldShowAvatarForm(
                         value: true,
-                        directory: 'avatars',
+                        directory: 'avatars/users',
                         rules: 'mimes:jpeg,png|max:8192')
             ])
             ->colors([
