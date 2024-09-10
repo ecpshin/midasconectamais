@@ -5,6 +5,8 @@ namespace App\Filament\Midas\Resources;
 use App\Filament\Midas\Resources\OutrosResource\Pages;
 use App\Filament\Midas\Resources\OutrosResource\RelationManagers;
 use App\Models\Outros;
+use App\Models\User;
+use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 
 class OutrosResource extends Resource
 {

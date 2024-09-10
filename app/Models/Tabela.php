@@ -34,12 +34,12 @@ class Tabela extends Model
 
     public function correspondente(): BelongsTo
     {
-        return $this->belongsTo(Correspondente::class, 'correspondente_id', 'id');
+        return $this->belongsTo(Correspondente::class);
     }
 
     public function financeira(): BelongsTo
     {
-        return $this->belongsTo(Financeira::class, 'financeira_id', 'id');
+        return $this->belongsTo(Financeira::class);
     }
 
     public function produto(): BelongsTo

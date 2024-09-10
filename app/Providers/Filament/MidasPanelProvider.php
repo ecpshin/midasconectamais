@@ -44,13 +44,13 @@ class MidasPanelProvider extends PanelProvider
                 'primary' => '#510000',
                 'midas' => '#3f0a56',
                 ])
-            ->viteTheme('resources/css/filament/midas/midas.css')
-            ->discoverResources(in: app_path('Filament/Midas/Resources'), for: 'App\\Filament\\Midas\\Resources')
-            ->discoverPages(in: app_path('Filament/Midas/Pages'), for: 'App\\Filament\\Midas\\Pages')
+            ->viteTheme('resources/css/filament/midas/theme.css')
+            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
+            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Midas/Widgets'), for: 'App\\Filament\\Midas\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,

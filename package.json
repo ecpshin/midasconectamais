@@ -12,6 +12,7 @@
         "autoprefixer": "^10.4.20",
         "axios": "^1.1.2",
         "laravel-vite-plugin": "^0.7.2",
+        "micromatch": "^4.0.8",
         "path": "^0.12.7",
         "postcss": "^8.4.41",
         "postcss-nesting": "^13.0.0",
