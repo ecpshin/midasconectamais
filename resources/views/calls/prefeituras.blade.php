@@ -59,7 +59,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('admin.calls.store') }}" id="gov-update" class="mt-3" method="post">
+                <form action="{{ route('admin.calls.store') }}" id="pref-update" class="mt-3" method="post">
                     @csrf @method('PATCH')
                     <div class="row">
                         <div class="col-lg-3 form-group mb-3">

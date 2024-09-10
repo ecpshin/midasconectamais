@@ -33,18 +33,6 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         'name',
         'email',
         'password',
-        'cpf',
-        'data_nascimento',
-        'phone',
-        'codigo',
-        'banco',
-        'conta',
-        'tipo_conta',
-        'codigo_op',
-        'tipo_chave_pix',
-        'chave_pix',
-        'path',
-        'tipo',
         'avatar_url',
         'custom_fields'
     ];
@@ -67,6 +55,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     protected $casts = [
         'email_verified_at' => 'datetime',
         'data_nascimento' => 'date',
+        'custom_fields' => 'array'
     ];
 
     public function clientes(): HasMany

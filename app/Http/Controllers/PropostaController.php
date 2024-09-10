@@ -22,11 +22,11 @@ class PropostaController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
-        $this->middleware('can:create proposta', ['only' => ['create', 'proposda', 'store', 'special']]);
-        $this->middleware('can:edit proposta', ['only' => ['edit', 'update']]);
-        $this->middleware('can:update proposta', ['only' => ['update']]);
-        $this->middleware('can:list proposta', ['only' => ['index']]);
-        $this->middleware('can:view proposta', ['only' => ['show']]);
+        // $this->middleware('can:create proposta', ['only' => ['create', 'proposda', 'store', 'special']]);
+        // $this->middleware('can:edit proposta', ['only' => ['edit', 'update']]);
+        // $this->middleware('can:update proposta', ['only' => ['update']]);
+        // $this->middleware('can:list proposta', ['only' => ['index']]);
+        // $this->middleware('can:view proposta', ['only' => ['show']]);
     }
 
     public function index()

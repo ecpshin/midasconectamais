@@ -19,7 +19,7 @@ class ProdutoResource extends Resource
 
     protected static ?string $navigationGroup = 'Essenciais';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-inbox-stack';
 
     public static function form(Form $form): Form
     {

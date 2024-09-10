@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 use Number;
 
 class Tabela extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes, Notifiable;
 
     protected $table = 'tabelas';
 
@@ -33,12 +34,12 @@ class Tabela extends Model
 
     public function correspondente(): BelongsTo
     {
-        return $this->belongsTo(Correspondente::class, 'correspondente_id', 'id');
+        return $this->belongsTo(Correspondente::class);
     }
 
     public function financeira(): BelongsTo
     {
-        return $this->belongsTo(Financeira::class, 'financeira_id', 'id');
+        return $this->belongsTo(Financeira::class);
     }
 
     public function produto(): BelongsTo

@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateOrganizacao extends CreateRecord
 {
     protected static string $resource = OrganizacaoResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return route('filament.admin.resources.orgaos.index');
+    }
 }

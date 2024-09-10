@@ -17,7 +17,7 @@ class FinanceiraResource extends Resource
 {
     protected static ?string $model = Financeira::class;
     protected static ?string $navigationGroup = 'Essenciais';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-library';
 
     public static function form(Form $form): Form
     {

@@ -29,6 +29,6 @@ class Correspondente extends Model
      */
     public function tabelas(): HasMany
     {
-        return $this->hasMany(Tabela::class, 'correspondente_id', 'id');
+        return $this->hasMany(Tabela::class);
     }
 }

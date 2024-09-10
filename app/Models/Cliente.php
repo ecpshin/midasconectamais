@@ -14,25 +14,6 @@ class Cliente extends Model
 
     protected $table = 'clientes';
 
-    protected $fillable = [
-        'nome',
-        'cpf',
-        'data_nascimento',
-        'rg',
-        'orgao_exp',
-        'data_exp',
-        'naturalidade',
-        'genitora',
-        'genitor',
-        'sexo',
-        'estado_civil',
-        'phone1',
-        'phone2',
-        'phone3',
-        'phone4',
-        'user_id'
-    ];
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
@@ -40,8 +21,13 @@ class Cliente extends Model
 
     protected $casts = [
         'data_nascimento' => 'date',
-        'data_exp' => 'date'
+        'data_exp' => 'date',
+        'bancarias' => 'array',
+        'funcionais' => 'array',
+        'residenciais' => 'array',
+        'arquivos' => 'array',
     ];
+
     public function infoBancarias(): HasMany
     {
         return $this->hasMany(InfoBancaria::class, 'cliente_id', 'id');
@@ -62,8 +48,4 @@ class Cliente extends Model
         return $this->hasMany(Proposta::class, 'cliente_id', 'id');
     }
 
-    public function arquivosCliente(): HasMany
-    {
-        return $this->hasMany(ArquivoCliente::class, 'cliente_id', 'id');
-    }
 }

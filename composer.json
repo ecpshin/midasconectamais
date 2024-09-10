@@ -8,6 +8,7 @@
         "php": "^8.1",
         "bezhansalleh/filament-shield": "^3.2",
         "filament/filament": "^3.2",
+        "flowframe/laravel-trend": "^0.2.0",
         "guzzlehttp/guzzle": "^7.2",
         "joaopaulolndev/filament-edit-profile": "^1.0",
         "laravel/breeze": "^1.28",
@@ -16,7 +17,8 @@
         "laravel/tinker": "^2.8",
         "maatwebsite/excel": "^3.1",
         "realrashid/sweet-alert": "^7.1",
-        "spatie/laravel-permission": "^6.3"
+        "spatie/laravel-permission": "^6.3",
+        "ext-curl": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.10",

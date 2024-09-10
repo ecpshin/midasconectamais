@@ -15,23 +15,6 @@ class Ligacao extends Model
 
     protected $table = 'ligacoes';
 
-    protected $fillable = [
-        'organizacao_id',
-        'produto_id',
-        'status_id',
-        'user_id',
-        'data_ligacao',
-        'data_agendamento',
-        'nome',
-        'cpf',
-        'matricula',
-        'orgao',
-        'margem',
-        'telefone',
-        'produto',
-        'observacoes'
-    ];
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

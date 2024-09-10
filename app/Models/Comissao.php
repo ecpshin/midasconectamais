@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Casts\PercentualCast;
+use App\Casts\ValorCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,7 +28,13 @@ class Comissao extends Model
     ];
 
     protected $casts = [
-        'data_repasse' => 'date'
+        'data_repasse' => 'date',
+        'valor_loja' => ValorCast::class,
+        'valor_agente' => ValorCast::class,
+        'valor_corretor' => ValorCast::class,
+        'percentual_loja' => ValorCast::class,
+        'percentual_agente' => ValorCast::class,
+        'percentual_corretor' => ValorCast::class,
     ];
 
     public function proposta(): BelongsTo

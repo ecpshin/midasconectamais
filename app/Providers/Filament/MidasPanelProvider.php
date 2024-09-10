@@ -25,6 +25,7 @@ class MidasPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->default()
             ->id('midas')
             ->path('midas')
             ->login()
@@ -40,8 +41,8 @@ class MidasPanelProvider extends PanelProvider
                         rules: 'mimes:jpeg,png|max:8192')
             ])
             ->colors([
-                'primary' => Color::hex('#510000'),
-                'midas' => Color::hex('#3f0a56'),
+                'primary' => '#510000',
+                'midas' => '#3f0a56',
                 ])
             ->viteTheme('resources/css/filament/midas/theme.css')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -68,7 +69,7 @@ class MidasPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->sidebarWidth('250px')
+            ->maxContentWidth('full')
             ->sidebarFullyCollapsibleOnDesktop();
     }
 }

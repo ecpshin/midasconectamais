@@ -19,7 +19,7 @@ class LigacaoResource extends Resource
 {
     protected static ?string $model = Ligacao::class;
 
-    protected static ?string $slug = 'call-center-ligacoes';
+    protected static ?string $slug = 'ligacoes';
     protected static ?string $modelLabel = 'Ligação';
     protected static ?string $pluralModelLabel = 'Ligações';
     protected static ?string $navigationGroup = 'Call Center';
