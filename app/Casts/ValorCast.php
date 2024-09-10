@@ -24,6 +24,6 @@ class ValorCast implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return round(floatval($value) * 100, precision: 2);
+        return round(floatval($value) * 100);
     }
 }
