@@ -26,24 +26,23 @@ class LigacaoResource extends Resource
 
         return $form
             ->schema([
-                    Forms\Components\Select::make('user_id')
-                    Forms\Components\DatePicker::make('data_ligacao'),
-                    Forms\Components\DatePicker::make('data_agendamento'),
-
-                    Forms\Components\TextInput::make('nome')
-                        ->maxLength(255)
+                Forms\Components\Select::make('user_id'),
+                Forms\Components\DatePicker::make('data_ligacao'),
+                Forms\Components\DatePicker::make('data_agendamento'),
+                Forms\Components\TextInput::make('nome')
+                   ->maxLength(255),
                     Forms\Components\TextInput::make('cpf')
                         ->default(null),
 
-                    Forms\Components\TextInput::make('matricula')
+                    Forms\Components\TextInput::make('matricula'),
                     Forms\Components\TextInput::make('margem')
-                        ->numeric()
+                        ->numeric(),
                     Forms\Components\TextInput::make('telefone')
                         ->tel()
-                        ->default('(84)9 0000-0000'),
-                            ->maxLength(255)
-                            ->default('Não informado'),
+                        ->maxLength(255)
+                        ->default('(84)9 0000-0000')
                         ->columnSpanFull(),
+        ]);
     }
 
     public static function table(Table $table): Table
