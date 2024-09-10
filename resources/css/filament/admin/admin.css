@@ -1,0 +1,69 @@
+@import "/vendor/filament/filament/resources/css/theme.css";
+
+@config 'tailwind.config.js';
+
+/*
+colors
+#0d659d
+#7b2cbf
+*/
+.fi-body {
+    @apply bg-primary-100 dark:bg-transparent !important;
+}
+
+.fi-sidebar-header {
+    @apply bg-primary-950 dark:bg-transparent text-white !important;
+}
+
+.fi-logo {
+    @apply text-white whitespace-nowrap text-sm text-ellipsis !important;
+}
+
+.fi-sidebar-item-icon {
+    @apply text-white !important;
+}
+
+.fi-sidebar-item-icon:active {
+    @apply text-yellow-400 !important;
+}
+
+.fi-sidebar {
+    @apply bg-gradient-to-br from-black via-primary-500 to-orange-500 dark:bg-transparent !important;
+}
+
+.fi-sidebar-group div span {
+    @apply text-primary-50;
+}
+
+.fi-sidebar-item-icon {
+    @apply text-primary-900;
+}
+
+.fi-sidebar-item a {
+    @apply text-primary-100;
+}
+
+.fi-sidebar-item-label {
+    @apply text-primary-100;
+}
+
+.fi-sidebar-item a:hover {
+    @apply text-primary-50 bg-primary-700;
+}
+
+.fi-sidebar-item-active a {
+    @apply text-white bg-primary-800;
+}
+
+.fi-sidebar-item-active .fi-sidebar-item-icon {
+    @apply text-primary-400;
+}
+
+.fi-main-ctn {
+    @apply bg-primary-100 dark:bg-transparent;
+}
+
+.fi-fieldset
+{
+    @apply bg-slate-100;
+}
