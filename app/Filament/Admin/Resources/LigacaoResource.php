@@ -112,6 +112,7 @@ class LigacaoResource extends Resource
                 Tables\Columns\TextColumn::make('nome')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cpf')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('telefone')
                     ->searchable(),

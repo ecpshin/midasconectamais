@@ -29,6 +29,13 @@ class UserResource extends Resource
                     Forms\Components\TextInput::make('email')
                         ->label('Email')
                         ->unique(ignoreRecord: true)->required(),
+                    Forms\Components\TextInput::make('password')
+                        ->label('Senha')
+                        ->password()
+                        ->minLength(8)
+                        ->maxLength(16)
+                        ->revealable()
+                        ->required(),
                     Forms\Components\Select::make('roles')
                         ->relationship('roles', 'name')
                         ->multiple()
