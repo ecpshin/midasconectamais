@@ -29,19 +29,33 @@ class UserResource extends Resource
                     Forms\Components\TextInput::make('email')
                         ->label('Email')
                         ->unique(ignoreRecord: true)->required(),
-                    Forms\Components\TextInput::make('password')
-                        ->label('Senha')
-                        ->password()
-                        ->minLength(8)
-                        ->maxLength(16)
-                        ->revealable()
-                        ->required(),
+
                     Forms\Components\Select::make('roles')
                         ->relationship('roles', 'name')
                         ->multiple()
                         ->searchable()
                         ->preload()
                         ->label('Funções')
+                ]),
+                Forms\Components\Section::make('Atualização de Senha')->schema([
+                    Forms\Components\TextInput::make('password')
+                        ->label('Senha')
+                        ->password()
+                        ->minLength(8)
+                        ->maxLength(16)
+                        ->revealable()
+                        ->dehydrated(fn(?string $state): bool => filled($state))
+                        ->dehydrateStateUsing(fn(string $state): string => \Illuminate\Support\Facades\Hash::make($state, ['rounds' => 12]))
+                        ->required(fn(string $operation) => $operation === 'create'),
+                    Forms\Components\TextInput::make('password_confirmation')
+                        ->label('Confirme a Senha')
+                        ->password()
+                        ->same('password')
+                        ->minLength(8)
+                        ->maxLength(16)
+                        ->revealable()
+                        ->dehydrated(false)
+                        ->required(fn(string $operation) => $operation === 'create'),
                 ])
             ])->columns(1);
     }
@@ -50,6 +64,7 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('id')->label('id'),
                 TextColumn::make('name')->label('Nome'),
                 TextColumn::make('email')->label('Email'),
                 TextColumn::make('roles.name')->label('Função'),
