@@ -18,17 +18,11 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class LigacaoResource extends Resource
 {
     protected static ?string $model = Ligacao::class;
-
     protected static ?int $navigationSort = 0;
-
     protected static ?string $navigationLabel = 'Geral';
-
     protected static ?string $breadcrumb = 'Geral';
-
     protected static ?string $slug = 'call-center-ligacoes';
-
     protected static ?string $navigationGroup = 'Call Center';
-
     protected static ?string $navigationIcon = 'icon-headset';
 
     public static function form(Form $form): Form
@@ -39,7 +33,10 @@ class LigacaoResource extends Resource
                 Section::make([
                     Group::make([
                         Forms\Components\Select::make('user_id')
-                        ->relationship('user', 'name', modifyQueryUsing: fn(Builder $query): Builder => $query->whereId(auth()->id()))
+                        ->relationship(
+                            name:'user',
+                            titleAttribute: 'name',
+                            modifyQueryUsing: fn(Builder $query): Builder => $query->whereId(auth()->id()))
                         ->default(auth()->user()->name),
                         Forms\Components\DatePicker::make('data_ligacao'),
                         Forms\Components\DatePicker::make('data_agendamento'),
@@ -102,6 +99,10 @@ class LigacaoResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('nome')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('cpf')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('status.status')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('organizacao.nome_organizacao')
@@ -109,15 +110,11 @@ class LigacaoResource extends Resource
                 Tables\Columns\TextColumn::make('produto.descricao_produto')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('data_ligacao')
-                    ->date()
+                    ->date('d/m/Y')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('data_agendamento')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('nome')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('cpf')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('matricula')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('margem')
@@ -125,13 +122,8 @@ class LigacaoResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('telefone')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('orgao')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('produto')
-                ->searchable(),
 
             ])
-            ->modifyQueryUsing(fn(Builder $query): Builder => $query->where('user_id', auth()->user()->id))
             ->filters([
                 //
             ])
